@@ -74,7 +74,6 @@
                                         <th class="column-title">No Quotation </th>
                                         <th class="column-title">Tanggal </th>
                                         <th class="column-title">Pelanggan </th>
-                                        <th class="column-title">Keterangan </th>
                                         <th class="column-title">Status </th>
                                         <th class="column-title no-link last"><span class="nobr">Action</span></th>
                                     </tr>

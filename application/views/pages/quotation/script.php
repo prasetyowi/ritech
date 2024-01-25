@@ -17,8 +17,10 @@
                 });
             <?php } ?>
 
+            index_termin = <?= count($Termin) ?>;
+
             <?php foreach ($Termin as $key => $value) { ?>
-                arr_list_barang.push({
+                arr_list_termin.push({
                     'idx': "<?= $key + 1 ?>",
                     'keterangan': "<?= $value['keterangan'] ?>",
                     'termin_pembayaran': <?= $value['termin_pembayaran'] ?>
@@ -126,7 +128,6 @@
                                     <td class=" ">${v.quotation_id}</td>
                                     <td class=" ">${v.quotation_tanggal}</td>
                                     <td class=" ">${v.customer_nama}</td>
-                                    <td class=" ">${v.quotation_keterangan}</td>
                                     <td class=" ">${v.quotation_status}</td>
                                     <td class=" ">
                                         <a href="<?= base_url() ?>quotation/edit/?id=${v.quotation_id}" target="_blank" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
@@ -506,37 +507,37 @@
                 return false;
             }
 
-            if ($("#Quotation-jumlah").val() == "" || $("#Quotation-jumlah").val() == "0") {
+            // if ($("#Quotation-jumlah").val() == "" || $("#Quotation-jumlah").val() == "0") {
 
-                let alert = "Jumlah Material Tidak Boleh Kosong";
-                message_custom("Error", "error", alert);
+            //     let alert = "Jumlah Material Tidak Boleh Kosong";
+            //     message_custom("Error", "error", alert);
 
-                return false;
-            }
+            //     return false;
+            // }
 
-            if ($("#Quotation-quotation_waktu_pengiriman").val() == "") {
+            // if ($("#Quotation-quotation_waktu_pengiriman").val() == "") {
 
-                let alert = "Waktu Pengiriman Tidak Boleh Kosong";
-                message_custom("Error", "error", alert);
+            //     let alert = "Waktu Pengiriman Tidak Boleh Kosong";
+            //     message_custom("Error", "error", alert);
 
-                return false;
-            }
+            //     return false;
+            // }
 
-            if ($("#Quotation-quotation_waktu_pengerjaan").val() == "") {
+            // if ($("#Quotation-quotation_waktu_pengerjaan").val() == "") {
 
-                let alert = "Waktu Pengerjaan Tidak Boleh Kosong";
-                message_custom("Error", "error", alert);
+            //     let alert = "Waktu Pengerjaan Tidak Boleh Kosong";
+            //     message_custom("Error", "error", alert);
 
-                return false;
-            }
+            //     return false;
+            // }
 
-            if ($("#Quotation-periode_penawaran").val() == "") {
+            // if ($("#Quotation-periode_penawaran").val() == "") {
 
-                let alert = "Periode Penawaran Tidak Boleh Kosong";
-                message_custom("Error", "error", alert);
+            //     let alert = "Periode Penawaran Tidak Boleh Kosong";
+            //     message_custom("Error", "error", alert);
 
-                return false;
-            }
+            //     return false;
+            // }
 
             if (cek_error == 0) {
 
@@ -571,14 +572,14 @@
                                 quotation_tanggal: $('#Quotation-quotation_tanggal').val(),
                                 customer_id: $('#Quotation-customer_id').val(),
                                 quotation_keterangan: $('#Quotation-quotation_keterangan').val(),
-                                quotation_jumlah: $('#Quotation-jumlah').val(),
+                                quotation_jumlah: "",
                                 quotation_status: $('#Quotation-quotation_status').val(),
                                 updwho: "",
                                 updtgl: "",
-                                quotation_waktu_pengiriman: $('#Quotation-quotation_waktu_pengiriman').val(),
-                                quotation_waktu_pengerjaan: $('#Quotation-quotation_waktu_pengerjaan').val(),
-                                periode_penawaran: $('#Quotation-periode_penawaran').val(),
-                                garansi: $('#Quotation-garansi').val(),
+                                quotation_waktu_pengiriman: "",
+                                quotation_waktu_pengerjaan: "",
+                                periode_penawaran: "",
+                                garansi: "",
                                 detail: arr_list_barang,
                                 detail2: arr_list_termin
                             },
@@ -595,7 +596,199 @@
                                     ResetForm();
                                 } else if (response.status == "2") {
 
-                                    var msg = "Mutasi Stock sudah ada";
+                                    var msg = "No Quotation " + $('#Quotation-quotation_id').val() + " Sudah Ada";
+                                    message_custom("Error", "error", alert);
+                                } else {
+                                    var alert = "Data Gagal Disimpan";
+                                    message_custom("Error", "error", alert);
+                                }
+
+                                $("#btn_simpan_quotation").prop("disabled", false);
+                            },
+                            error: function(xhr, ajaxOptions, thrownError) {
+                                var alert = "Error 500 Internal Server Connection Failure";
+                                message_custom("Error", "error", alert);
+
+                                $("#btn_simpan_quotation").prop("disabled", false);
+                            },
+                            complete: function() {
+                                // Swal.close();
+                                $("#btn_simpan_quotation").prop("disabled", false);
+                            }
+                        });
+                    }
+                });
+
+            }
+
+        }, 1000);
+    });
+
+    $("#btn_update_quotation").click(function() {
+        cek_error = 0;
+
+        console.log(arr_list_barang);
+        console.log(arr_list_termin);
+
+        if (arr_list_barang.length == 0) {
+
+            let alert = "List Barang Tidak Boleh Kosong";
+            message_custom("Error", "error", alert);
+
+            return false;
+        }
+
+        $.each(arr_list_barang, function(i, v) {
+            if (parseInt(v.qty) == 0) {
+                let alert = "Qty Barang Tidak Boleh 0";
+                message_custom("Error", "error", alert);
+
+                cek_error++;
+
+                return false;
+            }
+
+        });
+
+        if (arr_list_termin.length == 0) {
+
+            let alert = "List Termin Tidak Boleh Kosong";
+            message_custom("Error", "error", alert);
+
+            return false;
+        }
+
+        $.each(arr_list_termin, function(i, v) {
+            if (parseInt(v.keterangan) == 0) {
+                let alert = "Keterangan Termin Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                cek_error++;
+
+                return false;
+            }
+
+            if (parseInt(v.termin_pembayaran) == 0) {
+                let alert = "Termin Pembayaran Tidak Boleh 0";
+                message_custom("Error", "error", alert);
+
+                cek_error++;
+
+                return false;
+            }
+
+        });
+
+        setTimeout(() => {
+
+            // console.log(arr_list_faktur_klaim);
+
+            if ($("#Quotation-quotation_id").val() == "") {
+
+                let alert = "No Quotation Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
+
+            if ($("#Quotation-customer_id").val() == "") {
+
+                let alert = "Pelanggan Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
+
+            // if ($("#Quotation-jumlah").val() == "" || $("#Quotation-jumlah").val() == "0") {
+
+            //     let alert = "Jumlah Material Tidak Boleh Kosong";
+            //     message_custom("Error", "error", alert);
+
+            //     return false;
+            // }
+
+            // if ($("#Quotation-quotation_waktu_pengiriman").val() == "") {
+
+            //     let alert = "Waktu Pengiriman Tidak Boleh Kosong";
+            //     message_custom("Error", "error", alert);
+
+            //     return false;
+            // }
+
+            // if ($("#Quotation-quotation_waktu_pengerjaan").val() == "") {
+
+            //     let alert = "Waktu Pengerjaan Tidak Boleh Kosong";
+            //     message_custom("Error", "error", alert);
+
+            //     return false;
+            // }
+
+            // if ($("#Quotation-periode_penawaran").val() == "") {
+
+            //     let alert = "Periode Penawaran Tidak Boleh Kosong";
+            //     message_custom("Error", "error", alert);
+
+            //     return false;
+            // }
+
+            if (cek_error == 0) {
+
+                Swal.fire({
+                    title: "Apakah anda yakin?",
+                    text: "Pastikan data yang sudah anda input benar!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya",
+                    cancelButtonText: "Tidak"
+                }).then((result) => {
+                    if (result.value == true) {
+
+                        $.ajax({
+                            async: false,
+                            url: "<?= base_url('Quotation/update_quotation'); ?>",
+                            type: "POST",
+                            beforeSend: function() {
+                                Swal.fire({
+                                    title: 'Loading ...',
+                                    html: '<span><i class="fa fa-spinner fa-spin" style="font-size:60px"></i></span>',
+                                    timerProgressBar: false,
+                                    showConfirmButton: false
+                                });
+
+                                $("#btn_simpan_quotation").prop("disabled", true);
+                            },
+                            data: {
+                                quotation_id: $('#Quotation-quotation_id').val(),
+                                quotation_tanggal: $('#Quotation-quotation_tanggal').val(),
+                                customer_id: $('#Quotation-customer_id').val(),
+                                quotation_keterangan: $('#Quotation-quotation_keterangan').val(),
+                                quotation_jumlah: "",
+                                quotation_status: $('#Quotation-quotation_status').val(),
+                                updwho: $('#Quotation-updwho').val(),
+                                updtgl: $('#Quotation-updtgl').val(),
+                                quotation_waktu_pengiriman: "",
+                                quotation_waktu_pengerjaan: "",
+                                periode_penawaran: "",
+                                garansi: "",
+                                detail: arr_list_barang,
+                                detail2: arr_list_termin
+                            },
+                            dataType: "JSON",
+                            success: function(response) {
+
+                                if (response.status == 1) {
+                                    var alert = "Data Berhasil Disimpan";
+                                    message_custom("Success", "success", alert);
+                                    setTimeout(() => {
+                                        location.href = "<?= base_url() ?>Quotation";
+                                    }, 500);
+
+                                    ResetForm();
+                                } else if (response.status == "2") {
+
+                                    var msg = "No Quotation " + $('#Quotation-quotation_id').val() + " Sudah Ada";
                                     message_custom("Error", "error", alert);
                                 } else {
                                     var alert = "Data Gagal Disimpan";

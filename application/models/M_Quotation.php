@@ -32,7 +32,7 @@ class M_Quotation extends CI_Model
 	{
 		$query = $this->db->query("SELECT
 									a.quotation_id,
-									DATE_FORMAT(a.quotation_tanggal, '%d-%m-%Y') AS quotation_tanggal,
+									DATE_FORMAT(a.quotation_tanggal, '%Y-%m-%d') AS quotation_tanggal,
 									a.customer_id,
 									c.customer_nama,
 									a.quotation_keterangan,
@@ -52,7 +52,7 @@ class M_Quotation extends CI_Model
 		if ($query->num_rows() == 0) {
 			$query = 0;
 		} else {
-			$query = $query->num_rows();
+			$query = $query->result_array();
 		}
 
 		return $query;
@@ -80,7 +80,7 @@ class M_Quotation extends CI_Model
 		if ($query->num_rows() == 0) {
 			$query = 0;
 		} else {
-			$query = $query->num_rows();
+			$query = $query->result_array();
 		}
 
 		return $query;
@@ -100,7 +100,7 @@ class M_Quotation extends CI_Model
 		if ($query->num_rows() == 0) {
 			$query = 0;
 		} else {
-			$query = $query->num_rows();
+			$query = $query->result_array();
 		}
 
 		return $query;

@@ -196,10 +196,10 @@ class Quotation extends CI_Controller
 
 	public function insert_quotation()
 	{
-		$quotation_id = $this->input->post('quotation_id');
+		$quotation_id = str_replace("'", "", $this->input->post('quotation_id'));
 		$quotation_tanggal = $this->input->post('quotation_tanggal');
 		$customer_id = $this->input->post('customer_id');
-		$quotation_keterangan = $this->input->post('quotation_keterangan');
+		$quotation_keterangan = str_replace("'", "", $this->input->post('quotation_keterangan'));
 		$quotation_jumlah = $this->input->post('quotation_jumlah');
 		$quotation_status = $this->input->post('quotation_status');
 		$updwho = $this->input->post('updwho');
@@ -257,10 +257,10 @@ class Quotation extends CI_Controller
 
 	public function update_quotation()
 	{
-		$quotation_id = $this->input->post('quotation_id');
+		$quotation_id = str_replace("'", "", $this->input->post('quotation_id'));
 		$quotation_tanggal = $this->input->post('quotation_tanggal');
 		$customer_id = $this->input->post('customer_id');
-		$quotation_keterangan = $this->input->post('quotation_keterangan');
+		$quotation_keterangan = str_replace("'", "", $this->input->post('quotation_keterangan'));
 		$quotation_jumlah = $this->input->post('quotation_jumlah');
 		$quotation_status = $this->input->post('quotation_status');
 		$updwho = $this->input->post('updwho');
@@ -290,6 +290,8 @@ class Quotation extends CI_Controller
 
 			$this->M_Quotation->insert_quotation_detail($quotation_id, $quotation_no_item, $barang_id, $qty, $harga_satuan, $quotation_total, $remarks);
 		}
+
+		$this->M_Quotation->delete_quotation_termin($quotation_id);
 
 		foreach ($detail2 as $key => $value) {
 			// $quotation_id = $value['quotation_id'];

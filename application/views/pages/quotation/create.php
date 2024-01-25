@@ -40,7 +40,7 @@
                                     <input type="hidden" class="form-control col-md-10" id="Quotation-customer_id" name="Quotation[customer_id]" value="" required />
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <!-- <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Jumlah Material</label>
                                 <div class="col-md-9 col-sm-9 ">
                                     <input type="text" class="form-control col-md-10" id="Quotation-jumlah" name="Quotation[jumlah]" value="" required />
@@ -75,8 +75,16 @@
                                 <div class="col-md-9 col-sm-9 ">
                                     <input type="text" class="form-control col-md-10" id="Quotation-garansi" name="Quotation[garansi]" value="" required />
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Catatan</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <textarea class="resizable_textarea form-control col-md-10" id="Quotation-quotation_keterangan" name="Quotation[quotation_keterangan]" style="height:200px">
+1. Harga belum termasuk PPn 11% dan franco Driyorejo (pabrik customer) dan berlaku sampai 31 Juli 2023.
+2. Customer menyediakan kebutuhan utilitas (listrik dan sumber air) disediakan oleh customer.</textarea>
+                                </div>
+                            </div>
+                            <div class=" form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Status</label>
                                 <div class="col-md-9 col-sm-9 ">
                                     <input type="text" class="form-control col-md-10" id="Quotation-quotation_status" name="Quotation[quotation_status]" value="Draft" disabled />
