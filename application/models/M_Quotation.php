@@ -245,6 +245,7 @@ class M_Quotation extends CI_Model
 		$this->db->set('quotation_qty', $quotation_qty);
 		$this->db->set('harga_satuan', $harga_satuan);
 		$this->db->set('quotation_total', $quotation_total);
+		$this->db->set('remarks', $remarks);
 
 		$queryinsert = $this->db->insert("quotation_detail");
 
