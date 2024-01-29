@@ -24,6 +24,8 @@ class Pembelian extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('M_Pembelian');
+		$this->load->model('M_Vrbl');
+		$this->load->helper(array('url', 'file'));
 	}
 
 	public function index()
@@ -89,6 +91,12 @@ class Pembelian extends CI_Controller
 		$query['Title'] = "pembelian";
 
 		$data['act'] = "add";
+
+		$table = "pembelian";
+		$column = "pembelian_id";
+		$kode = "PMB" . date('ymd');
+
+		$data['pembelian_id'] = $this->M_Vrbl->Generate_kode($table, $column, $kode);
 
 		// Kebutuhan Authority Menu 
 		// $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
@@ -177,7 +185,7 @@ class Pembelian extends CI_Controller
 		$this->load->view('layouts/header', $query);
 		$this->load->view('pages/pembelian/detail', $data);
 		$this->load->view('layouts/footer', $query);
-		$this->load->view('pages/pembelian/script', $data);
+		// $this->load->view('pages/pembelian/script', $data);
 	}
 
 	public function Get_pembelian_by_filter()
@@ -197,6 +205,7 @@ class Pembelian extends CI_Controller
 	public function insert_pembelian()
 	{
 		$pembelian_id = str_replace("'", "", $this->input->post('pembelian_id'));
+		$pembelian_kode = str_replace("'", "", $this->input->post('pembelian_kode'));
 		$pembelian_tanggal = $this->input->post('pembelian_tanggal');
 		$customer_id = $this->input->post('customer_id');
 		$pembelian_keterangan = str_replace("'", "", $this->input->post('pembelian_keterangan'));
@@ -210,11 +219,10 @@ class Pembelian extends CI_Controller
 		$garansi = $this->input->post('garansi');
 		$pembelian_no_po = $this->input->post('pembelian_no_po');
 
-
 		$detail = $this->input->post('detail');
 		$detail2 = $this->input->post('detail2');
 
-		$cek_data = $this->M_Pembelian->cek_pembelian_duplicate($pembelian_id);
+		$cek_data = $this->M_Pembelian->cek_pembelian_duplicate($pembelian_kode);
 
 		if ($cek_data > 0) {
 			echo json_encode(array("status" => 2, "data" => ""));
@@ -223,7 +231,7 @@ class Pembelian extends CI_Controller
 
 		$this->db->trans_begin();
 
-		$this->M_Pembelian->insert_pembelian($pembelian_id, $pembelian_tanggal, $customer_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po);
+		$this->M_Pembelian->insert_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $customer_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po);
 
 		foreach ($detail as $key => $value) {
 			// $pembelian_id = $value['pembelian_id'];
@@ -258,7 +266,8 @@ class Pembelian extends CI_Controller
 
 	public function update_pembelian()
 	{
-		$pembelian_id = str_replace("'", "", $this->input->post('pembelian_id'));
+		$pembelian_id = $this->input->post('pembelian_id');
+		$pembelian_kode = str_replace("'", "", $this->input->post('pembelian_kode'));
 		$pembelian_tanggal = $this->input->post('pembelian_tanggal');
 		$customer_id = $this->input->post('customer_id');
 		$pembelian_keterangan = str_replace("'", "", $this->input->post('pembelian_keterangan'));
@@ -277,7 +286,7 @@ class Pembelian extends CI_Controller
 
 		$this->db->trans_begin();
 
-		$this->M_Pembelian->update_pembelian($pembelian_id, $pembelian_tanggal, $customer_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po);
+		$this->M_Pembelian->update_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $customer_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po);
 
 		$this->M_Pembelian->delete_pembelian_detail($pembelian_id);
 
@@ -312,5 +321,67 @@ class Pembelian extends CI_Controller
 			$this->db->trans_commit();
 			echo json_encode(array("status" => 1, "data" => ""));
 		}
+	}
+
+	//Untuk proses upload foto
+	function proses_upload()
+	{
+		$pembelian_id = $this->input->post('pembelian_id');
+		$token = $this->input->post('token_foto');
+
+		$cek_foto = $this->db->query("select * from pembelian_attachment where pembelian_id = '$pembelian_id'");
+
+		if (file_exists($file = FCPATH . '/assets/upload/pembelian/' . $cek_foto->row(0)->attachment)) {
+			unlink($file);
+		}
+
+		$config['upload_path']   = FCPATH . '/assets/upload/pembelian/';
+		$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|xlsx|doc|docx|csv|tsv|ppt|pptx';
+		$config['max_size'] = 2048;
+		$config['overwrite'] = true;
+
+		$this->load->library('upload', $config);
+
+		$this->upload->initialize($config);
+
+		if ($this->upload->do_upload('userfile')) {
+			$nama = $this->upload->data('file_name');
+
+			if ($cek_foto->num_rows() == 0) {
+				$this->db->set('pembelian_id', $pembelian_id);
+				$this->db->set('attachment', $nama);
+				$this->db->set('token', $token);
+
+				$this->db->insert('pembelian_attachment');
+			} else {
+				$this->db->set('attachment', $nama);
+				$this->db->set('token', $token);
+				$this->db->where('pembelian_id', $pembelian_id);
+
+				$this->db->update('pembelian_attachment');
+			}
+		}
+	}
+
+
+	//Untuk menghapus foto
+	function hapus_file()
+	{
+
+		//Ambil token foto
+		$token = $this->input->post('token');
+		$foto = $this->db->get_where('pembelian_attachment', array('token' => $token));
+
+		if ($foto->num_rows() > 0) {
+			$hasil = $foto->row();
+			$nama_foto = $hasil->attachment;
+			if (file_exists($file = FCPATH . '/assets/upload/pembelian/' . $nama_foto)) {
+				unlink($file);
+			}
+			$this->db->delete('pembelian_attachment', array('token' => $token));
+		}
+
+
+		echo "{}";
 	}
 }

@@ -9,7 +9,7 @@ class M_Quotation extends CI_Model
 		// $this->db = $this->load->database('d4',true);
 	}
 
-	public function cek_quotation_duplicate($quotation_id)
+	public function cek_quotation_duplicate($quotation_kode)
 	{
 		// $this->db->select("*")
 		// 	->from("msgl")
@@ -17,7 +17,7 @@ class M_Quotation extends CI_Model
 		// 	->order_by("gl01");
 		// $query = $this->db->get();
 
-		$query = $this->db->query("SELECT * FROM quotation where quotation_id = '$quotation_id'");
+		$query = $this->db->query("SELECT * FROM quotation where quotation_kode = '$quotation_kode'");
 
 		if ($query->num_rows() == 0) {
 			$query = 0;
@@ -32,9 +32,16 @@ class M_Quotation extends CI_Model
 	{
 		$query = $this->db->query("SELECT
 									a.quotation_id,
+									a.quotation_kode,
 									DATE_FORMAT(a.quotation_tanggal, '%Y-%m-%d') AS quotation_tanggal,
 									a.customer_id,
 									c.customer_nama,
+									c.customer_alamat,
+									c.customer_kelurahan,
+									c.customer_kecamatan,
+									c.customer_kota,
+									c.customer_provinsi,
+									c.customer_kode_pos,
 									a.quotation_keterangan,
 									a.quotation_jumlah,
 									a.quotation_status,
@@ -128,6 +135,7 @@ class M_Quotation extends CI_Model
 
 		$query = $this->db->query("SELECT
 									a.quotation_id,
+									a.quotation_kode,
 									DATE_FORMAT(a.quotation_tanggal, '%d-%m-%Y') AS quotation_tanggal,
 									a.customer_id,
 									c.customer_nama,
@@ -147,7 +155,7 @@ class M_Quotation extends CI_Model
 									" . $quotation_id . "
 									" . $customer . "
 									" . $status . "
-									ORDER BY a.quotation_tanggal, a.quotation_id ASC");
+									ORDER BY a.quotation_tanggal DESC, a.quotation_kode ASC");
 
 		if ($query->num_rows() == 0) {
 			$query = array();
@@ -158,9 +166,10 @@ class M_Quotation extends CI_Model
 		return $query;
 	}
 
-	public function insert_quotation($quotation_id, $quotation_tanggal, $customer_id, $quotation_keterangan, $quotation_jumlah, $quotation_status, $updwho, $updtgl, $quotation_waktu_pengiriman, $quotation_waktu_pengerjaan, $periode_penawaran, $garansi)
+	public function insert_quotation($quotation_id, $quotation_kode, $quotation_tanggal, $customer_id, $quotation_keterangan, $quotation_jumlah, $quotation_status, $updwho, $updtgl, $quotation_waktu_pengiriman, $quotation_waktu_pengerjaan, $periode_penawaran, $garansi)
 	{
 		$quotation_id = $quotation_id == '' ? null : $quotation_id;
+		$quotation_kode = $quotation_kode == '' ? null : $quotation_kode;
 		$quotation_tanggal = $quotation_tanggal == '' ? null : $quotation_tanggal;
 		$customer_id = $customer_id == '' ? null : $customer_id;
 		$quotation_keterangan = $quotation_keterangan == '' ? null : $quotation_keterangan;
@@ -174,6 +183,7 @@ class M_Quotation extends CI_Model
 		$garansi = $garansi == '' ? null : $garansi;
 
 		$this->db->set('quotation_id', $quotation_id);
+		$this->db->set('quotation_kode', $quotation_kode);
 		$this->db->set('quotation_tanggal', $quotation_tanggal);
 		$this->db->set('customer_id', $customer_id);
 		$this->db->set('quotation_keterangan', $quotation_keterangan);
@@ -193,9 +203,10 @@ class M_Quotation extends CI_Model
 		// return $this->db->last_query();
 	}
 
-	public function update_quotation($quotation_id, $quotation_tanggal, $customer_id, $quotation_keterangan, $quotation_jumlah, $quotation_status, $updwho, $updtgl, $quotation_waktu_pengiriman, $quotation_waktu_pengerjaan, $periode_penawaran, $garansi)
+	public function update_quotation($quotation_id, $quotation_kode, $quotation_tanggal, $customer_id, $quotation_keterangan, $quotation_jumlah, $quotation_status, $updwho, $updtgl, $quotation_waktu_pengiriman, $quotation_waktu_pengerjaan, $periode_penawaran, $garansi)
 	{
 		$quotation_id = $quotation_id == '' ? null : $quotation_id;
+		$quotation_kode = $quotation_kode == '' ? null : $quotation_kode;
 		$quotation_tanggal = $quotation_tanggal == '' ? null : $quotation_tanggal;
 		$customer_id = $customer_id == '' ? null : $customer_id;
 		$quotation_keterangan = $quotation_keterangan == '' ? null : $quotation_keterangan;
@@ -208,6 +219,7 @@ class M_Quotation extends CI_Model
 		$periode_penawaran = $periode_penawaran == '' ? null : $periode_penawaran;
 		$garansi = $garansi == '' ? null : $garansi;
 
+		$this->db->set('quotation_kode', $quotation_kode);
 		$this->db->set('quotation_tanggal', $quotation_tanggal);
 		$this->db->set('customer_id', $customer_id);
 		$this->db->set('quotation_keterangan', $quotation_keterangan);

@@ -25,7 +25,8 @@
                                 <div class="form-group row ">
                                     <label class="control-label col-md-3 col-sm-3 ">Nomor Quotation</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Quotation-quotation_id" name="Quotation[quotation_id]" value="<?= $value['quotation_id'] ?>" disabled>
+                                        <input type="text" class="form-control col-md-10" id="Quotation-quotation_kode" name="Quotation[quotation_kode]" value="<?= $value['quotation_kode'] ?>" disabled>
+                                        <input type="hidden" class="form-control col-md-10" id="Quotation-quotation_id" name="Quotation[quotation_id]" value="<?= $value['quotation_id'] ?>" disabled>
                                         <input type="hidden" class="form-control col-md-10" id="Quotation-updwho" name="Quotation[updwho]" value="<?= $value['updwho'] ?>" disabled>
                                         <input type="hidden" class="form-control col-md-10" id="Quotation-updtgl" name="Quotation[updtgl]" value="<?= $value['updtgl'] ?>" disabled>
                                     </div>
@@ -41,6 +42,36 @@
                                     <div class="col-md-9 col-sm-9 ">
                                         <input type="text" class="form-control col-md-10" id="Quotation-customer_nama" name="Quotation[customer_nama]" value="<?= $value['customer_nama'] ?>" required />
                                         <input type="hidden" class="form-control col-md-10" id="Quotation-customer_id" name="Quotation[customer_id]" value="<?= $value['customer_id'] ?>" required />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3 ">Kelurahan</label>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <input type="text" class="form-control col-md-10" id="Quotation-customer_kelurahan" name="Quotation[customer_kelurahan]" value="<?= $value['customer_kelurahan'] ?>" disabled />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3 ">Kecamatan</label>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <input type="text" class="form-control col-md-10" id="Quotation-customer_kecamatan" name="Quotation[customer_kecamatan]" value="<?= $value['customer_kecamatan'] ?>" disabled />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3 ">Kota</label>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <input type="text" class="form-control col-md-10" id="Quotation-customer_kota" name="Quotation[customer_kota]" value="<?= $value['customer_kota'] ?>" disabled />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3 ">Provinsi</label>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <input type="text" class="form-control col-md-10" id="Quotation-customer_provinsi" name="Quotation[customer_provinsi]" value="<?= $value['customer_provinsi'] ?>" disabled />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3 ">Kodepos</label>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <input type="text" class="form-control col-md-10" id="Quotation-customer_kode_pos" name="Quotation[customer_kode_pos]" value="<?= $value['customer_kode_pos'] ?>" disabled />
                                     </div>
                                 </div>
                                 <!-- <div class="form-group row">

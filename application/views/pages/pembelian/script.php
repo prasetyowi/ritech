@@ -127,10 +127,12 @@
                                     <td class="a-center ">${i+1}</td>
                                     <td class=" ">${v.pembelian_id}</td>
                                     <td class=" ">${v.pembelian_tanggal}</td>
+                                    <td class=" ">${v.pembelian_no_po}</td>
                                     <td class=" ">${v.customer_nama}</td>
                                     <td class=" ">${v.pembelian_status}</td>
                                     <td class=" ">
                                         <a href="<?= base_url() ?>Pembelian/edit/?id=${v.pembelian_id}" target="_blank" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                                        <a href="<?= base_url() ?>Pembelian/detail/?id=${v.pembelian_id}" target="_blank" class="btn btn-primary"><i class="fa fa-search"></i></a>
                                     </td>
                                 </tr>
 							`);
@@ -334,7 +336,7 @@
 
         $("#check-all-barang").prop("checked", false);
 
-        if ($('[id="item-' + idx + '-barang_id"]:checked').length > 0) {
+        if ($('[id="item-' + index + '-barang_id"]:checked').length > 0) {
             arr_list_barang.push({
                 'barang_id': barang_id,
                 'barang_nama': barang_nama,
@@ -401,6 +403,12 @@
                 setTimeout(() => {
                     $("#Pembelian-customer_id").val('');
                     $("#Pembelian-customer_nama").val('');
+                    $("#Pembelian-customer_alamat").val('');
+                    $("#Pembelian-customer_kelurahan").val('');
+                    $("#Pembelian-customer_kecamatan").val('');
+                    $("#Pembelian-customer_kota").val('');
+                    $("#Pembelian-customer_provinsi").val('');
+                    $("#Pembelian-customer_kode_pos").val('');
                 }, 1000);
             }
         },
@@ -408,9 +416,21 @@
             if (data) {
                 $("#Pembelian-customer_id").val(data.id);
                 $("#Pembelian-customer_nama").val(data.nama);
+                $("#Pembelian-customer_alamat").val(data.customer_alamat);
+                $("#Pembelian-customer_kelurahan").val(data.customer_kelurahan);
+                $("#Pembelian-customer_kecamatan").val(data.customer_kecamatan);
+                $("#Pembelian-customer_kota").val(data.customer_kota);
+                $("#Pembelian-customer_provinsi").val(data.customer_provinsi);
+                $("#Pembelian-customer_kode_pos").val(data.customer_kode_pos);
             } else {
                 $("#Pembelian-customer_id").val('');
                 $("#Pembelian-customer_nama").val('');
+                $("#Pembelian-customer_alamat").val('');
+                $("#Pembelian-customer_kelurahan").val('');
+                $("#Pembelian-customer_kecamatan").val('');
+                $("#Pembelian-customer_kota").val('');
+                $("#Pembelian-customer_provinsi").val('');
+                $("#Pembelian-customer_kode_pos").val('');
             }
         }
     });
@@ -569,6 +589,7 @@
                             },
                             data: {
                                 pembelian_id: $('#Pembelian-pembelian_id').val(),
+                                pembelian_kode: $('#Pembelian-pembelian_kode').val(),
                                 pembelian_tanggal: $('#Pembelian-pembelian_tanggal').val(),
                                 customer_id: $('#Pembelian-customer_id').val(),
                                 pembelian_keterangan: $('#Pembelian-pembelian_keterangan').val(),
@@ -627,9 +648,6 @@
 
     $("#btn_update_pembelian").click(function() {
         cek_error = 0;
-
-        console.log(arr_list_barang);
-        console.log(arr_list_termin);
 
         if (arr_list_barang.length == 0) {
 
@@ -762,6 +780,7 @@
                             },
                             data: {
                                 pembelian_id: $('#Pembelian-pembelian_id').val(),
+                                pembelian_kode: $('#Pembelian-pembelian_kode').val(),
                                 pembelian_tanggal: $('#Pembelian-pembelian_tanggal').val(),
                                 customer_id: $('#Pembelian-customer_id').val(),
                                 pembelian_keterangan: $('#Pembelian-pembelian_keterangan').val(),
@@ -816,5 +835,53 @@
             }
 
         }, 1000);
+    });
+
+    Dropzone.autoDiscover = false;
+
+    var foto_upload = new Dropzone(".dropzone", {
+        url: "<?php echo base_url('Pembelian/proses_upload') ?>",
+        maxFiles: 1,
+        maxFilesize: 20,
+        method: "post",
+        acceptedFiles: "image/*,application/pdf,.doc,.docx,.xls,.xlsx,.csv,.tsv,.ppt,.pptx,.pages,.odt,.rtf",
+        paramName: "userfile",
+        dictInvalidFileType: "Type file ini tidak dizinkan",
+        addRemoveLinks: true,
+        init: function() {
+            this.on("maxfilesexceeded", function(file) {
+                this.removeAllFiles();
+                this.addFile(file);
+            });
+        }
+    });
+
+    //Event ketika Memulai mengupload
+    foto_upload.on("sending", function(a, b, c) {
+        a.pembelian_id = $('#Pembelian-pembelian_id').val();
+        a.token = Math.random();
+        c.append("pembelian_id", a.pembelian_id);
+        c.append("token_foto", a.token); //Menmpersiapkan token untuk masing masing foto
+    });
+
+    //Event ketika foto dihapus
+    foto_upload.on("removedfile", function(a) {
+        var token = a.token;
+        $.ajax({
+            type: "post",
+            data: {
+                token: token
+            },
+            url: "<?php echo base_url('Pembelian/hapus_file') ?>",
+            cache: false,
+            dataType: 'json',
+            success: function() {
+                console.log("Foto terhapus");
+            },
+            error: function() {
+                console.log("Error");
+
+            }
+        });
     });
 </script>

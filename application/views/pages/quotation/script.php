@@ -125,7 +125,7 @@
                             $("#table_list_quotation > tbody").append(`
 								<tr class="even pointer">
                                     <td class="a-center ">${i+1}</td>
-                                    <td class=" ">${v.quotation_id}</td>
+                                    <td class=" ">${v.quotation_kode}</td>
                                     <td class=" ">${v.quotation_tanggal}</td>
                                     <td class=" ">${v.customer_nama}</td>
                                     <td class=" ">${v.quotation_status}</td>
@@ -334,7 +334,7 @@
 
         $("#check-all-barang").prop("checked", false);
 
-        if ($('[id="item-' + idx + '-barang_id"]:checked').length > 0) {
+        if ($('[id="item-' + index + '-barang_id"]:checked').length > 0) {
             arr_list_barang.push({
                 'barang_id': barang_id,
                 'barang_nama': barang_nama,
@@ -401,6 +401,12 @@
                 setTimeout(() => {
                     $("#Quotation-customer_id").val('');
                     $("#Quotation-customer_nama").val('');
+                    $("#Quotation-customer_alamat").val('');
+                    $("#Quotation-customer_kelurahan").val('');
+                    $("#Quotation-customer_kecamatan").val('');
+                    $("#Quotation-customer_kota").val('');
+                    $("#Quotation-customer_provinsi").val('');
+                    $("#Quotation-customer_kode_pos").val('');
                 }, 1000);
             }
         },
@@ -408,9 +414,21 @@
             if (data) {
                 $("#Quotation-customer_id").val(data.id);
                 $("#Quotation-customer_nama").val(data.nama);
+                $("#Quotation-customer_alamat").val(data.customer_alamat);
+                $("#Quotation-customer_kelurahan").val(data.customer_kelurahan);
+                $("#Quotation-customer_kecamatan").val(data.customer_kecamatan);
+                $("#Quotation-customer_kota").val(data.customer_kota);
+                $("#Quotation-customer_provinsi").val(data.customer_provinsi);
+                $("#Quotation-customer_kode_pos").val(data.customer_kode_pos);
             } else {
                 $("#Quotation-customer_id").val('');
                 $("#Quotation-customer_nama").val('');
+                $("#Quotation-customer_alamat").val('');
+                $("#Quotation-customer_kelurahan").val('');
+                $("#Quotation-customer_kecamatan").val('');
+                $("#Quotation-customer_kota").val('');
+                $("#Quotation-customer_provinsi").val('');
+                $("#Quotation-customer_kode_pos").val('');
             }
         }
     });
@@ -568,7 +586,7 @@
                                 $("#btn_simpan_quotation").prop("disabled", true);
                             },
                             data: {
-                                quotation_id: $('#Quotation-quotation_id').val(),
+                                quotation_kode: $('#Quotation-quotation_kode').val(),
                                 quotation_tanggal: $('#Quotation-quotation_tanggal').val(),
                                 customer_id: $('#Quotation-customer_id').val(),
                                 quotation_keterangan: $('#Quotation-quotation_keterangan').val(),
@@ -761,6 +779,7 @@
                             },
                             data: {
                                 quotation_id: $('#Quotation-quotation_id').val(),
+                                quotation_kode: $('#Quotation-quotation_kode').val(),
                                 quotation_tanggal: $('#Quotation-quotation_tanggal').val(),
                                 customer_id: $('#Quotation-customer_id').val(),
                                 quotation_keterangan: $('#Quotation-quotation_keterangan').val(),

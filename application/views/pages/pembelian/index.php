@@ -73,6 +73,7 @@
                                         <th>#</th>
                                         <th class="column-title">No Pembelian </th>
                                         <th class="column-title">Tanggal </th>
+                                        <th class="column-title">No PO </th>
                                         <th class="column-title">Pelanggan </th>
                                         <th class="column-title">Status </th>
                                         <th class="column-title no-link last"><span class="nobr">Action</span></th>

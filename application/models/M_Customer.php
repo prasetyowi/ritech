@@ -40,7 +40,7 @@ class M_Customer extends CI_Model
     public function search_customer($search)
     {
 
-        $query = $this->db->query("SELECT customer_id as id, customer_nama as nama FROM customer where customer_nama like '%$search%' order by customer_nama asc LIMIT 25");
+        $query = $this->db->query("SELECT customer_id as id, customer_nama as nama, customer_alamat, customer_kelurahan, customer_kecamatan, customer_kota, customer_provinsi,customer_kode_pos FROM customer where customer_nama like '%$search%' order by customer_nama asc LIMIT 25");
 
         if ($query->num_rows() == 0) {
             $query = 0;

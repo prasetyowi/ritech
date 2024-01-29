@@ -9,7 +9,7 @@ class M_Pembelian extends CI_Model
 		// $this->db = $this->load->database('d4',true);
 	}
 
-	public function cek_pembelian_duplicate($pembelian_id)
+	public function cek_pembelian_duplicate($pembelian_kode)
 	{
 		// $this->db->select("*")
 		// 	->from("msgl")
@@ -17,7 +17,7 @@ class M_Pembelian extends CI_Model
 		// 	->order_by("gl01");
 		// $query = $this->db->get();
 
-		$query = $this->db->query("SELECT * FROM pembelian where pembelian_id = '$pembelian_id'");
+		$query = $this->db->query("SELECT * FROM pembelian where pembelian_kode = '$pembelian_kode'");
 
 		if ($query->num_rows() == 0) {
 			$query = 0;
@@ -32,9 +32,16 @@ class M_Pembelian extends CI_Model
 	{
 		$query = $this->db->query("SELECT
 									a.pembelian_id,
+									a.pembelian_kode,
 									DATE_FORMAT(a.pembelian_tanggal, '%Y-%m-%d') AS pembelian_tanggal,
 									a.customer_id,
 									c.customer_nama,
+									c.customer_alamat,
+									c.customer_kelurahan,
+									c.customer_kecamatan,
+									c.customer_kota,
+									c.customer_provinsi,
+									c.customer_kode_pos,
 									a.pembelian_keterangan,
 									a.pembelian_jumlah,
 									a.pembelian_status,
@@ -44,8 +51,52 @@ class M_Pembelian extends CI_Model
 									a.pembelian_waktu_pengerjaan,
 									a.periode_penawaran,
 									a.garansi,
-									a.pembelian_no_po
+									a.pembelian_no_po,
+									IFNULL(b.attachment, '') AS attachment
 									FROM pembelian a
+									LEFT JOIN pembelian_attachment b
+									ON b.pembelian_id = a.pembelian_id
+									LEFT JOIN customer c
+									ON c.customer_id = a.customer_id
+									WHERE a.pembelian_id = '$pembelian_id'");
+
+		if ($query->num_rows() == 0) {
+			$query = 0;
+		} else {
+			$query = $query->result_array();
+		}
+
+		return $query;
+	}
+
+	function Get_cetak_invoice_pembelian_header_by_id($pembelian_id)
+	{
+		$query = $this->db->query("SELECT
+									a.pembelian_id,
+									a.pembelian_kode,
+									DATE_FORMAT(a.pembelian_tanggal, '%d %M %Y') AS pembelian_tanggal,
+									a.customer_id,
+									c.customer_nama,
+									c.customer_alamat,
+									c.customer_kelurahan,
+									c.customer_kecamatan,
+									c.customer_kota,
+									c.customer_provinsi,
+									c.customer_kode_pos,
+									a.pembelian_keterangan,
+									a.pembelian_jumlah,
+									a.pembelian_status,
+									a.updwho,
+									a.updtgl,
+									a.pembelian_waktu_pengiriman,
+									a.pembelian_waktu_pengerjaan,
+									a.periode_penawaran,
+									a.garansi,
+									a.pembelian_no_po,
+									IFNULL(b.attachment, '') AS attachment
+									FROM pembelian a
+									LEFT JOIN pembelian_attachment b
+									ON b.pembelian_id = a.pembelian_id
 									LEFT JOIN customer c
 									ON c.customer_id = a.customer_id
 									WHERE a.pembelian_id = '$pembelian_id'");
@@ -66,7 +117,7 @@ class M_Pembelian extends CI_Model
 									a.pembelian_no_item,
 									a.barang_id,
 									b.barang_nama,
-									b.harga_satuan,
+									IFNULL(b.harga_satuan, 0) AS harga_satuan,
 									b.barang_desc,
 									b.unit,
 									IFNULL(a.pembelian_qty, 0) AS qty,
@@ -75,7 +126,39 @@ class M_Pembelian extends CI_Model
 									FROM pembelian_detail a
 									LEFT JOIN barang b
 									ON b.barang_id = a.barang_id
-									WHERE pembelian_id = '$pembelian_id'
+									WHERE a.pembelian_id = '$pembelian_id'
+									ORDER BY a.pembelian_no_item ASC");
+
+		if ($query->num_rows() == 0) {
+			$query = 0;
+		} else {
+			$query = $query->result_array();
+		}
+
+		return $query;
+	}
+
+	function Get_cetak_invoice_pembelian_detail_termin_by_id($pembelian_id, $no_urut)
+	{
+		$query = $this->db->query("SELECT
+									a.pembelian_id,
+									a.pembelian_no_item,
+									a.barang_id,
+									b.barang_nama,
+									IFNULL(b.harga_satuan, 0) AS harga_satuan,
+									b.barang_desc,
+									b.unit,
+									IFNULL(a.pembelian_qty, 0) AS qty,
+									a.pembelian_total,
+									a.remarks,
+									IFNULL(c.termin_pembayaran, 0) AS termin_pembayaran
+									FROM pembelian_detail a
+									LEFT JOIN pembelian_termin c
+									ON c.pembelian_id = a.pembelian_id
+									AND c.pembelian_termin_no_item = '$no_urut'
+									LEFT JOIN barang b
+									ON b.barang_id = a.barang_id
+									WHERE a.pembelian_id = '$pembelian_id'
 									ORDER BY a.pembelian_no_item ASC");
 
 		if ($query->num_rows() == 0) {
@@ -96,6 +179,27 @@ class M_Pembelian extends CI_Model
 									IFNULL(termin_pembayaran, 0) AS termin_pembayaran
 									FROM pembelian_termin
 									WHERE pembelian_id = '$pembelian_id'
+									ORDER BY pembelian_termin_no_item ASC");
+
+		if ($query->num_rows() == 0) {
+			$query = 0;
+		} else {
+			$query = $query->result_array();
+		}
+
+		return $query;
+	}
+
+	function Get_cetak_invoice_pembelian_termin_by_id($pembelian_id, $no_urut)
+	{
+		$query = $this->db->query("SELECT
+									pembelian_id,
+									pembelian_termin_no_item,
+									keterangan,
+									IFNULL(termin_pembayaran, 0) AS termin_pembayaran
+									FROM pembelian_termin
+									WHERE pembelian_id = '$pembelian_id'
+									AND pembelian_termin_no_item = '$no_urut'
 									ORDER BY pembelian_termin_no_item ASC");
 
 		if ($query->num_rows() == 0) {
@@ -129,6 +233,8 @@ class M_Pembelian extends CI_Model
 
 		$query = $this->db->query("SELECT
 									a.pembelian_id,
+									a.pembelian_kode,
+									a.pembelian_no_po,
 									DATE_FORMAT(a.pembelian_tanggal, '%d-%m-%Y') AS pembelian_tanggal,
 									a.customer_id,
 									c.customer_nama,
@@ -148,7 +254,7 @@ class M_Pembelian extends CI_Model
 									" . $pembelian_id . "
 									" . $customer . "
 									" . $status . "
-									ORDER BY a.pembelian_tanggal, a.pembelian_id ASC");
+									ORDER BY a.pembelian_tanggal DESC, a.pembelian_kode ASC");
 
 		if ($query->num_rows() == 0) {
 			$query = array();
@@ -159,9 +265,10 @@ class M_Pembelian extends CI_Model
 		return $query;
 	}
 
-	public function insert_pembelian($pembelian_id, $pembelian_tanggal, $customer_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po)
+	public function insert_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $customer_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po)
 	{
 		$pembelian_id = $pembelian_id == '' ? null : $pembelian_id;
+		$pembelian_kode = $pembelian_kode == '' ? null : $pembelian_kode;
 		$pembelian_tanggal = $pembelian_tanggal == '' ? null : $pembelian_tanggal;
 		$customer_id = $customer_id == '' ? null : $customer_id;
 		$pembelian_keterangan = $pembelian_keterangan == '' ? null : $pembelian_keterangan;
@@ -176,6 +283,7 @@ class M_Pembelian extends CI_Model
 		$pembelian_no_po = $pembelian_no_po == '' ? null : $pembelian_no_po;
 
 		$this->db->set('pembelian_id', $pembelian_id);
+		$this->db->set('pembelian_kode', $pembelian_kode);
 		$this->db->set('pembelian_tanggal', $pembelian_tanggal);
 		$this->db->set('customer_id', $customer_id);
 		$this->db->set('pembelian_keterangan', $pembelian_keterangan);
@@ -196,9 +304,10 @@ class M_Pembelian extends CI_Model
 		// return $this->db->last_query();
 	}
 
-	public function update_pembelian($pembelian_id, $pembelian_tanggal, $customer_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po)
+	public function update_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $customer_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po)
 	{
 		$pembelian_id = $pembelian_id == '' ? null : $pembelian_id;
+		$pembelian_kode = $pembelian_kode == '' ? null : $pembelian_kode;
 		$pembelian_tanggal = $pembelian_tanggal == '' ? null : $pembelian_tanggal;
 		$customer_id = $customer_id == '' ? null : $customer_id;
 		$pembelian_keterangan = $pembelian_keterangan == '' ? null : $pembelian_keterangan;
@@ -212,6 +321,7 @@ class M_Pembelian extends CI_Model
 		$garansi = $garansi == '' ? null : $garansi;
 		$pembelian_no_po = $pembelian_no_po == '' ? null : $pembelian_no_po;
 
+		$this->db->set('pembelian_kode', $pembelian_kode);
 		$this->db->set('pembelian_tanggal', $pembelian_tanggal);
 		$this->db->set('customer_id', $customer_id);
 		$this->db->set('pembelian_keterangan', $pembelian_keterangan);

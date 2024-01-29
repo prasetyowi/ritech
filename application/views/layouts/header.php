@@ -28,9 +28,6 @@
     <link href="<?= base_url() ?>assets/vendors/starrr/dist/starrr.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="<?= base_url() ?>assets/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-
-    <!-- NProgress -->
-    <link href="<?= base_url() ?>assets/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="<?= base_url() ?>assets/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 
@@ -45,11 +42,20 @@
     <link href="<?= base_url() ?>assets/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="<?= base_url() ?>assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
+    <!-- Dropzone.js -->
+    <link href="<?= base_url() ?>assets/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+
     <!-- Custom Theme Style -->
     <link href="<?= base_url() ?>assets/build/css/custom.min.css" rel="stylesheet">
 
     <script src="sweetalert2.min.js"></script>
     <link rel="stylesheet" href="sweetalert2.min.css">
+
+    <style>
+        body {
+            color: black;
+        }
+    </style>
 </head>
 
 <body class="nav-md">

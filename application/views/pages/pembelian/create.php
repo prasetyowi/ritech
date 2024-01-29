@@ -24,7 +24,8 @@
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Nomor Pembelian</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_id" name="Pembelian[pembelian_id]" value="" required>
+                                    <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_kode" name="Pembelian[pembelian_kode]" value="" required>
+                                    <input type="hidden" class="form-control col-md-10" id="Pembelian-pembelian_id" name="Pembelian[pembelian_id]" value="<?= $pembelian_id; ?>" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -44,6 +45,36 @@
                                 <div class="col-md-9 col-sm-9 ">
                                     <input type="text" class="form-control col-md-10" id="Pembelian-customer_nama" name="Pembelian[customer_nama]" value="" required />
                                     <input type="hidden" class="form-control col-md-10" id="Pembelian-customer_id" name="Pembelian[customer_id]" value="" required />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Kelurahan</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Pembelian-customer_kelurahan" name="Pembelian[customer_kelurahan]" value="" disabled />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Kecamatan</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Pembelian-customer_kecamatan" name="Pembelian[customer_kecamatan]" value="" disabled />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Kota</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Pembelian-customer_kota" name="Pembelian[customer_kota]" value="" disabled />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Provinsi</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Pembelian-customer_provinsi" name="Pembelian[customer_provinsi]" value="" disabled />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Kodepos</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Pembelian-customer_kode_pos" name="Pembelian[customer_kode_pos]" value="" disabled />
                                 </div>
                             </div>
                             <!-- <div class="form-group row">
@@ -97,15 +128,33 @@
                                 </div>
                             </div>
                             <div class="ln_solid"></div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12  ">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>File Uploader</h2>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                            <p>Drag files ke dalam box untuk upload atau click select files.</p>
+                                            <div class="dropzone"></div>
+                                            <br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
                             <div class="form-group row ">
-                                <button class="btn btn-primary" id="btn_tambah_termin"><i class="fa fa-plus"></i> Tambah Termin</button>
+                                <button class="btn btn-primary" id="btn_modal_pilih_barang"><i class="fa fa-search"></i> Pilih Barang</button>
                                 <div class="table-responsive">
-                                    <table class="table table-striped jambo_table" id="table-pembelian-termin" style="width:70%">
+                                    <table class="table table-striped jambo_table" id="table-pembelian-detail" style="width:100%">
                                         <thead>
                                             <tr class=" headings">
                                                 <th>#</th>
-                                                <th class="column-title">Keterangan </th>
-                                                <th class="column-title">Termin Pembayaran (%) </th>
+                                                <th class="column-title">Nama Barang </th>
+                                                <th class="column-title">Qty </th>
+                                                <th class="column-title">Unit </th>
+                                                <th class="column-title">Remarks </th>
                                                 <th class="column-title no-link last"><span class="nobr">Action</span></th>
                                             </tr>
                                         </thead>

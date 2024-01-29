@@ -24,7 +24,7 @@
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Nomor Quotation</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Quotation-quotation_id" name="Quotation[quotation_id]" value="" required>
+                                    <input type="text" class="form-control col-md-10" id="Quotation-quotation_kode" name="Quotation[quotation_kode]" value="" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -38,6 +38,42 @@
                                 <div class="col-md-9 col-sm-9 ">
                                     <input type="text" class="form-control col-md-10" id="Quotation-customer_nama" name="Quotation[customer_nama]" value="" required />
                                     <input type="hidden" class="form-control col-md-10" id="Quotation-customer_id" name="Quotation[customer_id]" value="" required />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Alamat</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Quotation-customer_alamat" name="Quotation[customer_alamat]" value="" disabled />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Kelurahan</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Quotation-customer_kelurahan" name="Quotation[customer_kelurahan]" value="" disabled />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Kecamatan</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Quotation-customer_kecamatan" name="Quotation[customer_kecamatan]" value="" disabled />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Kota</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Quotation-customer_kota" name="Quotation[customer_kota]" value="" disabled />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Provinsi</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Quotation-customer_provinsi" name="Quotation[customer_provinsi]" value="" disabled />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Kodepos</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Quotation-customer_kode_pos" name="Quotation[customer_kode_pos]" value="" disabled />
                                 </div>
                             </div>
                             <!-- <div class="form-group row">
