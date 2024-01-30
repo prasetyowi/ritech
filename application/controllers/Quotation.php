@@ -178,7 +178,53 @@ class Quotation extends CI_Controller
 		$this->load->view('layouts/header', $query);
 		$this->load->view('pages/Quotation/detail', $data);
 		$this->load->view('layouts/footer', $query);
-		$this->load->view('pages/Quotation/script', $data);
+		// $this->load->view('pages/Quotation/script', $data);
+	}
+
+	public function print()
+	{
+
+		$data = array();
+		// $data['Menu_Access'] = $this->M_Menu->Getmenu_access_web($this->session->userdata('pengguna_grup_id'), $this->MenuKode);
+		// if ($data['Menu_Access']['R'] != 1) {
+		// 	redirect(base_url('MainPage'));
+		// 	exit();
+		// }
+
+		// if (!$this->session->has_userdata('pengguna_id')) {
+		// 	redirect(base_url('MainPage'));
+		// }
+
+		// if (!$this->session->has_userdata('depo_id')) {
+		// 	redirect(base_url('Main/MainDepo/DepoMenu'));
+		// }
+
+		// $data['sidemenu'] = $this->M_Menu->GetMenu_Depo('', $this->session->userdata('pengguna_grup_id'));
+
+		// $data['Ses_UserName'] = $this->session->userdata('pengguna_username');
+
+		// $query['Title'] = Get_Title_Name();
+		// $query['Copyright'] = Get_Copyright_Name();
+
+		// $data['act'] = "add";
+
+		// // Kebutuhan Authority Menu 
+		// $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
+
+		// $this->load->view('layouts/header', $query);
+		// $this->load->view('pages/Quotation/create', $data);
+		// $this->load->view('layouts/footer', $query);
+		// $this->load->view('pages/Quotation/script', $data);
+
+		$id = $this->input->get('id');
+
+		$data['Header'] = $this->M_Quotation->Get_quotation_header_by_id($id);
+		$data['Detail'] = $this->M_Quotation->Get_quotation_detail_by_id($id);
+		$data['Termin'] = $this->M_Quotation->Get_quotation_termin_by_id($id);
+
+		$this->load->view('layouts/header_pdf', $data);
+		$this->load->view('pages/Quotation/print_pdf', $data);
+		$this->load->view('layouts/footer_pdf', $data);
 	}
 
 	public function Get_quotation_by_filter()

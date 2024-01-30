@@ -131,6 +131,7 @@
                                     <td class=" ">${v.quotation_status}</td>
                                     <td class=" ">
                                         <a href="<?= base_url() ?>quotation/edit/?id=${v.quotation_id}" target="_blank" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                                        <a href="<?= base_url() ?>quotation/detail/?id=${v.quotation_id}" target="_blank" class="btn btn-primary"><i class="fa fa-search"></i></a>
                                     </td>
                                 </tr>
 							`);

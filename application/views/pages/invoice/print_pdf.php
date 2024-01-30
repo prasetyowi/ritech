@@ -128,16 +128,16 @@
 
                     ?>
                         <tr>
-                            <td style="text-align:center">
+                            <td style="text-align:left;padding: 10px 10px 10px 10px;">
                                 <?= $value2['qty'] . " " . $value2['unit']; ?>
                             </td>
-                            <td>
+                            <td style="text-align:left;padding: 10px 10px 10px 10px;">
                                 <?= $value2['barang_nama']; ?><br>
                             </td>
-                            <td style="text-align:left">
+                            <td style="text-align:right;padding: 10px 10px 10px 10px;">
                                 IDR <?= format_rupiah($harga_satuan); ?>
                             </td>
-                            <td style="text-align:left">
+                            <td style="text-align:right;padding: 10px 10px 10px 10px;">
                                 IDR <?= format_rupiah($jumlah); ?>
                             </td>
                         </tr>

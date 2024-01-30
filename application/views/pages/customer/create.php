@@ -42,7 +42,7 @@
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Kecamatan</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" name="kecamatan" id="kecamatan" placeholder="Input Kecamatan"class="form-control col-md-10" />
+                                    <input type="text" name="kecamatan" id="kecamatan" placeholder="Input Kecamatan" class="form-control col-md-10" />
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -62,7 +62,7 @@
                                 <div class="col-md-9 col-sm-9 ">
                                     <input type="text" name="negara" id="negara" placeholder="Indonesia" class="form-control col-md-10" />
                                 </div>
-                            </select>
+                                </select>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">No. Telp</label>
@@ -73,7 +73,7 @@
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Kode Pos</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" name="kode_pos" id="kode_pos"  placeholder="Kode Pos Pelanggan" class="form-control col-md-10" />
+                                    <input type="text" name="kode_pos" id="kode_pos" placeholder="Kode Pos Pelanggan" class="form-control col-md-10" />
                                 </div>
                             </div>
                             <div class="form-group row">

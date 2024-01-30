@@ -37,10 +37,47 @@ class Barang extends CI_Controller
         // $this->load->model('M_Principle');
         // $this->load->model('M_TipeDeliveryOrder');
         // $this->load->model('M_AutoGen');
-        // $this->load->model('M_Vrbl');
+        $this->load->model('M_Vrbl');
         $this->load->model('M_Barang');
     }
 
+    public function index()
+    {
+        $data = array();
+        // $data['Menu_Access'] = $this->M_Menu->Getmenu_access_web($this->session->userdata('pengguna_grup_id'), $this->MenuKode);
+        // if ($data['Menu_Access']['R'] != 1) {
+        // 	redirect(base_url('MainPage'));
+        // 	exit();
+        // }
+
+        // if (!$this->session->has_userdata('pengguna_id')) {
+        // 	redirect(base_url('MainPage'));
+        // }
+
+        // if (!$this->session->has_userdata('depo_id')) {
+        // 	redirect(base_url('Main/MainDepo/DepoMenu'));
+        // }
+
+        // $data['Ses_UserName'] = $this->session->userdata('pengguna_username');
+
+        // $query['Title'] = Get_Title_Name();
+        // $query['Copyright'] = Get_Copyright_Name();
+
+        $data['act'] = "index";
+
+        // Kebutuhan Authority Menu 
+        // $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
+
+        // $this->load->view('layouts/header', $query);
+        // $this->load->view('pages/Quotation/index', $data);
+        // $this->load->view('layouts/footer', $query);
+        // $this->load->view('pages/Quotation/script', $data);
+
+        $this->load->view('layouts/header');
+        $this->load->view('pages/Barang/index');
+        $this->load->view('layouts/footer');
+        $this->load->view('pages/Barang/script');
+    }
     public function Get_all_barang()
     {
         $data = $this->M_Barang->Get_all_barang();
@@ -50,8 +87,18 @@ class Barang extends CI_Controller
 
     public function Get_all_barang_by_id()
     {
-        $id = $this->input->post('id');
+        $id = $this->input->get('id');
+
         $data = $this->M_Barang->Get_all_barang_by_id($id);
+
+        echo json_encode($data);
+    }
+
+    public function Get_barang_by_filter()
+    {
+        $barang = $this->input->get('barang');
+
+        $data = $this->M_Barang->Get_barang_by_filter($barang);
 
         echo json_encode($data);
     }
@@ -76,46 +123,29 @@ class Barang extends CI_Controller
         echo json_encode($data);
     }
 
-    public function insert_Barang()
+    public function insert_barang()
     {
-        $Barang_id = $this->input->post('Barang_id');
-        $Barang_tanggal = $this->input->post('Barang_tanggal');
-        $customer_id = $this->input->post('customer_id');
-        $Barang_keterangan = $this->input->post('Barang_keterangan');
-        $Barang_jumlah = $this->input->post('Barang_jumlah');
-        $Barang_status = $this->input->post('Barang_status');
-        $updwho = $this->input->post('updwho');
-        $updtgl = $this->input->post('updtgl');
-        $Barang_waktu_pengiriman = $this->input->post('Barang_waktu_pengiriman');
-        $Barang_waktu_pengerjaan = $this->input->post('Barang_waktu_pengerjaan');
-        $periode_penawaran = $this->input->post('periode_penawaran');
-        $garansi = $this->input->post('garansi');
+        $table = "barang";
+        $column = "barang_id";
+        $kode = "BRG";
 
+        $barang_id = $this->M_Vrbl->Generate_kode($table, $column, $kode);
 
-        $detail = $this->input->post('detail');
+        $barang_nama = $this->input->post('barang_nama');
+        $harga_satuan = $this->input->post('harga_satuan');
+        $barang_desc = $this->input->post('barang_desc');
+        $unit = $this->input->post('unit');
 
-        $cek_data = $this->M_Barang->cek_Barang_duplicate($Barang_id);
+        // $cek_data = $this->M_Barang->cek_Barang_duplicate($barang_id);
 
-        if ($cek_data > 0) {
-            echo json_encode(array("status" => 2, "data" => ""));
-            die;
-        }
+        // if ($cek_data > 0) {
+        //     echo json_encode(array("status" => 2, "data" => ""));
+        //     die;
+        // }
 
         $this->db->trans_begin();
 
-        $this->M_Barang->insert_Barang($Barang_id, $Barang_tanggal, $customer_id, $Barang_keterangan, $Barang_jumlah, $Barang_status, $updwho, $updtgl, $Barang_waktu_pengiriman, $Barang_waktu_pengerjaan, $periode_penawaran, $garansi);
-
-        foreach ($detail as $key => $value) {
-            // $Barang_id = $value['Barang_id'];
-            $Barang_no_item = $value['Barang_no_item'];
-            $barang_id = $value['barang_id'];
-            $Barang_qty = $value['Barang_qty'];
-            $harga_satuan = $value['harga_satuan'];
-            $Barang_total = $value['Barang_total'];
-
-            $this->M_Barang->insert_Barang_detail($Barang_id, $Barang_no_item, $barang_id, $Barang_qty, $harga_satuan, $Barang_total);
-        }
-
+        $this->M_Barang->insert_barang($barang_id, $barang_nama, $harga_satuan, $barang_desc, $unit);
 
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
@@ -126,41 +156,24 @@ class Barang extends CI_Controller
         }
     }
 
-    public function update_Barang()
+    public function update_barang()
     {
-        $Barang_id = $this->input->post('Barang_id');
-        $Barang_tanggal = $this->input->post('Barang_tanggal');
-        $customer_id = $this->input->post('customer_id');
-        $Barang_keterangan = $this->input->post('Barang_keterangan');
-        $Barang_jumlah = $this->input->post('Barang_jumlah');
-        $Barang_status = $this->input->post('Barang_status');
-        $updwho = $this->input->post('updwho');
-        $updtgl = $this->input->post('updtgl');
-        $Barang_waktu_pengiriman = $this->input->post('Barang_waktu_pengiriman');
-        $Barang_waktu_pengerjaan = $this->input->post('Barang_waktu_pengerjaan');
-        $periode_penawaran = $this->input->post('periode_penawaran');
-        $garansi = $this->input->post('garansi');
+        $barang_id = $this->input->post('barang_id');
+        $barang_nama = $this->input->post('barang_nama');
+        $harga_satuan = $this->input->post('harga_satuan');
+        $barang_desc = $this->input->post('barang_desc');
+        $unit = $this->input->post('unit');
 
+        // $cek_data = $this->M_Barang->cek_Barang_duplicate($barang_id);
 
-        $detail = $this->input->post('detail');
+        // if ($cek_data > 0) {
+        //     echo json_encode(array("status" => 2, "data" => ""));
+        //     die;
+        // }
 
         $this->db->trans_begin();
 
-        $this->M_Barang->update_Barang($Barang_id, $Barang_tanggal, $customer_id, $Barang_keterangan, $Barang_jumlah, $Barang_status, $updwho, $updtgl, $Barang_waktu_pengiriman, $Barang_waktu_pengerjaan, $periode_penawaran, $garansi);
-
-        $this->M_Barang->delete_Barang_detail($Barang_id);
-
-        foreach ($detail as $key => $value) {
-            // $Barang_id = $value['Barang_id'];
-            $Barang_no_item = $value['Barang_no_item'];
-            $barang_id = $value['barang_id'];
-            $Barang_qty = $value['Barang_qty'];
-            $harga_satuan = $value['harga_satuan'];
-            $Barang_total = $value['Barang_total'];
-
-            $this->M_Barang->insert_Barang_detail($Barang_id, $Barang_no_item, $barang_id, $Barang_qty, $harga_satuan, $Barang_total);
-        }
-
+        $this->M_Barang->update_barang($barang_id, $barang_nama, $harga_satuan, $barang_desc, $unit);
 
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();

@@ -37,6 +37,34 @@ class M_Customer extends CI_Model
         return $query;
     }
 
+    public function Get_customer_by_filter($customer)
+    {
+
+        $query = $this->db->query("SELECT
+                                    customer_id,
+                                    customer_nama,
+                                    IFNULL(customer_alamat,'') AS customer_alamat,
+                                    IFNULL(customer_kelurahan,'') AS customer_kelurahan,
+                                    IFNULL(customer_kecamatan,'') AS customer_kecamatan,
+                                    IFNULL(customer_kota,'') AS customer_kota,
+                                    IFNULL(customer_provinsi,'') AS customer_provinsi,
+                                    IFNULL(customer_negara,'') AS customer_negara,
+                                    IFNULL(customer_telp,'') AS customer_telp,
+                                    IFNULL(customer_kode_pos,'') AS customer_kode_pos,
+                                    IFNULL(customer_email,'') AS customer_email
+                                    FROM customer
+                                    WHERE customer_nama LIKE '%" . $customer . "%'
+                                    ORDER BY customer_nama ASC");
+
+        if ($query->num_rows() == 0) {
+            $query = 0;
+        } else {
+            $query = $query->result_array();
+        }
+
+        return $query;
+    }
+
     public function search_customer($search)
     {
 
@@ -73,5 +101,70 @@ class M_Customer extends CI_Model
         }
 
         return $query;
+    }
+
+    public function insert_customer($customer_id, $customer_nama, $customer_alamat, $customer_kelurahan, $customer_kecamatan, $customer_kota, $customer_provinsi, $customer_negara, $customer_telp, $customer_kode_pos, $customer_email)
+    {
+        $customer_id = $customer_id == '' ? null : $customer_id;
+        $customer_nama = $customer_nama == '' ? null : $customer_nama;
+        $customer_alamat = $customer_alamat == '' ? null : $customer_alamat;
+        $customer_kelurahan = $customer_kelurahan == '' ? null : $customer_kelurahan;
+        $customer_kecamatan = $customer_kecamatan == '' ? null : $customer_kecamatan;
+        $customer_kota = $customer_kota == '' ? null : $customer_kota;
+        $customer_provinsi = $customer_provinsi == '' ? null : $customer_provinsi;
+        $customer_negara = $customer_negara == '' ? null : $customer_negara;
+        $customer_telp = $customer_telp == '' ? null : $customer_telp;
+        $customer_kode_pos = $customer_kode_pos == '' ? null : $customer_kode_pos;
+        $customer_email = $customer_email == '' ? null : $customer_email;
+
+        $this->db->set('customer_id', $customer_id);
+        $this->db->set('customer_nama', $customer_nama);
+        $this->db->set('customer_alamat', $customer_alamat);
+        $this->db->set('customer_kelurahan', $customer_kelurahan);
+        $this->db->set('customer_kecamatan', $customer_kecamatan);
+        $this->db->set('customer_kota', $customer_kota);
+        $this->db->set('customer_provinsi', $customer_provinsi);
+        $this->db->set('customer_negara', $customer_negara);
+        $this->db->set('customer_telp', $customer_telp);
+        $this->db->set('customer_kode_pos', $customer_kode_pos);
+        $this->db->set('customer_email', $customer_email);
+
+        $queryinsert = $this->db->insert("customer");
+
+        return $queryinsert;
+        // return $this->db->last_query();
+    }
+
+    public function update_customer($customer_id, $customer_nama, $customer_alamat, $customer_kelurahan, $customer_kecamatan, $customer_kota, $customer_provinsi, $customer_negara, $customer_telp, $customer_kode_pos, $customer_email)
+    {
+        $customer_id = $customer_id == '' ? null : $customer_id;
+        $customer_nama = $customer_nama == '' ? null : $customer_nama;
+        $customer_alamat = $customer_alamat == '' ? null : $customer_alamat;
+        $customer_kelurahan = $customer_kelurahan == '' ? null : $customer_kelurahan;
+        $customer_kecamatan = $customer_kecamatan == '' ? null : $customer_kecamatan;
+        $customer_kota = $customer_kota == '' ? null : $customer_kota;
+        $customer_provinsi = $customer_provinsi == '' ? null : $customer_provinsi;
+        $customer_negara = $customer_negara == '' ? null : $customer_negara;
+        $customer_telp = $customer_telp == '' ? null : $customer_telp;
+        $customer_kode_pos = $customer_kode_pos == '' ? null : $customer_kode_pos;
+        $customer_email = $customer_email == '' ? null : $customer_email;
+
+        $this->db->set('customer_nama', $customer_nama);
+        $this->db->set('customer_alamat', $customer_alamat);
+        $this->db->set('customer_kelurahan', $customer_kelurahan);
+        $this->db->set('customer_kecamatan', $customer_kecamatan);
+        $this->db->set('customer_kota', $customer_kota);
+        $this->db->set('customer_provinsi', $customer_provinsi);
+        $this->db->set('customer_negara', $customer_negara);
+        $this->db->set('customer_telp', $customer_telp);
+        $this->db->set('customer_kode_pos', $customer_kode_pos);
+        $this->db->set('customer_email', $customer_email);
+
+        $this->db->where('customer_id', $customer_id);
+
+        $queryinsert = $this->db->update("customer");
+
+        return $queryinsert;
+        // return $this->db->last_query();
     }
 }

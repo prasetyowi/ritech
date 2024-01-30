@@ -37,8 +37,46 @@ class Customer extends CI_Controller
         // $this->load->model('M_Principle');
         // $this->load->model('M_TipeDeliveryOrder');
         // $this->load->model('M_AutoGen');
-        // $this->load->model('M_Vrbl');
+        $this->load->model('M_Vrbl');
         $this->load->model('M_Customer');
+    }
+
+    public function index()
+    {
+        $data = array();
+        // $data['Menu_Access'] = $this->M_Menu->Getmenu_access_web($this->session->userdata('pengguna_grup_id'), $this->MenuKode);
+        // if ($data['Menu_Access']['R'] != 1) {
+        // 	redirect(base_url('MainPage'));
+        // 	exit();
+        // }
+
+        // if (!$this->session->has_userdata('pengguna_id')) {
+        // 	redirect(base_url('MainPage'));
+        // }
+
+        // if (!$this->session->has_userdata('depo_id')) {
+        // 	redirect(base_url('Main/MainDepo/DepoMenu'));
+        // }
+
+        // $data['Ses_UserName'] = $this->session->userdata('pengguna_username');
+
+        // $query['Title'] = Get_Title_Name();
+        // $query['Copyright'] = Get_Copyright_Name();
+
+        $data['act'] = "index";
+
+        // Kebutuhan Authority Menu 
+        // $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
+
+        // $this->load->view('layouts/header', $query);
+        // $this->load->view('pages/Quotation/index', $data);
+        // $this->load->view('layouts/footer', $query);
+        // $this->load->view('pages/Quotation/script', $data);
+
+        $this->load->view('layouts/header');
+        $this->load->view('pages/Customer/index');
+        $this->load->view('layouts/footer');
+        $this->load->view('pages/Customer/script');
     }
 
     public function Get_all_customer()
@@ -50,8 +88,17 @@ class Customer extends CI_Controller
 
     public function Get_all_customer_by_id()
     {
-        $id = $this->input->post('id');
+        $id = $this->input->get('id');
         $data = $this->M_Customer->Get_all_customer_by_id($id);
+
+        echo json_encode($data);
+    }
+
+    public function Get_customer_by_filter()
+    {
+        $customer = $this->input->get('customer');
+
+        $data = $this->M_Customer->Get_customer_by_filter($customer);
 
         echo json_encode($data);
     }
@@ -97,43 +144,28 @@ class Customer extends CI_Controller
 
     public function insert_customer()
     {
-        $customer_id = $this->input->post('customer_id');
-        $customer_tanggal = $this->input->post('customer_tanggal');
-        $customer_id = $this->input->post('customer_id');
-        $customer_keterangan = $this->input->post('customer_keterangan');
-        $customer_jumlah = $this->input->post('customer_jumlah');
-        $customer_status = $this->input->post('customer_status');
-        $updwho = $this->input->post('updwho');
-        $updtgl = $this->input->post('updtgl');
-        $customer_waktu_pengiriman = $this->input->post('customer_waktu_pengiriman');
-        $customer_waktu_pengerjaan = $this->input->post('customer_waktu_pengerjaan');
-        $periode_penawaran = $this->input->post('periode_penawaran');
-        $garansi = $this->input->post('garansi');
 
+        $table = "customer";
+        $column = "customer_id";
+        $kode = "CS";
 
-        $detail = $this->input->post('detail');
+        $customer_id = $this->M_Vrbl->Generate_kode($table, $column, $kode);
 
-        $cek_data = $this->M_Customer->cek_customer_duplicate($customer_id);
-
-        if ($cek_data > 0) {
-            echo json_encode(array("status" => 2, "data" => ""));
-            die;
-        }
+        // $customer_id = $this->input->post('customer_id');
+        $customer_nama = $this->input->post('customer_nama');
+        $customer_alamat = $this->input->post('customer_alamat');
+        $customer_kelurahan = $this->input->post('customer_kelurahan');
+        $customer_kecamatan = $this->input->post('customer_kecamatan');
+        $customer_kota = $this->input->post('customer_kota');
+        $customer_provinsi = $this->input->post('customer_provinsi');
+        $customer_negara = $this->input->post('customer_negara');
+        $customer_telp = $this->input->post('customer_telp');
+        $customer_kode_pos = $this->input->post('customer_kode_pos');
+        $customer_email = $this->input->post('customer_email');
 
         $this->db->trans_begin();
 
-        $this->M_Customer->insert_customer($customer_id, $customer_tanggal, $customer_id, $customer_keterangan, $customer_jumlah, $customer_status, $updwho, $updtgl, $customer_waktu_pengiriman, $customer_waktu_pengerjaan, $periode_penawaran, $garansi);
-
-        foreach ($detail as $key => $value) {
-            // $customer_id = $value['customer_id'];
-            $customer_no_item = $value['customer_no_item'];
-            $customer_id = $value['customer_id'];
-            $customer_qty = $value['customer_qty'];
-            $harga_satuan = $value['harga_satuan'];
-            $customer_total = $value['customer_total'];
-
-            $this->M_Customer->insert_customer_detail($customer_id, $customer_no_item, $customer_id, $customer_qty, $harga_satuan, $customer_total);
-        }
+        $this->M_Customer->insert_customer($customer_id, $customer_nama, $customer_alamat, $customer_kelurahan, $customer_kecamatan, $customer_kota, $customer_provinsi, $customer_negara, $customer_telp, $customer_kode_pos, $customer_email);
 
 
         if ($this->db->trans_status() === FALSE) {
@@ -148,37 +180,20 @@ class Customer extends CI_Controller
     public function update_customer()
     {
         $customer_id = $this->input->post('customer_id');
-        $customer_tanggal = $this->input->post('customer_tanggal');
-        $customer_id = $this->input->post('customer_id');
-        $customer_keterangan = $this->input->post('customer_keterangan');
-        $customer_jumlah = $this->input->post('customer_jumlah');
-        $customer_status = $this->input->post('customer_status');
-        $updwho = $this->input->post('updwho');
-        $updtgl = $this->input->post('updtgl');
-        $customer_waktu_pengiriman = $this->input->post('customer_waktu_pengiriman');
-        $customer_waktu_pengerjaan = $this->input->post('customer_waktu_pengerjaan');
-        $periode_penawaran = $this->input->post('periode_penawaran');
-        $garansi = $this->input->post('garansi');
-
-
-        $detail = $this->input->post('detail');
+        $customer_nama = $this->input->post('customer_nama');
+        $customer_alamat = $this->input->post('customer_alamat');
+        $customer_kelurahan = $this->input->post('customer_kelurahan');
+        $customer_kecamatan = $this->input->post('customer_kecamatan');
+        $customer_kota = $this->input->post('customer_kota');
+        $customer_provinsi = $this->input->post('customer_provinsi');
+        $customer_negara = $this->input->post('customer_negara');
+        $customer_telp = $this->input->post('customer_telp');
+        $customer_kode_pos = $this->input->post('customer_kode_pos');
+        $customer_email = $this->input->post('customer_email');
 
         $this->db->trans_begin();
 
-        $this->M_Customer->update_customer($customer_id, $customer_tanggal, $customer_id, $customer_keterangan, $customer_jumlah, $customer_status, $updwho, $updtgl, $customer_waktu_pengiriman, $customer_waktu_pengerjaan, $periode_penawaran, $garansi);
-
-        $this->M_Customer->delete_customer_detail($customer_id);
-
-        foreach ($detail as $key => $value) {
-            // $customer_id = $value['customer_id'];
-            $customer_no_item = $value['customer_no_item'];
-            $customer_id = $value['customer_id'];
-            $customer_qty = $value['customer_qty'];
-            $harga_satuan = $value['harga_satuan'];
-            $customer_total = $value['customer_total'];
-
-            $this->M_Customer->insert_customer_detail($customer_id, $customer_no_item, $customer_id, $customer_qty, $harga_satuan, $customer_total);
-        }
+        $this->M_Customer->update_customer($customer_id, $customer_nama, $customer_alamat, $customer_kelurahan, $customer_kecamatan, $customer_kota, $customer_provinsi, $customer_negara, $customer_telp, $customer_kode_pos, $customer_email);
 
 
         if ($this->db->trans_status() === FALSE) {

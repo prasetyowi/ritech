@@ -37,6 +37,28 @@ class M_Barang extends CI_Model
         return $query;
     }
 
+    public function Get_barang_by_filter($barang)
+    {
+
+        $query = $this->db->query("SELECT
+                                    barang_id,
+                                    barang_nama,
+                                    IFNULL(harga_satuan,0) AS harga_satuan,
+                                    IFNULL(barang_desc,'') AS barang_desc,
+                                    IFNULL(unit,'') AS unit
+                                    FROM barang
+                                    WHERE barang_nama LIKE '%" . $barang . "%'
+                                    ORDER BY barang_nama ASC");
+
+        if ($query->num_rows() == 0) {
+            $query = 0;
+        } else {
+            $query = $query->result_array();
+        }
+
+        return $query;
+    }
+
     public function Get_barang_not_in_selected_barang($arr_list_barang)
     {
 
@@ -59,5 +81,45 @@ class M_Barang extends CI_Model
         }
 
         return $query;
+    }
+
+    public function insert_barang($barang_id, $barang_nama, $harga_satuan, $barang_desc, $unit)
+    {
+        $barang_id = $barang_id == '' ? null : $barang_id;
+        $barang_nama = $barang_nama == '' ? null : $barang_nama;
+        $harga_satuan = $harga_satuan == '' ? null : $harga_satuan;
+        $barang_desc = $barang_desc == '' ? null : $barang_desc;
+        $unit = $unit == '' ? null : $unit;
+
+        $this->db->set('barang_id', $barang_id);
+        $this->db->set('barang_nama', $barang_nama);
+        $this->db->set('harga_satuan', $harga_satuan);
+        $this->db->set('barang_desc', $barang_desc);
+        $this->db->set('unit', $unit);
+
+        $queryinsert = $this->db->insert("barang");
+
+        return $queryinsert;
+        // return $this->db->last_query();
+    }
+
+    public function update_barang($barang_id, $barang_nama, $harga_satuan, $barang_desc, $unit)
+    {
+        $barang_id = $barang_id == '' ? null : $barang_id;
+        $barang_nama = $barang_nama == '' ? null : $barang_nama;
+        $harga_satuan = $harga_satuan == '' ? null : $harga_satuan;
+        $barang_desc = $barang_desc == '' ? null : $barang_desc;
+        $unit = $unit == '' ? null : $unit;
+
+        $this->db->set('barang_nama', $barang_nama);
+        $this->db->set('harga_satuan', $harga_satuan);
+        $this->db->set('barang_desc', $barang_desc);
+        $this->db->set('unit', $unit);
+        $this->db->where('barang_id', $barang_id);
+
+        $queryinsert = $this->db->update("barang");
+
+        return $queryinsert;
+        // return $this->db->last_query();
     }
 }
