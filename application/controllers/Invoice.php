@@ -141,6 +141,8 @@ class Invoice extends CI_Controller
 		// $this->load->view('layouts/footer', $query);
 		// $this->load->view('pages/Quotation/script', $data);
 
+		$this->load->library('pdfgenerator');
+
 		$id = $this->input->get('id');
 		$pembelian_termin_no_item = $this->input->get('pembelian_termin_no_item');
 
@@ -148,9 +150,16 @@ class Invoice extends CI_Controller
 		$data['Detail'] = $this->M_Pembelian->Get_cetak_invoice_pembelian_detail_termin_by_id($id, $pembelian_termin_no_item);
 		$data['Termin'] = $this->M_Pembelian->Get_cetak_invoice_pembelian_termin_by_id($id, $pembelian_termin_no_item);
 
-		$this->load->view('layouts/header_pdf', $data);
-		$this->load->view('pages/Invoice/print_pdf', $data);
-		$this->load->view('layouts/footer_pdf', $data);
+		// $this->load->view('layouts/header_pdf', $data);
+		// $this->load->view('pages/Invoice/print_pdf', $data);
+		// $this->load->view('layouts/footer_pdf', $data);
+
+		$data['title'] = "Invoice";
+		$file_pdf = $data['title'];
+		$paper = 'A4';
+		$orientation = "potrait";
+		$html = $this->load->view('pages/Invoice/print_pdf', $data, true);
+		$this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
 	}
 
 	public function edit()

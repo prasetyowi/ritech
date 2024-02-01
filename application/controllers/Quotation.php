@@ -215,6 +215,7 @@ class Quotation extends CI_Controller
 		// $this->load->view('pages/Quotation/create', $data);
 		// $this->load->view('layouts/footer', $query);
 		// $this->load->view('pages/Quotation/script', $data);
+		$this->load->library('pdfgenerator');
 
 		$id = $this->input->get('id');
 
@@ -222,9 +223,12 @@ class Quotation extends CI_Controller
 		$data['Detail'] = $this->M_Quotation->Get_quotation_detail_by_id($id);
 		$data['Termin'] = $this->M_Quotation->Get_quotation_termin_by_id($id);
 
-		$this->load->view('layouts/header_pdf', $data);
-		$this->load->view('pages/Quotation/print_pdf', $data);
-		$this->load->view('layouts/footer_pdf', $data);
+		$data['title'] = "Quotation";
+		$file_pdf = $data['title'];
+		$paper = 'A4';
+		$orientation = "potrait";
+		$html = $this->load->view('pages/Quotation/print_pdf', $data, true);
+		$this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
 	}
 
 	public function Get_quotation_by_filter()

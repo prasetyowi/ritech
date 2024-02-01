@@ -141,13 +141,22 @@ class SuratJalan extends CI_Controller
 		// $this->load->view('layouts/footer', $query);
 		// $this->load->view('pages/Quotation/script', $data);
 
+		$this->load->library('pdfgenerator');
+
 		$id = $this->input->get('id');
 
 		$data['Header'] = $this->M_Pembelian->Get_cetak_invoice_pembelian_header_by_id($id);
 		$data['Detail'] = $this->M_Pembelian->Get_pembelian_detail_by_id($id);
 
-		$this->load->view('layouts/header_pdf', $data);
-		$this->load->view('pages/SuratJalan/print_pdf', $data);
-		$this->load->view('layouts/footer_pdf', $data);
+		// $this->load->view('layouts/header_pdf', $data);
+		// $this->load->view('pages/SuratJalan/print_pdf', $data);
+		// $this->load->view('layouts/footer_pdf', $data);
+
+		$data['title'] = "Surat Jalan";
+		$file_pdf = $data['title'];
+		$paper = 'A4';
+		$orientation = "potrait";
+		$html = $this->load->view('pages/SuratJalan/print_pdf', $data, true);
+		$this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
 	}
 }

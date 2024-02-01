@@ -164,26 +164,6 @@
                                 </div>
                             </div>
                             <div class="ln_solid"></div>
-                            <div class="form-group row ">
-                                <button class="btn btn-primary" id="btn_modal_pilih_barang"><i class="fa fa-search"></i> Pilih Barang</button>
-                                <div class="table-responsive">
-                                    <table class="table table-striped jambo_table" id="table-pembelian-detail" style="width:100%">
-                                        <thead>
-                                            <tr class=" headings">
-                                                <th>#</th>
-                                                <th class="column-title">Nama Barang </th>
-                                                <th class="column-title">Qty </th>
-                                                <th class="column-title">Unit </th>
-                                                <th class="column-title">Remarks </th>
-                                                <th class="column-title no-link last"><span class="nobr">Action</span></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="ln_solid"></div>
                             <div class="form-group">
                                 <a href="<?= base_url() ?>pembelian" class="btn btn-primary"><i class="fa fa-home"></i> Home</a>
                                 <button class="btn btn-success" id="btn_simpan_pembelian"><i class="fa fa-save"></i> Simpan</button>

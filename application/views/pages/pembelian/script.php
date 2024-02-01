@@ -10,7 +10,7 @@
                     'barang_id': "<?= $value['barang_id'] ?>",
                     'barang_nama': "<?= $value['barang_nama'] ?>",
                     'unit': "<?= $value['unit'] ?>",
-                    'barang_desc': "<?= $value['barang_desc'] ?>",
+                    'barang_desc': "",
                     'harga_satuan': "<?= $value['harga_satuan'] ?>",
                     'remarks': "<?= $value['remarks'] ?>",
                     'qty': <?= $value['qty'] ?>
@@ -40,7 +40,7 @@
                 var barang_id = this.getAttribute('data-barang_id');
                 var barang_nama = this.getAttribute('data-barang_nama');
                 var unit = this.getAttribute('data-unit');
-                var barang_desc = this.getAttribute('data-barang_desc');
+                var barang_desc = "";
                 var harga_satuan = this.getAttribute('data-harga_satuan');
 
                 arr_list_barang.push({
@@ -181,7 +181,7 @@
                             $("#table-list-barang > tbody").append(`
 								<tr class="even pointer">
                                     <td class="a-center ">
-                                        <input type="checkbox" class="flat" id="item-${i}-barang_id" name="CheckboxBarang" data-barang_id="${v.barang_id}" data-barang_nama="${v.barang_nama}" data-unit="${v.unit}" data-harga_satuan="${v.harga_satuan}" data-barang_desc="${v.barang_desc}" value="${v.barang_id}" onClick="PushArrayBarang('${i}','${v.barang_id}','${v.barang_nama}','${v.unit}','${v.harga_satuan}','${v.barang_desc}')">
+                                        <input type="checkbox" class="flat" id="item-${i}-barang_id" name="CheckboxBarang" data-barang_id="${v.barang_id}" data-barang_nama="${v.barang_nama}" data-unit="${v.unit}" data-harga_satuan="${v.harga_satuan}" data-barang_desc="" value="${v.barang_id}" onClick="PushArrayBarang('${i}','${v.barang_id}','${v.barang_nama}','${v.unit}','${v.harga_satuan}','')">
                                     </td>
                                     <td class=" ">${v.barang_id}</td>
                                     <td class=" ">${v.barang_nama}</td>
@@ -226,7 +226,7 @@
 						    <td class="text-center" style="width:5%;">
 								${i+1}
 								<input type="hidden" class="form-control" id="item-${i}-Pembelian-barang_id" value="${v.barang_id}">
-								<input type="hidden" class="form-control" id="item-${i}-Pembelian-barang_desc" value="${v.barang_desc}">
+								<input type="hidden" class="form-control" id="item-${i}-Pembelian-barang_desc" value="">
 								<input type="hidden" class="form-control" id="item-${i}-Pembelian-harga_satuan" value="${v.harga_satuan}">
 							</td>
 							<td class="text-left" style="width:20%;">
@@ -313,7 +313,7 @@
             'barang_id': $('#item-' + index + '-Pembelian-barang_id').val(),
             'barang_nama': $('#item-' + index + '-Pembelian-barang_nama').text(),
             'unit': $('#item-' + index + '-Pembelian-uniy').text(),
-            'barang_desc': $('#item-' + index + '-Pembelian-barang_desc').val(),
+            'barang_desc': "",
             'harga_satuan': $('#item-' + index + '-Pembelian-harga_satuan').val(),
             'remarks': $('#item-' + index + '-Pembelian-remarks').val(),
             'qty': $('#item-' + index + '-Pembelian-qty').val()

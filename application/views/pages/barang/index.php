@@ -105,7 +105,7 @@
                                     <div class="form-group row">
                                         <label class="control-label col-md-3 col-sm-3 ">Harga Satuan</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="text" class="form-control col-md-10" id="harga" placeholder="ex: 500000">
+                                            <input type="text" class="form-control col-md-10 mask-money" id="harga" placeholder="ex: 500000">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -172,7 +172,7 @@
                                     <div class="form-group row">
                                         <label class="control-label col-md-3 col-sm-3 ">Harga Satuan</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="text" class="form-control col-md-10" id="harga-edit" placeholder="ex: 500000">
+                                            <input type="text" class="form-control col-md-10 mask-money" id="harga-edit" placeholder="ex: 500000">
                                         </div>
                                     </div>
                                     <div class="form-group row">
