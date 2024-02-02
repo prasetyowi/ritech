@@ -330,9 +330,10 @@ class Pembelian extends CI_Controller
 		$token = $this->input->post('token_foto');
 
 		$cek_foto = $this->db->query("select * from pembelian_attachment where pembelian_id = '$pembelian_id'");
-
-		if (file_exists($file = FCPATH . '/assets/upload/pembelian/' . $cek_foto->row(0)->attachment)) {
-			unlink($file);
+		if ($cek_foto->num_rows() > 0) {
+			if (file_exists($file = FCPATH . '/assets/upload/pembelian/' . $cek_foto->row(0)->attachment)) {
+				unlink($file);
+			}
 		}
 
 		$config['upload_path']   = FCPATH . '/assets/upload/pembelian/';
