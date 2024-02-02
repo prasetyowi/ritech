@@ -87,6 +87,11 @@
                                 <li><a href="<?= base_url() ?>"><i class="fa fa-home"></i> Dashboard</a></li>
                                 <li><a href="<?= base_url() ?>quotation"><i class="fa fa-edit"></i> Quotation</a></li>
                                 <li><a href="<?= base_url() ?>pembelian"><i class="fa fa-shopping-cart"></i> Pembelian</a></li>
+                                <li><a><i class="fa fa-dollar"></i> Kas <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="<?= base_url() ?>PengeluaranKas">Pengeluaran Kas</a></li>
+                                    </ul>
+                                </li>
                                 <li><a><i class="fa fa-cogs"></i> Setup Master <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="<?= base_url() ?>barang">Barang</a></li>
