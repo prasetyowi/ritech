@@ -26,6 +26,7 @@ class SuratJalan extends CI_Controller
 
 		$this->load->model('M_Quotation');
 		$this->load->model('M_Pembelian');
+		$this->load->model('M_Penjualan');
 	}
 
 	public function index()
@@ -145,8 +146,8 @@ class SuratJalan extends CI_Controller
 
 		$id = $this->input->get('id');
 
-		$data['Header'] = $this->M_Pembelian->Get_cetak_invoice_pembelian_header_by_id($id);
-		$data['Detail'] = $this->M_Pembelian->Get_pembelian_detail_by_id($id);
+		$data['Header'] = $this->M_Penjualan->Get_cetak_invoice_penjualan_header_by_id($id);
+		$data['Detail'] = $this->M_Penjualan->Get_penjualan_detail_by_id($id);
 
 		// $this->load->view('layouts/header_pdf', $data);
 		// $this->load->view('pages/SuratJalan/print_pdf', $data);

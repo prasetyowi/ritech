@@ -25,7 +25,7 @@
                                 <div class="form-group row ">
                                     <label class="control-label col-md-3 col-sm-3 ">Nomor Quotation</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Quotation-quotation_kode" name="Quotation[quotation_kode]" value="<?= $value['quotation_kode'] ?>" disabled>
+                                        <input type="text" class="form-control col-md-10" id="Quotation-quotation_kode" name="Quotation[quotation_kode]" value="<?= $value['quotation_kode'] ?>" maxlength="250" disabled>
                                         <input type="hidden" class="form-control col-md-10" id="Quotation-quotation_id" name="Quotation[quotation_id]" value="<?= $value['quotation_id'] ?>" disabled>
                                         <input type="hidden" class="form-control col-md-10" id="Quotation-updwho" name="Quotation[updwho]" value="<?= $value['updwho'] ?>" disabled>
                                         <input type="hidden" class="form-control col-md-10" id="Quotation-updtgl" name="Quotation[updtgl]" value="<?= $value['updtgl'] ?>" disabled>

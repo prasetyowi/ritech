@@ -50,6 +50,7 @@ class PengeluaranKas extends CI_Controller
         // $query['Title'] = Get_Title_Name();
         // $query['Copyright'] = Get_Copyright_Name();
 
+        $data['Title'] = "Pengeluaran Kas";
         $data['act'] = "index";
 
         // Kebutuhan Authority Menu 
@@ -60,10 +61,10 @@ class PengeluaranKas extends CI_Controller
         // $this->load->view('layouts/footer', $query);
         // $this->load->view('pages/kas/script', $data);
 
-        $this->load->view('layouts/header');
-        $this->load->view('pages/pengeluaran_kas/index');
-        $this->load->view('layouts/footer');
-        $this->load->view('pages/pengeluaran_kas/script');
+        $this->load->view('layouts/header', $data);
+        $this->load->view('pages/pengeluaran_kas/index', $data);
+        $this->load->view('layouts/footer', $data);
+        $this->load->view('pages/pengeluaran_kas/script', $data);
     }
 
     public function create()
@@ -88,7 +89,7 @@ class PengeluaranKas extends CI_Controller
 
         // $data['Ses_UserName'] = $this->session->userdata('pengguna_username');
 
-        $query['Title'] = "Pengeluaran Kas";
+        $data['Title'] = "Pengeluaran Kas";
 
         $data['act'] = "add";
 
@@ -101,9 +102,9 @@ class PengeluaranKas extends CI_Controller
         // Kebutuhan Authority Menu 
         // $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
 
-        $this->load->view('layouts/header', $query);
+        $this->load->view('layouts/header', $data);
         $this->load->view('pages/pengeluaran_kas/create', $data);
-        $this->load->view('layouts/footer', $query);
+        $this->load->view('layouts/footer', $data);
         $this->load->view('pages/pengeluaran_kas/script', $data);
     }
 
@@ -131,7 +132,7 @@ class PengeluaranKas extends CI_Controller
 
         // $data['Ses_UserName'] = $this->session->userdata('pengguna_username');
 
-        $query['Title'] = "Pengeluaran Kas";
+        $data['Title'] = "Pengeluaran Kas";
         // $query['Copyright'] = Get_Copyright_Name();
 
         $data['Header'] = $this->M_PengeluaranKas->Get_pengeluaran_kas_header_by_id($id);
@@ -141,9 +142,9 @@ class PengeluaranKas extends CI_Controller
         // Kebutuhan Authority Menu 
         // $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
 
-        $this->load->view('layouts/header', $query);
+        $this->load->view('layouts/header', $data);
         $this->load->view('pages/pengeluaran_kas/edit', $data);
-        $this->load->view('layouts/footer', $query);
+        $this->load->view('layouts/footer', $data);
         $this->load->view('pages/pengeluaran_kas/script', $data);
     }
 
@@ -170,7 +171,7 @@ class PengeluaranKas extends CI_Controller
 
         // $data['Ses_UserName'] = $this->session->userdata('pengguna_username');
 
-        $query['Title'] = "Pengeluaran Kas";
+        $data['Title'] = "Pengeluaran Kas";
         // $query['Copyright'] = Get_Copyright_Name();
         $data['Header'] = $this->M_PengeluaranKas->Get_pengeluaran_kas_header_by_id($id);
         $data['act'] = "detail";
@@ -178,9 +179,9 @@ class PengeluaranKas extends CI_Controller
         // Kebutuhan Authority Menu 
         // $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
 
-        $this->load->view('layouts/header', $query);
+        $this->load->view('layouts/header', $data);
         $this->load->view('pages/pengeluaran_kas/detail', $data);
-        $this->load->view('layouts/footer', $query);
+        $this->load->view('layouts/footer', $data);
         // $this->load->view('pages/kas/script', $data);
     }
 

@@ -47,13 +47,13 @@
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Deskripsi Pengeluaran</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" name="desc" id="desc" class="form-control col-md-10" placeholder="Deskripsi Pengeluaran" />
+                                    <input type="text" name="desc" id="desc" class="form-control col-md-10" placeholder="Deskripsi Pengeluaran" maxlength="500" />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">No. Rekening</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" name="no_rekening" id="no_rekening" class="form-control col-md-10" placeholder="ex: 91991027663" />
+                                    <input type="text" name="no_rekening" id="no_rekening" class="form-control col-md-10" placeholder="ex: 91991027663" maxlength="250" />
                                 </div>
                             </div>
                             <div class="ln_solid"></div>

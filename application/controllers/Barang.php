@@ -60,23 +60,24 @@ class Barang extends CI_Controller
 
         // $data['Ses_UserName'] = $this->session->userdata('pengguna_username');
 
-        // $query['Title'] = Get_Title_Name();
-        // $query['Copyright'] = Get_Copyright_Name();
+        // $data['Title'] = Get_Title_Name();
+        // $data['Copyright'] = Get_Copyright_Name();
 
+        $data['Title'] = "Barang";
         $data['act'] = "index";
 
         // Kebutuhan Authority Menu 
         // $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
 
-        // $this->load->view('layouts/header', $query);
+        // $this->load->view('layouts/header', $data);
         // $this->load->view('pages/Quotation/index', $data);
-        // $this->load->view('layouts/footer', $query);
+        // $this->load->view('layouts/footer', $data);
         // $this->load->view('pages/Quotation/script', $data);
 
-        $this->load->view('layouts/header');
-        $this->load->view('pages/Barang/index');
-        $this->load->view('layouts/footer');
-        $this->load->view('pages/Barang/script');
+        $this->load->view('layouts/header', $data);
+        $this->load->view('pages/Barang/index', $data);
+        $this->load->view('layouts/footer', $data);
+        $this->load->view('pages/Barang/script', $data);
     }
     public function Get_all_barang()
     {

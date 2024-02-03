@@ -52,6 +52,8 @@ class M_Pembelian extends CI_Model
 									a.periode_penawaran,
 									a.garansi,
 									a.pembelian_no_po,
+									a.pembelian_pic,
+									a.pembelian_oleh,
 									IFNULL(b.attachment, '') AS attachment
 									FROM pembelian a
 									LEFT JOIN pembelian_attachment b
@@ -93,6 +95,8 @@ class M_Pembelian extends CI_Model
 									a.periode_penawaran,
 									a.garansi,
 									a.pembelian_no_po,
+									a.pembelian_pic,
+									a.pembelian_oleh,
 									IFNULL(b.attachment, '') AS attachment
 									FROM pembelian a
 									LEFT JOIN pembelian_attachment b
@@ -265,7 +269,7 @@ class M_Pembelian extends CI_Model
 		return $query;
 	}
 
-	public function insert_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $customer_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po)
+	public function insert_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $customer_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh)
 	{
 		$pembelian_id = $pembelian_id == '' ? null : $pembelian_id;
 		$pembelian_kode = $pembelian_kode == '' ? null : $pembelian_kode;
@@ -281,6 +285,8 @@ class M_Pembelian extends CI_Model
 		$periode_penawaran = $periode_penawaran == '' ? null : $periode_penawaran;
 		$garansi = $garansi == '' ? null : $garansi;
 		$pembelian_no_po = $pembelian_no_po == '' ? null : $pembelian_no_po;
+		$pembelian_pic = $pembelian_pic == '' ? null : $pembelian_pic;
+		$pembelian_oleh = $pembelian_oleh == '' ? null : $pembelian_oleh;
 
 		$this->db->set('pembelian_id', $pembelian_id);
 		$this->db->set('pembelian_kode', $pembelian_kode);
@@ -296,7 +302,8 @@ class M_Pembelian extends CI_Model
 		// $this->db->set('periode_penawaran', $periode_penawaran);
 		$this->db->set('garansi', $garansi);
 		$this->db->set('pembelian_no_po', $pembelian_no_po);
-
+		$this->db->set('pembelian_pic', $pembelian_pic);
+		$this->db->set('pembelian_oleh', $pembelian_oleh);
 
 		$queryinsert = $this->db->insert("pembelian");
 
@@ -304,7 +311,7 @@ class M_Pembelian extends CI_Model
 		// return $this->db->last_query();
 	}
 
-	public function update_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $customer_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po)
+	public function update_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $customer_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh)
 	{
 		$pembelian_id = $pembelian_id == '' ? null : $pembelian_id;
 		$pembelian_kode = $pembelian_kode == '' ? null : $pembelian_kode;
@@ -320,6 +327,8 @@ class M_Pembelian extends CI_Model
 		$periode_penawaran = $periode_penawaran == '' ? null : $periode_penawaran;
 		$garansi = $garansi == '' ? null : $garansi;
 		$pembelian_no_po = $pembelian_no_po == '' ? null : $pembelian_no_po;
+		$pembelian_pic = $pembelian_pic == '' ? null : $pembelian_pic;
+		$pembelian_oleh = $pembelian_oleh == '' ? null : $pembelian_oleh;
 
 		$this->db->set('pembelian_kode', $pembelian_kode);
 		$this->db->set('pembelian_tanggal', $pembelian_tanggal);
@@ -334,6 +343,8 @@ class M_Pembelian extends CI_Model
 		// $this->db->set('periode_penawaran', $periode_penawaran);
 		$this->db->set('garansi', $garansi);
 		$this->db->set('pembelian_no_po', $pembelian_no_po);
+		$this->db->set('pembelian_pic', $pembelian_pic);
+		$this->db->set('pembelian_oleh', $pembelian_oleh);
 
 		$this->db->where('pembelian_id', $pembelian_id);
 

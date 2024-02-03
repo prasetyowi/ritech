@@ -118,27 +118,27 @@
                                     <tr>
                                         <td style="text-align: left;width:20%;">No. Invoice</td>
                                         <td width="1%">:</td>
-                                        <td><?= $value['pembelian_kode'] ?></td>
+                                        <td><?= $value['penjualan_kode'] ?></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: left;width:20%;">Tanggal Invoice</td>
                                         <td>:</td>
-                                        <td><?= $value['pembelian_tanggal'] ?></td>
+                                        <td><?= $value['penjualan_tanggal'] ?></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: left;width:20%;">No. PO</td>
                                         <td>:</td>
-                                        <td><?= $value['pembelian_no_po'] ?></td>
+                                        <td><?= $value['penjualan_no_po'] ?></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: left;width:20%;">Tanggal faktur PPn</td>
                                         <td>:</td>
-                                        <td><?= $value['pembelian_tanggal'] ?></td>
+                                        <td><?= $value['penjualan_tanggal'] ?></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: left;width:20%;">No. Faktur PPn</td>
                                         <td>:</td>
-                                        <td><?= $value['pembelian_no_po'] ?></td>
+                                        <td><?= $value['penjualan_no_po'] ?></td>
                                     </tr>
                                 </table>
                             <?php endforeach; ?>

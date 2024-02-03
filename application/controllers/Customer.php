@@ -63,6 +63,7 @@ class Customer extends CI_Controller
         // $query['Title'] = Get_Title_Name();
         // $query['Copyright'] = Get_Copyright_Name();
 
+        $data['Title'] = "Pelanggan";
         $data['act'] = "index";
 
         // Kebutuhan Authority Menu 
@@ -73,10 +74,10 @@ class Customer extends CI_Controller
         // $this->load->view('layouts/footer', $query);
         // $this->load->view('pages/Quotation/script', $data);
 
-        $this->load->view('layouts/header');
-        $this->load->view('pages/Customer/index');
-        $this->load->view('layouts/footer');
-        $this->load->view('pages/Customer/script');
+        $this->load->view('layouts/header', $data);
+        $this->load->view('pages/Customer/index', $data);
+        $this->load->view('layouts/footer', $data);
+        $this->load->view('pages/Customer/script', $data);
     }
 
     public function Get_all_customer()

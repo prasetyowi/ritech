@@ -92,7 +92,7 @@
                                             <td></td>
                                             <td style=" text-align:right;width:20%;"><b>No. SJ/DO</b></td>
                                             <td style="text-align:center;width:5%;">:</td>
-                                            <td style="text-align: left;width:20%;"><?= $value['pembelian_kode']; ?></td>
+                                            <td style="text-align: left;width:20%;"><?= $value['penjualan_kode']; ?></td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: left;width:50%;"><?= $value['customer_nama']; ?></td>
@@ -101,7 +101,7 @@
                                             <td></td>
                                             <td style="text-align:right;width:20%;"><b>Tanggal SJ/DO</b></td>
                                             <td style="text-align:center;width:5%;">:</td>
-                                            <td style="text-align: left;width:25%;"><?= $value['pembelian_tanggal']; ?></td>
+                                            <td style="text-align: left;width:25%;"><?= $value['penjualan_tanggal']; ?></td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: left;width:50%;">
@@ -111,7 +111,7 @@
                                             <td></td>
                                             <td style="text-align:right;width:20%;"><b>No. PO</b></td>
                                             <td style="text-align:center;width:5%;">:</td>
-                                            <td style="text-align: left;width:25%;"><?= $value['pembelian_no_po'] ?></td>
+                                            <td style="text-align: left;width:25%;"><?= $value['penjualan_no_po'] ?></td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: left;width:50%;">
@@ -122,7 +122,7 @@
                                             <td></td>
                                             <td style="text-align:right;width:20%;"><b>PIC</b></td>
                                             <td style="text-align:center;width:5%;">:</td>
-                                            <td style="text-align: left;width:25%;"></td>
+                                            <td style="text-align: left;width:25%;"><?= $value['penjualan_pic']; ?></td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: left;width:50%;"></td>
@@ -131,7 +131,7 @@
                                             <td></td>
                                             <td style="text-align:right;width:20%;"><b>Oleh</b></td>
                                             <td style="text-align:center;width:5%;">:</td>
-                                            <td style="text-align: left;width:25%;"></td>
+                                            <td style="text-align: left;width:25%;"><?= $value['penjualan_oleh']; ?></td>
                                         </tr>
                                     </table>
                                 <?php endforeach; ?>

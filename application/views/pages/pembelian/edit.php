@@ -40,7 +40,7 @@
                                 <div class="form-group row ">
                                     <label class="control-label col-md-3 col-sm-3 ">Nomor Purchase Order</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_no_po" name="Pembelian[pembelian_no_po]" value="<?= $value['pembelian_no_po'] ?>" required>
+                                        <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_no_po" name="Pembelian[pembelian_no_po]" value="<?= $value['pembelian_no_po'] ?>" maxlength="250" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -78,6 +78,18 @@
                                     <label class="control-label col-md-3 col-sm-3 ">Kodepos</label>
                                     <div class="col-md-9 col-sm-9 ">
                                         <input type="text" class="form-control col-md-10" id="Pembelian-customer_kode_pos" name="Pembelian[customer_kode_pos]" value="<?= $value['customer_kode_pos'] ?>" disabled />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3 ">PIC</label>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_pic" name="Pembelian[pembelian_pic]" value="<?= $value['pembelian_pic'] ?>" maxlength="250" required />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3 ">Oleh</label>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_oleh" name="Pembelian[pembelian_oleh]" value="<?= $value['pembelian_oleh'] ?>" maxlength="250" required />
                                     </div>
                                 </div>
                                 <!-- <div class="form-group row">

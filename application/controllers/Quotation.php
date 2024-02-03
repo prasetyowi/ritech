@@ -49,6 +49,7 @@ class Quotation extends CI_Controller
 		// $query['Title'] = Get_Title_Name();
 		// $query['Copyright'] = Get_Copyright_Name();
 
+		$data['Title'] = "Quotation";
 		$data['act'] = "index";
 
 		// Kebutuhan Authority Menu 
@@ -59,10 +60,10 @@ class Quotation extends CI_Controller
 		// $this->load->view('layouts/footer', $query);
 		// $this->load->view('pages/Quotation/script', $data);
 
-		$this->load->view('layouts/header');
-		$this->load->view('pages/Quotation/index');
-		$this->load->view('layouts/footer');
-		$this->load->view('pages/Quotation/script');
+		$this->load->view('layouts/header', $data);
+		$this->load->view('pages/Quotation/index', $data);
+		$this->load->view('layouts/footer', $data);
+		$this->load->view('pages/Quotation/script', $data);
 	}
 
 	public function create()
@@ -87,16 +88,15 @@ class Quotation extends CI_Controller
 
 		// $data['Ses_UserName'] = $this->session->userdata('pengguna_username');
 
-		$query['Title'] = "Quotation";
-
+		$data['Title'] = "Quotation";
 		$data['act'] = "add";
 
 		// Kebutuhan Authority Menu 
 		// $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
 
-		$this->load->view('layouts/header', $query);
+		$this->load->view('layouts/header', $data);
 		$this->load->view('pages/Quotation/create', $data);
-		$this->load->view('layouts/footer', $query);
+		$this->load->view('layouts/footer', $data);
 		$this->load->view('pages/Quotation/script', $data);
 	}
 
@@ -124,7 +124,7 @@ class Quotation extends CI_Controller
 
 		// $data['Ses_UserName'] = $this->session->userdata('pengguna_username');
 
-		$query['Title'] = "Quotation";
+		$data['Title'] = "Quotation";
 		// $query['Copyright'] = Get_Copyright_Name();
 
 		$data['Header'] = $this->M_Quotation->Get_quotation_header_by_id($id);
@@ -136,9 +136,9 @@ class Quotation extends CI_Controller
 		// Kebutuhan Authority Menu 
 		// $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
 
-		$this->load->view('layouts/header', $query);
+		$this->load->view('layouts/header', $data);
 		$this->load->view('pages/Quotation/edit', $data);
-		$this->load->view('layouts/footer', $query);
+		$this->load->view('layouts/footer', $data);
 		$this->load->view('pages/Quotation/script', $data);
 	}
 
@@ -165,8 +165,9 @@ class Quotation extends CI_Controller
 
 		// $data['Ses_UserName'] = $this->session->userdata('pengguna_username');
 
-		$query['Title'] = "Quotation";
+		$data['Title'] = "Quotation";
 		// $query['Copyright'] = Get_Copyright_Name();
+
 		$data['Header'] = $this->M_Quotation->Get_quotation_header_by_id($id);
 		$data['Detail'] = $this->M_Quotation->Get_quotation_detail_by_id($id);
 		$data['Termin'] = $this->M_Quotation->Get_quotation_termin_by_id($id);
@@ -175,9 +176,9 @@ class Quotation extends CI_Controller
 		// Kebutuhan Authority Menu 
 		// $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
 
-		$this->load->view('layouts/header', $query);
+		$this->load->view('layouts/header', $data);
 		$this->load->view('pages/Quotation/detail', $data);
-		$this->load->view('layouts/footer', $query);
+		$this->load->view('layouts/footer', $data);
 		// $this->load->view('pages/Quotation/script', $data);
 	}
 

@@ -1,6 +1,6 @@
 <?php
 
-class Pembelian extends CI_Controller
+class Penjualan extends CI_Controller
 {
 
 	/**
@@ -23,7 +23,7 @@ class Pembelian extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('M_Pembelian');
+		$this->load->model('M_Penjualan');
 		$this->load->model('M_Vrbl');
 		$this->load->helper(array('url', 'file'));
 	}
@@ -50,21 +50,21 @@ class Pembelian extends CI_Controller
 		// $query['Title'] = Get_Title_Name();
 		// $query['Copyright'] = Get_Copyright_Name();
 
-		$data['Title'] = "Pembelian";
+		$data['Title'] = "Penjualan";
 		$data['act'] = "index";
 
 		// Kebutuhan Authority Menu 
 		// $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
 
 		// $this->load->view('layouts/header', $query);
-		// $this->load->view('pages/pembelian/index', $data);
+		// $this->load->view('pages/penjualan/index', $data);
 		// $this->load->view('layouts/footer', $query);
-		// $this->load->view('pages/pembelian/script', $data);
+		// $this->load->view('pages/penjualan/script', $data);
 
 		$this->load->view('layouts/header', $data);
-		$this->load->view('pages/pembelian/index', $data);
+		$this->load->view('pages/penjualan/index', $data);
 		$this->load->view('layouts/footer', $data);
-		$this->load->view('pages/pembelian/script', $data);
+		$this->load->view('pages/penjualan/script', $data);
 	}
 
 	public function create()
@@ -89,22 +89,22 @@ class Pembelian extends CI_Controller
 
 		// $data['Ses_UserName'] = $this->session->userdata('pengguna_username');
 
-		$data['Title'] = "Pembelian";
+		$data['Title'] = "Penjualan";
 		$data['act'] = "add";
 
-		$table = "pembelian";
-		$column = "pembelian_id";
-		$kode = "PMB" . date('ymd');
+		$table = "penjualan";
+		$column = "penjualan_id";
+		$kode = "PNJ" . date('ymd');
 
-		$data['pembelian_id'] = $this->M_Vrbl->Generate_kode($table, $column, $kode);
+		$data['penjualan_id'] = $this->M_Vrbl->Generate_kode($table, $column, $kode);
 
 		// Kebutuhan Authority Menu 
 		// $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
 
 		$this->load->view('layouts/header', $data);
-		$this->load->view('pages/pembelian/create', $data);
+		$this->load->view('pages/penjualan/create', $data);
 		$this->load->view('layouts/footer', $data);
-		$this->load->view('pages/pembelian/script', $data);
+		$this->load->view('pages/penjualan/script', $data);
 	}
 
 	public function edit()
@@ -131,12 +131,12 @@ class Pembelian extends CI_Controller
 
 		// $data['Ses_UserName'] = $this->session->userdata('pengguna_username');
 
-		$data['Title'] = "Pembelian";
+		$data['Title'] = "Penjualan";
 		// $query['Copyright'] = Get_Copyright_Name();
 
-		$data['Header'] = $this->M_Pembelian->Get_pembelian_header_by_id($id);
-		$data['Detail'] = $this->M_Pembelian->Get_pembelian_detail_by_id($id);
-		$data['Termin'] = $this->M_Pembelian->Get_pembelian_termin_by_id($id);
+		$data['Header'] = $this->M_Penjualan->Get_penjualan_header_by_id($id);
+		$data['Detail'] = $this->M_Penjualan->Get_penjualan_detail_by_id($id);
+		$data['Termin'] = $this->M_Penjualan->Get_penjualan_termin_by_id($id);
 
 		$data['act'] = "edit";
 
@@ -144,9 +144,9 @@ class Pembelian extends CI_Controller
 		// $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
 
 		$this->load->view('layouts/header', $data);
-		$this->load->view('pages/pembelian/edit', $data);
+		$this->load->view('pages/penjualan/edit', $data);
 		$this->load->view('layouts/footer', $data);
-		$this->load->view('pages/pembelian/script', $data);
+		$this->load->view('pages/penjualan/script', $data);
 	}
 
 	public function detail()
@@ -172,59 +172,59 @@ class Pembelian extends CI_Controller
 
 		// $data['Ses_UserName'] = $this->session->userdata('pengguna_username');
 
-		$data['Title'] = "Pembelian";
+		$data['Title'] = "Penjualan";
 		// $query['Copyright'] = Get_Copyright_Name();
-		$data['Header'] = $this->M_Pembelian->Get_pembelian_header_by_id($id);
-		$data['Detail'] = $this->M_Pembelian->Get_pembelian_detail_by_id($id);
-		$data['Termin'] = $this->M_Pembelian->Get_pembelian_termin_by_id($id);
+		$data['Header'] = $this->M_Penjualan->Get_penjualan_header_by_id($id);
+		$data['Detail'] = $this->M_Penjualan->Get_penjualan_detail_by_id($id);
+		$data['Termin'] = $this->M_Penjualan->Get_penjualan_termin_by_id($id);
 		$data['act'] = "detail";
 
 		// Kebutuhan Authority Menu 
 		// $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
 
 		$this->load->view('layouts/header', $data);
-		$this->load->view('pages/pembelian/detail', $data);
+		$this->load->view('pages/penjualan/detail', $data);
 		$this->load->view('layouts/footer', $data);
-		// $this->load->view('pages/pembelian/script', $data);
+		// $this->load->view('pages/penjualan/script', $data);
 	}
 
-	public function Get_pembelian_by_filter()
+	public function Get_penjualan_by_filter()
 	{
 		$tgl = explode(" - ", $this->input->post('tgl'));
 		$tgl1 = date('Y-m-d', strtotime(str_replace("/", "-", $tgl[0])));
 		$tgl2 = date('Y-m-d', strtotime(str_replace("/", "-", $tgl[1])));
-		$pembelian_id = $this->input->post('pembelian_id');
+		$penjualan_id = $this->input->post('penjualan_id');
 		$customer = $this->input->post('customer');
 		$status = $this->input->post('status');
 
-		$data = $this->M_Pembelian->Get_pembelian_by_filter($tgl1, $tgl2, $pembelian_id, $customer, $status);
+		$data = $this->M_Penjualan->Get_penjualan_by_filter($tgl1, $tgl2, $penjualan_id, $customer, $status);
 
 		echo json_encode($data);
 	}
 
-	public function insert_pembelian()
+	public function insert_penjualan()
 	{
-		$pembelian_id = str_replace("'", "", $this->input->post('pembelian_id'));
-		$pembelian_kode = str_replace("'", "", $this->input->post('pembelian_kode'));
-		$pembelian_tanggal = $this->input->post('pembelian_tanggal');
+		$penjualan_id = str_replace("'", "", $this->input->post('penjualan_id'));
+		$penjualan_kode = str_replace("'", "", $this->input->post('penjualan_kode'));
+		$penjualan_tanggal = $this->input->post('penjualan_tanggal');
 		$customer_id = $this->input->post('customer_id');
-		$pembelian_keterangan = str_replace("'", "", $this->input->post('pembelian_keterangan'));
-		$pembelian_jumlah = $this->input->post('pembelian_jumlah');
-		$pembelian_status = $this->input->post('pembelian_status');
+		$penjualan_keterangan = str_replace("'", "", $this->input->post('penjualan_keterangan'));
+		$penjualan_jumlah = $this->input->post('penjualan_jumlah');
+		$penjualan_status = $this->input->post('penjualan_status');
 		$updwho = $this->input->post('updwho');
 		$updtgl = $this->input->post('updtgl');
-		$pembelian_waktu_pengiriman = $this->input->post('pembelian_waktu_pengiriman');
-		$pembelian_waktu_pengerjaan = $this->input->post('pembelian_waktu_pengerjaan');
+		$penjualan_waktu_pengiriman = $this->input->post('penjualan_waktu_pengiriman');
+		$penjualan_waktu_pengerjaan = $this->input->post('penjualan_waktu_pengerjaan');
 		$periode_penawaran = $this->input->post('periode_penawaran');
 		$garansi = $this->input->post('garansi');
-		$pembelian_no_po = $this->input->post('pembelian_no_po');
-		$pembelian_pic = $this->input->post('pembelian_pic');
-		$pembelian_oleh = $this->input->post('pembelian_oleh');
+		$penjualan_no_po = $this->input->post('penjualan_no_po');
+		$penjualan_pic = $this->input->post('penjualan_pic');
+		$penjualan_oleh = $this->input->post('penjualan_oleh');
 
 		$detail = $this->input->post('detail');
 		$detail2 = $this->input->post('detail2');
 
-		$cek_data = $this->M_Pembelian->cek_pembelian_duplicate($pembelian_kode);
+		$cek_data = $this->M_Penjualan->cek_penjualan_duplicate($penjualan_kode);
 
 		if ($cek_data > 0) {
 			echo json_encode(array("status" => 2, "data" => ""));
@@ -233,27 +233,27 @@ class Pembelian extends CI_Controller
 
 		$this->db->trans_begin();
 
-		$this->M_Pembelian->insert_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $customer_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh);
+		$this->M_Penjualan->insert_penjualan($penjualan_id, $penjualan_kode, $penjualan_tanggal, $customer_id, $penjualan_keterangan, $penjualan_jumlah, $penjualan_status, $updwho, $updtgl, $penjualan_waktu_pengiriman, $penjualan_waktu_pengerjaan, $periode_penawaran, $garansi, $penjualan_no_po, $penjualan_pic, $penjualan_oleh);
 
 		foreach ($detail as $key => $value) {
-			// $pembelian_id = $value['pembelian_id'];
-			$pembelian_no_item = $key + 1;
+			// $penjualan_id = $value['penjualan_id'];
+			$penjualan_no_item = $key + 1;
 			$barang_id = $value['barang_id'];
 			$qty = $value['qty'];
 			$harga_satuan = $value['harga_satuan'];
-			$pembelian_total = $qty * $harga_satuan;
+			$penjualan_total = $qty * $harga_satuan;
 			$remarks = $value['remarks'];
 
-			$this->M_Pembelian->insert_pembelian_detail($pembelian_id, $pembelian_no_item, $barang_id, $qty, $harga_satuan, $pembelian_total, $remarks);
+			$this->M_Penjualan->insert_penjualan_detail($penjualan_id, $penjualan_no_item, $barang_id, $qty, $harga_satuan, $penjualan_total, $remarks);
 		}
 
 		foreach ($detail2 as $key => $value) {
-			// $pembelian_id = $value['pembelian_id'];
-			$pembelian_termin_no_item = $key + 1;
+			// $penjualan_id = $value['penjualan_id'];
+			$penjualan_termin_no_item = $key + 1;
 			$keterangan = $value['keterangan'];
 			$termin_pembayaran = $value['termin_pembayaran'];
 
-			$this->M_Pembelian->insert_pembelian_termin($pembelian_id, $pembelian_termin_no_item, $keterangan, $termin_pembayaran);
+			$this->M_Penjualan->insert_penjualan_termin($penjualan_id, $penjualan_termin_no_item, $keterangan, $termin_pembayaran);
 		}
 
 
@@ -266,55 +266,55 @@ class Pembelian extends CI_Controller
 		}
 	}
 
-	public function update_pembelian()
+	public function update_penjualan()
 	{
-		$pembelian_id = $this->input->post('pembelian_id');
-		$pembelian_kode = str_replace("'", "", $this->input->post('pembelian_kode'));
-		$pembelian_tanggal = $this->input->post('pembelian_tanggal');
+		$penjualan_id = $this->input->post('penjualan_id');
+		$penjualan_kode = str_replace("'", "", $this->input->post('penjualan_kode'));
+		$penjualan_tanggal = $this->input->post('penjualan_tanggal');
 		$customer_id = $this->input->post('customer_id');
-		$pembelian_keterangan = str_replace("'", "", $this->input->post('pembelian_keterangan'));
-		$pembelian_jumlah = $this->input->post('pembelian_jumlah');
-		$pembelian_status = $this->input->post('pembelian_status');
+		$penjualan_keterangan = str_replace("'", "", $this->input->post('penjualan_keterangan'));
+		$penjualan_jumlah = $this->input->post('penjualan_jumlah');
+		$penjualan_status = $this->input->post('penjualan_status');
 		$updwho = $this->input->post('updwho');
 		$updtgl = $this->input->post('updtgl');
-		$pembelian_waktu_pengiriman = $this->input->post('pembelian_waktu_pengiriman');
-		$pembelian_waktu_pengerjaan = $this->input->post('pembelian_waktu_pengerjaan');
+		$penjualan_waktu_pengiriman = $this->input->post('penjualan_waktu_pengiriman');
+		$penjualan_waktu_pengerjaan = $this->input->post('penjualan_waktu_pengerjaan');
 		$periode_penawaran = $this->input->post('periode_penawaran');
 		$garansi = $this->input->post('garansi');
-		$pembelian_no_po = $this->input->post('pembelian_no_po');
-		$pembelian_pic = $this->input->post('pembelian_pic');
-		$pembelian_oleh = $this->input->post('pembelian_oleh');
+		$penjualan_no_po = $this->input->post('penjualan_no_po');
+		$penjualan_pic = $this->input->post('penjualan_pic');
+		$penjualan_oleh = $this->input->post('penjualan_oleh');
 
 		$detail = $this->input->post('detail');
 		$detail2 = $this->input->post('detail2');
 
 		$this->db->trans_begin();
 
-		$this->M_Pembelian->update_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $customer_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh);
+		$this->M_Penjualan->update_penjualan($penjualan_id, $penjualan_kode, $penjualan_tanggal, $customer_id, $penjualan_keterangan, $penjualan_jumlah, $penjualan_status, $updwho, $updtgl, $penjualan_waktu_pengiriman, $penjualan_waktu_pengerjaan, $periode_penawaran, $garansi, $penjualan_no_po, $penjualan_pic, $penjualan_oleh);
 
-		$this->M_Pembelian->delete_pembelian_detail($pembelian_id);
+		$this->M_Penjualan->delete_penjualan_detail($penjualan_id);
 
 		foreach ($detail as $key => $value) {
-			// $pembelian_id = $value['pembelian_id'];
-			$pembelian_no_item = $key + 1;
+			// $penjualan_id = $value['penjualan_id'];
+			$penjualan_no_item = $key + 1;
 			$barang_id = $value['barang_id'];
 			$qty = $value['qty'];
 			$harga_satuan = $value['harga_satuan'];
-			$pembelian_total = $qty * $harga_satuan;
+			$penjualan_total = $qty * $harga_satuan;
 			$remarks = $value['remarks'];
 
-			$this->M_Pembelian->insert_pembelian_detail($pembelian_id, $pembelian_no_item, $barang_id, $qty, $harga_satuan, $pembelian_total, $remarks);
+			$this->M_Penjualan->insert_penjualan_detail($penjualan_id, $penjualan_no_item, $barang_id, $qty, $harga_satuan, $penjualan_total, $remarks);
 		}
 
-		$this->M_Pembelian->delete_pembelian_termin($pembelian_id);
+		$this->M_Penjualan->delete_penjualan_termin($penjualan_id);
 
 		foreach ($detail2 as $key => $value) {
-			// $pembelian_id = $value['pembelian_id'];
-			$pembelian_termin_no_item = $key + 1;
+			// $penjualan_id = $value['penjualan_id'];
+			$penjualan_termin_no_item = $key + 1;
 			$keterangan = $value['keterangan'];
 			$termin_pembayaran = $value['termin_pembayaran'];
 
-			$this->M_Pembelian->insert_pembelian_termin($pembelian_id, $pembelian_termin_no_item, $keterangan, $termin_pembayaran);
+			$this->M_Penjualan->insert_penjualan_termin($penjualan_id, $penjualan_termin_no_item, $keterangan, $termin_pembayaran);
 		}
 
 
@@ -330,17 +330,17 @@ class Pembelian extends CI_Controller
 	//Untuk proses upload foto
 	function proses_upload()
 	{
-		$pembelian_id = $this->input->post('pembelian_id');
+		$penjualan_id = $this->input->post('penjualan_id');
 		$token = $this->input->post('token_foto');
 
-		$cek_foto = $this->db->query("select * from pembelian_attachment where pembelian_id = '$pembelian_id'");
+		$cek_foto = $this->db->query("select * from penjualan_attachment where penjualan_id = '$penjualan_id'");
 		if ($cek_foto->num_rows() > 0) {
-			if (file_exists($file = FCPATH . '/assets/upload/pembelian/' . $cek_foto->row(0)->attachment)) {
+			if (file_exists($file = FCPATH . '/assets/upload/penjualan/' . $cek_foto->row(0)->attachment)) {
 				unlink($file);
 			}
 		}
 
-		$config['upload_path']   = FCPATH . '/assets/upload/pembelian/';
+		$config['upload_path']   = FCPATH . '/assets/upload/penjualan/';
 		$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|xlsx|doc|docx|csv|tsv|ppt|pptx';
 		$config['max_size'] = 2048;
 		$config['overwrite'] = true;
@@ -353,17 +353,17 @@ class Pembelian extends CI_Controller
 			$nama = $this->upload->data('file_name');
 
 			if ($cek_foto->num_rows() == 0) {
-				$this->db->set('pembelian_id', $pembelian_id);
+				$this->db->set('penjualan_id', $penjualan_id);
 				$this->db->set('attachment', $nama);
 				$this->db->set('token', $token);
 
-				$this->db->insert('pembelian_attachment');
+				$this->db->insert('penjualan_attachment');
 			} else {
 				$this->db->set('attachment', $nama);
 				$this->db->set('token', $token);
-				$this->db->where('pembelian_id', $pembelian_id);
+				$this->db->where('penjualan_id', $penjualan_id);
 
-				$this->db->update('pembelian_attachment');
+				$this->db->update('penjualan_attachment');
 			}
 		}
 	}
@@ -375,15 +375,15 @@ class Pembelian extends CI_Controller
 
 		//Ambil token foto
 		$token = $this->input->post('token');
-		$foto = $this->db->get_where('pembelian_attachment', array('token' => $token));
+		$foto = $this->db->get_where('penjualan_attachment', array('token' => $token));
 
 		if ($foto->num_rows() > 0) {
 			$hasil = $foto->row();
 			$nama_foto = $hasil->attachment;
-			if (file_exists($file = FCPATH . '/assets/upload/pembelian/' . $nama_foto)) {
+			if (file_exists($file = FCPATH . '/assets/upload/penjualan/' . $nama_foto)) {
 				unlink($file);
 			}
-			$this->db->delete('pembelian_attachment', array('token' => $token));
+			$this->db->delete('penjualan_attachment', array('token' => $token));
 		}
 
 

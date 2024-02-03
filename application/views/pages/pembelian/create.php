@@ -24,7 +24,7 @@
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Nomor Pembelian</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_kode" name="Pembelian[pembelian_kode]" value="" required>
+                                    <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_kode" name="Pembelian[pembelian_kode]" value="" maxlength="250" required>
                                     <input type="hidden" class="form-control col-md-10" id="Pembelian-pembelian_id" name="Pembelian[pembelian_id]" value="<?= $pembelian_id; ?>" required>
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Nomor Purchase Order</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_no_po" name="Pembelian[pembelian_no_po]" value="" required>
+                                    <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_no_po" name="Pembelian[pembelian_no_po]" value="" maxlength="250" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -75,6 +75,18 @@
                                 <label class="control-label col-md-3 col-sm-3 ">Kodepos</label>
                                 <div class="col-md-9 col-sm-9 ">
                                     <input type="text" class="form-control col-md-10" id="Pembelian-customer_kode_pos" name="Pembelian[customer_kode_pos]" value="" disabled />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">PIC</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_pic" name="Pembelian[pembelian_pic]" value="" maxlength="250" required />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Oleh</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_oleh" name="Pembelian[pembelian_oleh]" value="" maxlength="250" required />
                                 </div>
                             </div>
                             <!-- <div class="form-group row">

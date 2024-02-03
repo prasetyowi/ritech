@@ -3,7 +3,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Quotation</h3>
+                <h3>Penjualan</h3>
             </div>
         </div>
 
@@ -22,100 +22,113 @@
                         <div class="form-horizontal form-label-left">
 
                             <div class="form-group row ">
-                                <label class="control-label col-md-3 col-sm-3 ">Nomor Quotation</label>
+                                <label class="control-label col-md-3 col-sm-3 ">Nomor Penjualan</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Quotation-quotation_kode" name="Quotation[quotation_kode]" value="" maxlength="250" required>
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_kode" name="Penjualan[penjualan_kode]" value="" maxlength="250" required>
+                                    <input type="hidden" class="form-control col-md-10" id="Penjualan-penjualan_id" name="Penjualan[penjualan_id]" value="<?= $penjualan_id; ?>" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-md-3 col-sm-3 ">Tanggal Quotation</label>
+                                <label class="control-label col-md-3 col-sm-3 ">Tanggal Penjualan</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="date" class="form-control col-md-10" id="Quotation-quotation_tanggal" name="Quotation[quotation_tanggal]" value="<?= date('Y-m-d') ?>" required>
+                                    <input type="date" class="form-control col-md-10" id="Penjualan-penjualan_tanggal" name="Penjualan[penjualan_tanggal]" value="<?= date('Y-m-d') ?>" required>
+                                </div>
+                            </div>
+                            <div class="form-group row ">
+                                <label class="control-label col-md-3 col-sm-3 ">Nomor Purchase Order</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_no_po" name="Penjualan[penjualan_no_po]" value="" maxlength="250" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Pelanggan</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Quotation-customer_nama" name="Quotation[customer_nama]" value="" required />
-                                    <input type="hidden" class="form-control col-md-10" id="Quotation-customer_id" name="Quotation[customer_id]" value="" required />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-md-3 col-sm-3 ">Alamat</label>
-                                <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Quotation-customer_alamat" name="Quotation[customer_alamat]" value="" disabled />
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-customer_nama" name="Penjualan[customer_nama]" value="" required />
+                                    <input type="hidden" class="form-control col-md-10" id="Penjualan-customer_id" name="Penjualan[customer_id]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Kelurahan</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Quotation-customer_kelurahan" name="Quotation[customer_kelurahan]" value="" disabled />
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-customer_kelurahan" name="Penjualan[customer_kelurahan]" value="" disabled />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Kecamatan</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Quotation-customer_kecamatan" name="Quotation[customer_kecamatan]" value="" disabled />
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-customer_kecamatan" name="Penjualan[customer_kecamatan]" value="" disabled />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Kota</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Quotation-customer_kota" name="Quotation[customer_kota]" value="" disabled />
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-customer_kota" name="Penjualan[customer_kota]" value="" disabled />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Provinsi</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Quotation-customer_provinsi" name="Quotation[customer_provinsi]" value="" disabled />
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-customer_provinsi" name="Penjualan[customer_provinsi]" value="" disabled />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Kodepos</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Quotation-customer_kode_pos" name="Quotation[customer_kode_pos]" value="" disabled />
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-customer_kode_pos" name="Penjualan[customer_kode_pos]" value="" disabled />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">PIC</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_pic" name="Penjualan[penjualan_pic]" value="" maxlength="250" required />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Oleh</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_oleh" name="Penjualan[penjualan_oleh]" value="" maxlength="250" required />
                                 </div>
                             </div>
                             <!-- <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Jumlah Material</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Quotation-jumlah" name="Quotation[jumlah]" value="" required />
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-jumlah" name="Penjualan[jumlah]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Waktu Pengiriman (Hari)</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Quotation-quotation_waktu_pengiriman" name="Quotation[quotation_waktu_pengiriman]" value="" required />
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_waktu_pengiriman" name="Penjualan[penjualan_waktu_pengiriman]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Waktu Pengerjaan (Hari)</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Quotation-quotation_waktu_pengerjaan" name="Quotation[quotation_waktu_pengerjaan]" value="" required />
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_waktu_pengerjaan" name="Penjualan[penjualan_waktu_pengerjaan]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Jumlah Termin Pembayaran</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Quotation-quotation_termin_pembayaran" name="Quotation[quotation_termin_pembayaran]" value="" required />
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_termin_pembayaran" name="Penjualan[penjualan_termin_pembayaran]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Periode Penawaran</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Quotation-periode_penawaran" name="Quotation[periode_penawaran]" value="" required />
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-periode_penawaran" name="Penjualan[periode_penawaran]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Garansi</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Quotation-garansi" name="Quotation[garansi]" value="" required />
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-garansi" name="Penjualan[garansi]" value="" required />
                                 </div>
                             </div> -->
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Catatan</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <textarea class="resizable_textarea form-control col-md-10" id="Quotation-quotation_keterangan" name="Quotation[quotation_keterangan]" style="height:200px">
+                                    <textarea class="resizable_textarea form-control col-md-10" id="Penjualan-penjualan_keterangan" name="Penjualan[penjualan_keterangan]" style="height:200px">
 1. Harga belum termasuk PPn 11% dan franco Driyorejo (pabrik customer) dan berlaku sampai 31 Juli 2023.
 2. Customer menyediakan kebutuhan utilitas (listrik dan sumber air) disediakan oleh customer.</textarea>
                                 </div>
@@ -123,14 +136,30 @@
                             <div class=" form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Status</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Quotation-quotation_status" name="Quotation[quotation_status]" value="Draft" disabled />
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_status" name="Penjualan[penjualan_status]" value="Draft" disabled />
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12  ">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>File Uploader</h2>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                            <p>Drag files ke dalam box untuk upload atau click select files.</p>
+                                            <div class="dropzone"></div>
+                                            <br />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="ln_solid"></div>
                             <div class="form-group row ">
                                 <button class="btn btn-primary" id="btn_tambah_termin"><i class="fa fa-plus"></i> Tambah Termin</button>
                                 <div class="table-responsive">
-                                    <table class="table table-striped jambo_table" id="table-quotation-termin" style="width:70%">
+                                    <table class="table table-striped jambo_table" id="table-penjualan-termin" style="width:70%">
                                         <thead>
                                             <tr class=" headings">
                                                 <th>#</th>
@@ -148,7 +177,7 @@
                             <div class="form-group row ">
                                 <button class="btn btn-primary" id="btn_modal_pilih_barang"><i class="fa fa-search"></i> Pilih Barang</button>
                                 <div class="table-responsive">
-                                    <table class="table table-striped jambo_table" id="table-quotation-detail" style="width:100%">
+                                    <table class="table table-striped jambo_table" id="table-penjualan-detail" style="width:100%">
                                         <thead>
                                             <tr class=" headings">
                                                 <th>#</th>
@@ -166,8 +195,8 @@
                             </div>
                             <div class="ln_solid"></div>
                             <div class="form-group">
-                                <a href="<?= base_url() ?>quotation" class="btn btn-primary"><i class="fa fa-home"></i> Home</a>
-                                <button class="btn btn-success" id="btn_simpan_quotation"><i class="fa fa-save"></i> Simpan</button>
+                                <a href="<?= base_url() ?>penjualan" class="btn btn-primary"><i class="fa fa-home"></i> Home</a>
+                                <button class="btn btn-success" id="btn_simpan_penjualan"><i class="fa fa-save"></i> Simpan</button>
                             </div>
                         </div>
                     </div>

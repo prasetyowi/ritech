@@ -26,6 +26,7 @@ class Invoice extends CI_Controller
 
 		$this->load->model('M_Quotation');
 		$this->load->model('M_Pembelian');
+		$this->load->model('M_Penjualan');
 	}
 
 	public function index()
@@ -144,11 +145,11 @@ class Invoice extends CI_Controller
 		$this->load->library('pdfgenerator');
 
 		$id = $this->input->get('id');
-		$pembelian_termin_no_item = $this->input->get('pembelian_termin_no_item');
+		$penjualan_termin_no_item = $this->input->get('penjualan_termin_no_item');
 
-		$data['Header'] = $this->M_Pembelian->Get_cetak_invoice_pembelian_header_by_id($id);
-		$data['Detail'] = $this->M_Pembelian->Get_cetak_invoice_pembelian_detail_termin_by_id($id, $pembelian_termin_no_item);
-		$data['Termin'] = $this->M_Pembelian->Get_cetak_invoice_pembelian_termin_by_id($id, $pembelian_termin_no_item);
+		$data['Header'] = $this->M_Penjualan->Get_cetak_invoice_penjualan_header_by_id($id);
+		$data['Detail'] = $this->M_Penjualan->Get_cetak_invoice_penjualan_detail_termin_by_id($id, $penjualan_termin_no_item);
+		$data['Termin'] = $this->M_Penjualan->Get_cetak_invoice_penjualan_termin_by_id($id, $penjualan_termin_no_item);
 
 		// $this->load->view('layouts/header_pdf', $data);
 		// $this->load->view('pages/Invoice/print_pdf', $data);
