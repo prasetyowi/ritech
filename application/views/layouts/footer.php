@@ -91,6 +91,51 @@
             html: htmlType,
         });
     }
+
+    var harga = document.getElementById('harga');
+    harga.addEventListener('keyup', function(e) {
+        // tambahkan 'Rp.' pada saat form di ketik
+        // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+        harga.value = formatRupiah(this.value);
+    });
+
+    var harga_hpp = document.getElementById('harga_hpp');
+    harga_hpp.addEventListener('keyup', function(e) {
+        // tambahkan 'Rp.' pada saat form di ketik
+        // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+        harga_hpp.value = formatRupiah(this.value);
+    });
+
+    var harga_edit = document.getElementById('harga-edit');
+    harga_edit.addEventListener('keyup', function(e) {
+        // tambahkan 'Rp.' pada saat form di ketik
+        // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+        harga_edit.value = formatRupiah(this.value);
+    });
+
+    var harga_hpp_edit = document.getElementById('harga_hpp-edit');
+    harga_hpp_edit.addEventListener('keyup', function(e) {
+        // tambahkan 'Rp.' pada saat form di ketik
+        // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+        harga_hpp_edit.value = formatRupiah(this.value);
+    });
+
+    function formatRupiah(angka) {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split = number_string.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        // tambahkan titik jika yang di input sudah menjadi angka ribuan
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return angka == undefined ? rupiah : (rupiah ? rupiah : '');
+    }
 </script>
 
 </body>

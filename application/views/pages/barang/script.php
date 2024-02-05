@@ -64,19 +64,37 @@
                     if (response.length != 0) {
 
                         $.each(response, function(i, v) {
-                            $("#table_list_barang > tbody").append(`
-								<tr class="even pointer">
-                                    <td class="a-center ">${i+1}</td>
-                                    <td class=" ">${v.barang_id}</td>
-                                    <td class=" ">${v.barang_nama}</td>
-                                    <td class=" ">${v.harga_satuan}</td>
-                                    <td class=" ">${v.barang_desc}</td>
-                                    <td class=" ">${v.unit}</td>
-                                    <td class=" ">
-                                        <button class="btn btn-primary" onclick="ShowbarangDetail('${v.barang_id}')"><i class="fa fa-pencil"></i></button>
-                                    </td>
-                                </tr>
-							`);
+
+                            <?php if ($this->session->userdata('karyawan_level') == "ADMIN") { ?>
+                                $("#table_list_barang > tbody").append(`
+                                    <tr class="even pointer">
+                                        <td class="a-center ">${i+1}</td>
+                                        <td class="text-left">${v.barang_id}</td>
+                                        <td class="text-left">${v.barang_nama}</td>
+                                        <td class="text-right">${formatRupiah(v.harga_satuan.replaceAll(".",","))}</td>
+                                        <td class="text-right">${formatRupiah(v.harga_hpp.replaceAll(".",","))}</td>
+                                        <td class="text-left">${v.barang_desc}</td>
+                                        <td class="text-left">${v.unit}</td>
+                                        <td class="text-center">
+                                            <button class="btn btn-primary" onclick="ShowbarangDetail('${v.barang_id}')"><i class="fa fa-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                `);
+                            <?php } else { ?>
+                                $("#table_list_barang > tbody").append(`
+                                    <tr class="even pointer">
+                                        <td class="a-center ">${i+1}</td>
+                                        <td class="text-left">${v.barang_id}</td>
+                                        <td class="text-left">${v.barang_nama}</td>
+                                        <td class="text-right">${formatRupiah(v.harga_satuan.replaceAll(".",","))}</td>
+                                        <td class="text-left">${v.barang_desc}</td>
+                                        <td class="text-left">${v.unit}</td>
+                                        <td class="text-center">
+                                            <button class="btn btn-primary" onclick="ShowbarangDetailDisabled('${v.barang_id}')"><i class="fa fa-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                `);
+                            <?php } ?>
                         });
 
                         $("#table_list_barang").DataTable({
@@ -112,7 +130,8 @@
                     $.each(response, function(i, v) {
                         $("#id_barang-edit").val(v.barang_id);
                         $("#nama_barang-edit").val(v.barang_nama);
-                        $("#harga-edit").val(v.harga_satuan);
+                        $("#harga-edit").val(formatRupiah(v.harga_satuan.replaceAll(".", ",")));
+                        $("#harga_hpp-edit").val(formatRupiah(v.harga_hpp.replaceAll(".", ",")));
                         $("#desc_barang-edit").val(v.barang_desc);
                         $("#satuan-edit").val(v.unit);
                     });
@@ -121,8 +140,46 @@
                     $("#id_barang-edit").val('');
                     $("#nama_barang-edit").val('');
                     $("#harga-edit").val('');
+                    $("#harga_hpp-edit").val('');
                     $("#desc_barang-edit").val('');
                     $("#satuan-edit").val('');
+
+                }
+            }
+        });
+
+    }
+
+    function ShowbarangDetailDisabled(barang_id) {
+
+        $("#modal-barang-detail").modal('show');
+
+        $.ajax({
+            type: 'GET',
+            url: "<?= base_url('Barang/Get_all_barang_by_id') ?>",
+            data: {
+                id: barang_id
+            },
+            dataType: "JSON",
+            success: function(response) {
+
+                if (response.length > 0) {
+                    $.each(response, function(i, v) {
+                        $("#id_barang-detail").val(v.barang_id);
+                        $("#nama_barang-detail").val(v.barang_nama);
+                        $("#harga-detail").val(formatRupiah(v.harga_satuan.replaceAll(".", ",")));
+                        $("#harga_hpp-detail").val(formatRupiah(v.harga_hpp.replaceAll(".", ",")));
+                        $("#desc_barang-detail").val(v.barang_desc);
+                        $("#satuan-detail").val(v.unit);
+                    });
+
+                } else {
+                    $("#id_barang-detail").val('');
+                    $("#nama_barang-detail").val('');
+                    $("#harga-detail").val('');
+                    $("#harga_hpp-detail").val('');
+                    $("#desc_barang-detail").val('');
+                    $("#satuan-detail").val('');
 
                 }
             }
@@ -175,7 +232,8 @@
                             data: {
                                 barang_id: $("#id_barang").val(),
                                 barang_nama: $("#nama_barang").val(),
-                                harga_satuan: $("#harga").val(),
+                                harga_satuan: $("#harga").val().replaceAll(".", ""),
+                                harga_hpp: $("#harga_hpp").val().replaceAll(".", ""),
                                 barang_desc: $("#desc_barang").val(),
                                 unit: $("#satuan").val()
                             },
@@ -260,7 +318,8 @@
                             data: {
                                 barang_id: $("#id_barang-edit").val(),
                                 barang_nama: $("#nama_barang-edit").val(),
-                                harga_satuan: $("#harga-edit").val(),
+                                harga_satuan: $("#harga-edit").val().replaceAll(".", ""),
+                                harga_hpp: $("#harga_hpp-edit").val().replaceAll(".", ""),
                                 barang_desc: $("#desc_barang-edit").val(),
                                 unit: $("#satuan-edit").val()
                             },

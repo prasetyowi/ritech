@@ -50,9 +50,9 @@ class Customer extends CI_Controller
         // 	exit();
         // }
 
-        // if (!$this->session->has_userdata('pengguna_id')) {
-        // 	redirect(base_url('MainPage'));
-        // }
+        if (!$this->session->has_userdata('pengguna_id')) {
+            redirect(base_url('Auth/login'));
+        }
 
         // if (!$this->session->has_userdata('depo_id')) {
         // 	redirect(base_url('Main/MainDepo/DepoMenu'));
@@ -163,10 +163,13 @@ class Customer extends CI_Controller
         $customer_telp = $this->input->post('customer_telp');
         $customer_kode_pos = $this->input->post('customer_kode_pos');
         $customer_email = $this->input->post('customer_email');
+        $customer_nama_contact_person = $this->input->post('customer_nama_contact_person');
+        $customer_telp_contact_person = $this->input->post('customer_telp_contact_person');
+        $is_aktif = $this->input->post('is_aktif');
 
         $this->db->trans_begin();
 
-        $this->M_Customer->insert_customer($customer_id, $customer_nama, $customer_alamat, $customer_kelurahan, $customer_kecamatan, $customer_kota, $customer_provinsi, $customer_negara, $customer_telp, $customer_kode_pos, $customer_email);
+        $this->M_Customer->insert_customer($customer_id, $customer_nama, $customer_alamat, $customer_kelurahan, $customer_kecamatan, $customer_kota, $customer_provinsi, $customer_negara, $customer_telp, $customer_kode_pos, $customer_email, $customer_nama_contact_person, $customer_telp_contact_person, $is_aktif);
 
 
         if ($this->db->trans_status() === FALSE) {
@@ -191,10 +194,13 @@ class Customer extends CI_Controller
         $customer_telp = $this->input->post('customer_telp');
         $customer_kode_pos = $this->input->post('customer_kode_pos');
         $customer_email = $this->input->post('customer_email');
+        $customer_nama_contact_person = $this->input->post('customer_nama_contact_person');
+        $customer_telp_contact_person = $this->input->post('customer_telp_contact_person');
+        $is_aktif = $this->input->post('is_aktif');
 
         $this->db->trans_begin();
 
-        $this->M_Customer->update_customer($customer_id, $customer_nama, $customer_alamat, $customer_kelurahan, $customer_kecamatan, $customer_kota, $customer_provinsi, $customer_negara, $customer_telp, $customer_kode_pos, $customer_email);
+        $this->M_Customer->update_customer($customer_id, $customer_nama, $customer_alamat, $customer_kelurahan, $customer_kecamatan, $customer_kota, $customer_provinsi, $customer_negara, $customer_telp, $customer_kode_pos, $customer_email, $customer_nama_contact_person, $customer_telp_contact_person, $is_aktif);
 
 
         if ($this->db->trans_status() === FALSE) {

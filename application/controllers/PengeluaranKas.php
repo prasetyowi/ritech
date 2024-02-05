@@ -37,9 +37,9 @@ class PengeluaranKas extends CI_Controller
         // 	exit();
         // }
 
-        // if (!$this->session->has_userdata('pengguna_id')) {
-        // 	redirect(base_url('MainPage'));
-        // }
+        if (!$this->session->has_userdata('pengguna_id')) {
+            redirect(base_url('Auth/login'));
+        }
 
         // if (!$this->session->has_userdata('depo_id')) {
         // 	redirect(base_url('Main/MainDepo/DepoMenu'));
@@ -77,9 +77,9 @@ class PengeluaranKas extends CI_Controller
         // 	exit();
         // }
 
-        // if (!$this->session->has_userdata('pengguna_id')) {
-        // 	redirect(base_url('MainPage'));
-        // }
+        if (!$this->session->has_userdata('pengguna_id')) {
+            redirect(base_url('Auth/login'));
+        }
 
         // if (!$this->session->has_userdata('depo_id')) {
         // 	redirect(base_url('Main/MainDepo/DepoMenu'));
@@ -120,9 +120,9 @@ class PengeluaranKas extends CI_Controller
         // 	exit();
         // }
 
-        // if (!$this->session->has_userdata('pengguna_id')) {
-        // 	redirect(base_url('MainPage'));
-        // }
+        if (!$this->session->has_userdata('pengguna_id')) {
+            redirect(base_url('Auth/login'));
+        }
 
         // if (!$this->session->has_userdata('depo_id')) {
         // 	redirect(base_url('Main/MainDepo/DepoMenu'));
@@ -159,9 +159,9 @@ class PengeluaranKas extends CI_Controller
         // 	exit();
         // }
 
-        // if (!$this->session->has_userdata('pengguna_id')) {
-        // 	redirect(base_url('MainPage'));
-        // }
+        if (!$this->session->has_userdata('pengguna_id')) {
+            redirect(base_url('Auth/login'));
+        }
 
         // if (!$this->session->has_userdata('depo_id')) {
         // 	redirect(base_url('Main/MainDepo/DepoMenu'));

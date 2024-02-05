@@ -1,6 +1,6 @@
 <?php
 
-class M_Barang extends CI_Model
+class M_Auth extends CI_Model
 {
     function __construct()
     {
@@ -9,13 +9,26 @@ class M_Barang extends CI_Model
         // $this->db = $this->load->database('d4',true);
     }
 
-    public function Get_all_barang()
+    public function Get_user_by_auth($email, $password)
     {
 
-        $query = $this->db->query("SELECT * FROM barang order by barang_nama asc");
+        $query = $this->db->query("SELECT
+                                        pengguna.pengguna_id,
+                                        pengguna.pengguna_username,
+                                        pengguna.pengguna_email,
+                                        pengguna.pengguna_password,
+                                        pengguna.karyawan_id,
+                                        karyawan.karyawan_nama,
+                                        karyawan.perusahaan_id,
+                                        karyawan.karyawan_level,
+                                        karyawan.karyawan_divisi
+                                    from pengguna
+                                    LEFT JOIN karyawan
+                                    on karyawan.karyawan_id = pengguna.karyawan_id
+                                    WHERE pengguna.pengguna_email = '$email' AND pengguna.pengguna_password = '$password'");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }
@@ -34,53 +47,6 @@ class M_Barang extends CI_Model
                                     IFNULL(barang_desc,'') AS barang_desc,
                                     IFNULL(unit,'') AS unit
                                     FROM barang where barang_id = '$barang_id' order by barang_nama asc");
-
-        if ($query->num_rows() == 0) {
-            $query = 0;
-        } else {
-            $query = $query->result_array();
-        }
-
-        return $query;
-    }
-
-    public function Get_barang_by_filter($barang)
-    {
-
-        $query = $this->db->query("SELECT
-                                    barang_id,
-                                    barang_nama,
-                                    IFNULL(harga_satuan,0) AS harga_satuan,
-                                    IFNULL(harga_hpp,0) AS harga_hpp,
-                                    IFNULL(barang_desc,'') AS barang_desc,
-                                    IFNULL(unit,'') AS unit
-                                    FROM barang
-                                    WHERE barang_nama LIKE '%" . $barang . "%'
-                                    ORDER BY barang_nama ASC");
-
-        if ($query->num_rows() == 0) {
-            $query = 0;
-        } else {
-            $query = $query->result_array();
-        }
-
-        return $query;
-    }
-
-    public function Get_barang_not_in_selected_barang($arr_list_barang)
-    {
-
-        $arr_list_barang_str = "";
-
-        if (isset($arr_list_barang)) {
-            if (count($arr_list_barang) > 0) {
-                $arr_list_barang_str = "AND barang_id NOT IN (" . implode(",", $arr_list_barang) . ")";
-            }
-        } else {
-            $arr_list_barang_str = "";
-        }
-
-        $query = $this->db->query("SELECT * FROM barang where barang_id is not null " . $arr_list_barang_str . " order by barang_nama asc");
 
         if ($query->num_rows() == 0) {
             $query = 0;

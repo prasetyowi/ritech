@@ -26,7 +26,25 @@ class M_Customer extends CI_Model
     public function Get_all_customer_by_id($customer_id)
     {
 
-        $query = $this->db->query("SELECT * FROM customer where customer_id = '$customer_id' order by customer_nama asc");
+        $query = $this->db->query("SELECT
+                                    customer_id,
+                                    customer_nama,
+                                    IFNULL(customer_alamat, '') AS customer_alamat,
+                                    IFNULL(customer_kelurahan, '') AS customer_kelurahan,
+                                    IFNULL(customer_kecamatan, '') AS customer_kecamatan,
+                                    IFNULL(customer_kota, '') AS customer_kota,
+                                    IFNULL(customer_provinsi, '') AS customer_provinsi,
+                                    IFNULL(customer_negara, '') AS customer_negara,
+                                    IFNULL(customer_telp, '') AS customer_telp,
+                                    IFNULL(customer_kode_pos, '') AS customer_kode_pos,
+                                    IFNULL(customer_email, '') AS customer_email,
+                                    IFNULL(customer_nama_contact_person, '') AS customer_nama_contact_person,
+                                    IFNULL(customer_telp_contact_person, '') AS customer_telp_contact_person,
+                                    IFNULL(is_aktif, 0) AS is_aktif,
+                                    IFNULL(is_delete, 0) AS is_delete
+                                    FROM customer
+                                    WHERE customer_id = '$customer_id'
+                                    ORDER BY customer_nama ASC");
 
         if ($query->num_rows() == 0) {
             $query = 0;
@@ -51,7 +69,9 @@ class M_Customer extends CI_Model
                                     IFNULL(customer_negara,'') AS customer_negara,
                                     IFNULL(customer_telp,'') AS customer_telp,
                                     IFNULL(customer_kode_pos,'') AS customer_kode_pos,
-                                    IFNULL(customer_email,'') AS customer_email
+                                    IFNULL(customer_email,'') AS customer_email,
+                                    IFNULL(is_aktif, 0) AS is_aktif,
+                                    IFNULL(is_delete, 0) AS is_delete
                                     FROM customer
                                     WHERE customer_nama LIKE '%" . $customer . "%'
                                     ORDER BY customer_nama ASC");
@@ -103,7 +123,7 @@ class M_Customer extends CI_Model
         return $query;
     }
 
-    public function insert_customer($customer_id, $customer_nama, $customer_alamat, $customer_kelurahan, $customer_kecamatan, $customer_kota, $customer_provinsi, $customer_negara, $customer_telp, $customer_kode_pos, $customer_email)
+    public function insert_customer($customer_id, $customer_nama, $customer_alamat, $customer_kelurahan, $customer_kecamatan, $customer_kota, $customer_provinsi, $customer_negara, $customer_telp, $customer_kode_pos, $customer_email, $customer_nama_contact_person, $customer_telp_contact_person, $is_aktif)
     {
         $customer_id = $customer_id == '' ? null : $customer_id;
         $customer_nama = $customer_nama == '' ? null : $customer_nama;
@@ -116,6 +136,9 @@ class M_Customer extends CI_Model
         $customer_telp = $customer_telp == '' ? null : $customer_telp;
         $customer_kode_pos = $customer_kode_pos == '' ? null : $customer_kode_pos;
         $customer_email = $customer_email == '' ? null : $customer_email;
+        $customer_nama_contact_person = $customer_nama_contact_person == '' ? null : $customer_nama_contact_person;
+        $customer_telp_contact_person = $customer_telp_contact_person == '' ? null : $customer_telp_contact_person;
+        $is_aktif = $is_aktif == '' ? null : $is_aktif;
 
         $this->db->set('customer_id', $customer_id);
         $this->db->set('customer_nama', $customer_nama);
@@ -128,6 +151,9 @@ class M_Customer extends CI_Model
         $this->db->set('customer_telp', $customer_telp);
         $this->db->set('customer_kode_pos', $customer_kode_pos);
         $this->db->set('customer_email', $customer_email);
+        $this->db->set('customer_nama_contact_person', $customer_nama_contact_person);
+        $this->db->set('customer_telp_contact_person', $customer_telp_contact_person);
+        $this->db->set('is_aktif', $is_aktif);
 
         $queryinsert = $this->db->insert("customer");
 
@@ -135,7 +161,7 @@ class M_Customer extends CI_Model
         // return $this->db->last_query();
     }
 
-    public function update_customer($customer_id, $customer_nama, $customer_alamat, $customer_kelurahan, $customer_kecamatan, $customer_kota, $customer_provinsi, $customer_negara, $customer_telp, $customer_kode_pos, $customer_email)
+    public function update_customer($customer_id, $customer_nama, $customer_alamat, $customer_kelurahan, $customer_kecamatan, $customer_kota, $customer_provinsi, $customer_negara, $customer_telp, $customer_kode_pos, $customer_email, $customer_nama_contact_person, $customer_telp_contact_person, $is_aktif)
     {
         $customer_id = $customer_id == '' ? null : $customer_id;
         $customer_nama = $customer_nama == '' ? null : $customer_nama;
@@ -148,6 +174,9 @@ class M_Customer extends CI_Model
         $customer_telp = $customer_telp == '' ? null : $customer_telp;
         $customer_kode_pos = $customer_kode_pos == '' ? null : $customer_kode_pos;
         $customer_email = $customer_email == '' ? null : $customer_email;
+        $customer_nama_contact_person = $customer_nama_contact_person == '' ? null : $customer_nama_contact_person;
+        $customer_telp_contact_person = $customer_telp_contact_person == '' ? null : $customer_telp_contact_person;
+        $is_aktif = $is_aktif == '' ? null : $is_aktif;
 
         $this->db->set('customer_nama', $customer_nama);
         $this->db->set('customer_alamat', $customer_alamat);
@@ -159,6 +188,9 @@ class M_Customer extends CI_Model
         $this->db->set('customer_telp', $customer_telp);
         $this->db->set('customer_kode_pos', $customer_kode_pos);
         $this->db->set('customer_email', $customer_email);
+        $this->db->set('customer_nama_contact_person', $customer_nama_contact_person);
+        $this->db->set('customer_telp_contact_person', $customer_telp_contact_person);
+        $this->db->set('is_aktif', $is_aktif);
 
         $this->db->where('customer_id', $customer_id);
 

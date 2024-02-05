@@ -36,9 +36,9 @@ class Quotation extends CI_Controller
 		// 	exit();
 		// }
 
-		// if (!$this->session->has_userdata('pengguna_id')) {
-		// 	redirect(base_url('MainPage'));
-		// }
+		if (!$this->session->has_userdata('pengguna_id')) {
+			redirect(base_url('Auth/login'));
+		}
 
 		// if (!$this->session->has_userdata('depo_id')) {
 		// 	redirect(base_url('Main/MainDepo/DepoMenu'));
@@ -76,9 +76,9 @@ class Quotation extends CI_Controller
 		// 	exit();
 		// }
 
-		// if (!$this->session->has_userdata('pengguna_id')) {
-		// 	redirect(base_url('MainPage'));
-		// }
+		if (!$this->session->has_userdata('pengguna_id')) {
+			redirect(base_url('Auth/login'));
+		}
 
 		// if (!$this->session->has_userdata('depo_id')) {
 		// 	redirect(base_url('Main/MainDepo/DepoMenu'));
@@ -112,10 +112,9 @@ class Quotation extends CI_Controller
 		// 	exit();
 		// }
 
-		// if (!$this->session->has_userdata('pengguna_id')) {
-		// 	redirect(base_url('MainPage'));
-		// }
-
+		if (!$this->session->has_userdata('pengguna_id')) {
+			redirect(base_url('Auth/login'));
+		}
 		// if (!$this->session->has_userdata('depo_id')) {
 		// 	redirect(base_url('Main/MainDepo/DepoMenu'));
 		// }
@@ -157,9 +156,9 @@ class Quotation extends CI_Controller
 		// 	redirect(base_url('MainPage'));
 		// }
 
-		// if (!$this->session->has_userdata('depo_id')) {
-		// 	redirect(base_url('Main/MainDepo/DepoMenu'));
-		// }
+		if (!$this->session->has_userdata('pengguna_id')) {
+			redirect(base_url('Auth/login'));
+		}
 
 		// $data['sidemenu'] = $this->M_Menu->GetMenu_Depo('', $this->session->userdata('pengguna_grup_id'));
 
@@ -192,9 +191,9 @@ class Quotation extends CI_Controller
 		// 	exit();
 		// }
 
-		// if (!$this->session->has_userdata('pengguna_id')) {
-		// 	redirect(base_url('MainPage'));
-		// }
+		if (!$this->session->has_userdata('pengguna_id')) {
+			redirect(base_url('Auth/login'));
+		}
 
 		// if (!$this->session->has_userdata('depo_id')) {
 		// 	redirect(base_url('Main/MainDepo/DepoMenu'));

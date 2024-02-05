@@ -4,7 +4,7 @@
     var index_termin = 0;
 
     $(document).ready(function() {
-        Get_customer_by_filter();
+        Get_supplier_by_filter();
     });
 
     $('#btn_modal_pilih_barang').click(function(event) {
@@ -16,7 +16,7 @@
     $('#btn_choose_multi_barang').click(function(event) {
 
         $("#modal-barang").modal('hide');
-        Get_list_customer_detail();
+        Get_list_supplier_detail();
     });
 
 
@@ -30,32 +30,32 @@
             'termin_pembayaran': 0
         });
 
-        Get_list_customer_termin();
+        Get_list_supplier_termin();
     });
 
-    $('#btn_search_customer').click(function(event) {
-        Get_customer_by_filter();
+    $('#btn_search_supplier').click(function(event) {
+        Get_supplier_by_filter();
     });
 
-    function Get_customer_by_filter() {
+    function Get_supplier_by_filter() {
         $.ajax({
             type: 'GET',
-            url: "<?= base_url('Customer/Get_customer_by_filter') ?>",
+            url: "<?= base_url('supplier/Get_supplier_by_filter') ?>",
             data: {
-                customer: $("#filter_nama_customer").val()
+                supplier: $("#filter_nama_supplier").val()
             },
             dataType: "JSON",
             success: function(response) {
 
 
-                $('#table_list_customer').fadeOut("slow", function() {
+                $('#table_list_supplier').fadeOut("slow", function() {
                     $(this).hide();
 
-                    $('#table_list_customer > tbody').empty('');
+                    $('#table_list_supplier > tbody').empty('');
 
-                    if ($.fn.DataTable.isDataTable('#table_list_customer')) {
-                        $('#table_list_customer').DataTable().clear();
-                        $('#table_list_customer').DataTable().destroy();
+                    if ($.fn.DataTable.isDataTable('#table_list_supplier')) {
+                        $('#table_list_supplier').DataTable().clear();
+                        $('#table_list_supplier').DataTable().destroy();
                     }
 
                 }).fadeIn("slow", function() {
@@ -65,44 +65,44 @@
 
                         $.each(response, function(i, v) {
                             if (v.is_aktif == '1') {
-                                $("#table_list_customer > tbody").append(`
+                                $("#table_list_supplier > tbody").append(`
                                     <tr class="even pointer">
                                         <td class="a-center ">${i+1}</td>
-                                        <td class=" ">${v.customer_nama}</td>
-                                        <td class=" ">${v.customer_alamat}</td>
-                                        <td class=" ">${v.customer_kelurahan}</td>
-                                        <td class=" ">${v.customer_kecamatan}</td>
-                                        <td class=" ">${v.customer_kota}</td>
-                                        <td class=" ">${v.customer_provinsi}</td>
-                                        <td class=" ">${v.customer_telp}</td>
-                                        <td class=" ">${v.customer_kode_pos}</td>
+                                        <td class=" ">${v.supplier_nama}</td>
+                                        <td class=" ">${v.supplier_alamat}</td>
+                                        <td class=" ">${v.supplier_kelurahan}</td>
+                                        <td class=" ">${v.supplier_kecamatan}</td>
+                                        <td class=" ">${v.supplier_kota}</td>
+                                        <td class=" ">${v.supplier_provinsi}</td>
+                                        <td class=" ">${v.supplier_telp}</td>
+                                        <td class=" ">${v.supplier_kode_pos}</td>
                                         <td class=" ">
                                             <span class="badge badge-success">Active</span>
                                         </td>
                                         <td class=" ">
-                                            <button class="btn btn-primary" onclick="ShowCustomerDetail('${v.customer_id}')"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-primary" onclick="ShowsupplierDetail('${v.supplier_id}')"><i class="fa fa-pencil"></i></button>
                                         </td>
                                     </tr>
                                 `);
 
                             } else {
 
-                                $("#table_list_customer > tbody").append(`
+                                $("#table_list_supplier > tbody").append(`
                                     <tr class="even pointer">
                                         <td class="a-center ">${i+1}</td>
-                                        <td class=" ">${v.customer_nama}</td>
-                                        <td class=" ">${v.customer_alamat}</td>
-                                        <td class=" ">${v.customer_kelurahan}</td>
-                                        <td class=" ">${v.customer_kecamatan}</td>
-                                        <td class=" ">${v.customer_kota}</td>
-                                        <td class=" ">${v.customer_provinsi}</td>
-                                        <td class=" ">${v.customer_telp}</td>
-                                        <td class=" ">${v.customer_kode_pos}</td>
+                                        <td class=" ">${v.supplier_nama}</td>
+                                        <td class=" ">${v.supplier_alamat}</td>
+                                        <td class=" ">${v.supplier_kelurahan}</td>
+                                        <td class=" ">${v.supplier_kecamatan}</td>
+                                        <td class=" ">${v.supplier_kota}</td>
+                                        <td class=" ">${v.supplier_provinsi}</td>
+                                        <td class=" ">${v.supplier_telp}</td>
+                                        <td class=" ">${v.supplier_kode_pos}</td>
                                         <td class=" ">
                                             <span class="badge badge-danger">Not Active</span>
                                         </td>
                                         <td class=" ">
-                                            <button class="btn btn-primary" onclick="ShowCustomerDetail('${v.customer_id}')"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-primary" onclick="ShowsupplierDetail('${v.supplier_id}')"><i class="fa fa-pencil"></i></button>
                                         </td>
                                     </tr>
                                 `);
@@ -110,7 +110,7 @@
                             }
                         });
 
-                        $("#table_list_customer").DataTable({
+                        $("#table_list_supplier").DataTable({
                             lengthMenu: [
                                 [50, 100, 200, -1],
                                 [50, 100, 200, 'All'],
@@ -122,38 +122,39 @@
         });
     }
 
-    $('#btn_tambah_customer').click(function(event) {
-        $("#modal-customer").modal('show');
+    $('#btn_tambah_supplier').click(function(event) {
+        $("#modal-supplier").modal('show');
     });
 
-    function ShowCustomerDetail(customer_id) {
+    function ShowsupplierDetail(supplier_id) {
 
-        $("#modal-customer-edit").modal('show');
+        $("#modal-supplier-edit").modal('show');
 
         $.ajax({
             type: 'GET',
-            url: "<?= base_url('Customer/Get_all_customer_by_id') ?>",
+            url: "<?= base_url('supplier/Get_all_supplier_by_id') ?>",
             data: {
-                id: customer_id
+                id: supplier_id
             },
             dataType: "JSON",
             success: function(response) {
 
                 if (response.length > 0) {
                     $.each(response, function(i, v) {
-                        $("#id_customer-edit").val(v.customer_id);
-                        $("#nama_customer-edit").val(v.customer_nama);
-                        $("#alamat_customer-edit").val(v.customer_alamat);
-                        $("#kelurahan-edit").val(v.customer_kelurahan);
-                        $("#kecamatan-edit").val(v.customer_kecamatan);
-                        $("#kota-edit").val(v.customer_kota);
-                        $("#provinsi-edit").val(v.customer_provinsi);
-                        $("#negara-edit").val(v.customer_negara);
-                        $("#telp-edit").val(v.customer_telp);
-                        $("#kode_pos-edit").val(v.customer_kode_pos);
-                        $("#email-edit").val(v.customer_email);
-                        $("#customer_nama_contact_person-edit").val(v.customer_nama_contact_person);
-                        $("#customer_telp_contact_person-edit").val(v.customer_telp_contact_person);
+                        $("#id_supplier-edit").val(v.supplier_id);
+                        $("#nama_supplier-edit").val(v.supplier_nama);
+                        $("#alamat_supplier-edit").val(v.supplier_alamat);
+                        $("#kelurahan-edit").val(v.supplier_kelurahan);
+                        $("#kecamatan-edit").val(v.supplier_kecamatan);
+                        $("#kota-edit").val(v.supplier_kota);
+                        $("#provinsi-edit").val(v.supplier_provinsi);
+                        $("#negara-edit").val(v.supplier_negara);
+                        $("#telp-edit").val(v.supplier_telp);
+                        $("#kode_pos-edit").val(v.supplier_kode_pos);
+                        $("#email-edit").val(v.supplier_email);
+                        $("#npwp-edit").val(v.supplier_npwp);
+                        $("#supplier_nama_contact_person-edit").val(v.supplier_nama_contact_person);
+                        $("#supplier_telp_contact_person-edit").val(v.supplier_telp_contact_person);
 
                         if (v.is_aktif == "1") {
                             $("#is_aktif-edit").prop("checked", true);
@@ -165,9 +166,9 @@
 
                 } else {
                     $.each(response, function(i, v) {
-                        $("#id_customer-edit").val('');
-                        $("#nama_customer-edit").val('');
-                        $("#alamat_customer-edit").val('');
+                        $("#id_supplier-edit").val('');
+                        $("#nama_supplier-edit").val('');
+                        $("#alamat_supplier-edit").val('');
                         $("#kelurahan-edit").val('');
                         $("#kecamatan-edit").val('');
                         $("#kota-edit").val('');
@@ -176,8 +177,9 @@
                         $("#telp-edit").val('');
                         $("#kode_pos-edit").val('');
                         $("#email-edit").val('');
-                        $("#customer_nama_contact_person-edit").val('');
-                        $("#customer_telp_contact_person-edit").val('');
+                        $("#npwp-edit").val('');
+                        $("#supplier_nama_contact_person-edit").val('');
+                        $("#supplier_telp_contact_person-edit").val('');
                     });
 
                 }
@@ -186,13 +188,13 @@
 
     }
 
-    $("#btn_save_customer").click(function() {
+    $("#btn_save_supplier").click(function() {
         cek_error = 0;
         setTimeout(() => {
 
             // console.log(arr_list_faktur_klaim);
 
-            if ($("#nama_customer").val() == "") {
+            if ($("#nama_supplier").val() == "") {
 
                 let alert = "Nama Pelanggan Tidak Boleh Kosong";
                 message_custom("Error", "error", alert);
@@ -216,7 +218,7 @@
 
                         $.ajax({
                             async: false,
-                            url: "<?= base_url('Customer/insert_customer'); ?>",
+                            url: "<?= base_url('supplier/insert_supplier'); ?>",
                             type: "POST",
                             beforeSend: function() {
                                 Swal.fire({
@@ -226,22 +228,23 @@
                                     showConfirmButton: false
                                 });
 
-                                $("#btn_simpan_customer").prop("disabled", true);
+                                $("#btn_simpan_supplier").prop("disabled", true);
                             },
                             data: {
-                                customer_id: $("#id_customer").val(),
-                                customer_nama: $("#nama_customer").val(),
-                                customer_alamat: $("#alamat_customer").val(),
-                                customer_kelurahan: $("#kelurahan").val(),
-                                customer_kecamatan: $("#kecamatan").val(),
-                                customer_kota: $("#kota").val(),
-                                customer_provinsi: $("#provinsi").val(),
-                                customer_negara: $("#negara").val(),
-                                customer_telp: $("#telp").val(),
-                                customer_kode_pos: $("#kode_pos").val(),
-                                customer_email: $("#email").val(),
-                                customer_nama_contact_person: $("#customer_nama_contact_person").val(),
-                                customer_telp_contact_person: $("#customer_telp_contact_person").val(),
+                                supplier_id: $("#id_supplier").val(),
+                                supplier_nama: $("#nama_supplier").val(),
+                                supplier_alamat: $("#alamat_supplier").val(),
+                                supplier_kelurahan: $("#kelurahan").val(),
+                                supplier_kecamatan: $("#kecamatan").val(),
+                                supplier_kota: $("#kota").val(),
+                                supplier_provinsi: $("#provinsi").val(),
+                                supplier_negara: $("#negara").val(),
+                                supplier_telp: $("#telp").val(),
+                                supplier_kode_pos: $("#kode_pos").val(),
+                                supplier_email: $("#email").val(),
+                                supplier_npwp: $("#npwp").val(),
+                                supplier_nama_contact_person: $("#supplier_nama_contact_person").val(),
+                                supplier_telp_contact_person: $("#supplier_telp_contact_person").val(),
                                 is_aktif: $('#is_aktif:checked').val()
                             },
                             dataType: "JSON",
@@ -250,8 +253,8 @@
                                 if (response.status == 1) {
                                     var alert = "Data Berhasil Disimpan";
                                     message_custom("Success", "success", alert);
-                                    $("#modal-customer").modal('hide');
-                                    Get_customer_by_filter();
+                                    $("#modal-supplier").modal('hide');
+                                    Get_supplier_by_filter();
 
                                     ResetForm();
                                 } else {
@@ -259,17 +262,17 @@
                                     message_custom("Error", "error", alert);
                                 }
 
-                                $("#btn_simpan_customer").prop("disabled", false);
+                                $("#btn_simpan_supplier").prop("disabled", false);
                             },
                             error: function(xhr, ajaxOptions, thrownError) {
                                 var alert = "Error 500 Internal Server Connection Failure";
                                 message_custom("Error", "error", alert);
 
-                                $("#btn_simpan_customer").prop("disabled", false);
+                                $("#btn_simpan_supplier").prop("disabled", false);
                             },
                             complete: function() {
                                 // Swal.close();
-                                $("#btn_simpan_customer").prop("disabled", false);
+                                $("#btn_simpan_supplier").prop("disabled", false);
                             }
                         });
                     }
@@ -280,13 +283,13 @@
         }, 1000);
     });
 
-    $("#btn_update_customer").click(function() {
+    $("#btn_update_supplier").click(function() {
         cek_error = 0;
         setTimeout(() => {
 
             // console.log(arr_list_faktur_klaim);
 
-            if ($("#nama_customer-edit").val() == "") {
+            if ($("#nama_supplier-edit").val() == "") {
 
                 let alert = "Nama Pelanggan Tidak Boleh Kosong";
                 message_custom("Error", "error", alert);
@@ -310,7 +313,7 @@
 
                         $.ajax({
                             async: false,
-                            url: "<?= base_url('Customer/update_customer'); ?>",
+                            url: "<?= base_url('supplier/update_supplier'); ?>",
                             type: "POST",
                             beforeSend: function() {
                                 Swal.fire({
@@ -320,22 +323,23 @@
                                     showConfirmButton: false
                                 });
 
-                                $("#btn_simpan_customer").prop("disabled", true);
+                                $("#btn_simpan_supplier").prop("disabled", true);
                             },
                             data: {
-                                customer_id: $("#id_customer-edit").val(),
-                                customer_nama: $("#nama_customer-edit").val(),
-                                customer_alamat: $("#alamat_customer-edit").val(),
-                                customer_kelurahan: $("#kelurahan-edit").val(),
-                                customer_kecamatan: $("#kecamatan-edit").val(),
-                                customer_kota: $("#kota-edit").val(),
-                                customer_provinsi: $("#provinsi-edit").val(),
-                                customer_negara: $("#negara-edit").val(),
-                                customer_telp: $("#telp-edit").val(),
-                                customer_kode_pos: $("#kode_pos-edit").val(),
-                                customer_email: $("#email-edit").val(),
-                                customer_nama_contact_person: $("#customer_nama_contact_person-edit").val(),
-                                customer_telp_contact_person: $("#customer_telp_contact_person-edit").val(),
+                                supplier_id: $("#id_supplier-edit").val(),
+                                supplier_nama: $("#nama_supplier-edit").val(),
+                                supplier_alamat: $("#alamat_supplier-edit").val(),
+                                supplier_kelurahan: $("#kelurahan-edit").val(),
+                                supplier_kecamatan: $("#kecamatan-edit").val(),
+                                supplier_kota: $("#kota-edit").val(),
+                                supplier_provinsi: $("#provinsi-edit").val(),
+                                supplier_negara: $("#negara-edit").val(),
+                                supplier_telp: $("#telp-edit").val(),
+                                supplier_kode_pos: $("#kode_pos-edit").val(),
+                                supplier_email: $("#email-edit").val(),
+                                supplier_npwp: $("#npwp-edit").val(),
+                                supplier_nama_contact_person: $("#supplier_nama_contact_person-edit").val(),
+                                supplier_telp_contact_person: $("#supplier_telp_contact_person-edit").val(),
                                 is_aktif: $('#is_aktif-edit:checked').val()
                             },
                             dataType: "JSON",
@@ -344,9 +348,9 @@
                                 if (response.status == 1) {
                                     var alert = "Data Berhasil Disimpan";
                                     message_custom("Success", "success", alert);
-                                    $("#modal-customer-edit").modal('hide');
+                                    $("#modal-supplier-edit").modal('hide');
 
-                                    Get_customer_by_filter();
+                                    Get_supplier_by_filter();
 
                                     ResetForm();
                                 } else {
@@ -354,17 +358,17 @@
                                     message_custom("Error", "error", alert);
                                 }
 
-                                $("#btn_simpan_customer").prop("disabled", false);
+                                $("#btn_simpan_supplier").prop("disabled", false);
                             },
                             error: function(xhr, ajaxOptions, thrownError) {
                                 var alert = "Error 500 Internal Server Connection Failure";
                                 message_custom("Error", "error", alert);
 
-                                $("#btn_simpan_customer").prop("disabled", false);
+                                $("#btn_simpan_supplier").prop("disabled", false);
                             },
                             complete: function() {
                                 // Swal.close();
-                                $("#btn_simpan_customer").prop("disabled", false);
+                                $("#btn_simpan_supplier").prop("disabled", false);
                             }
                         });
                     }
@@ -377,9 +381,9 @@
 
     function ResetForm() {
 
-        $("#id_customer").val('');
-        $("#nama_customer").val('');
-        $("#alamat_customer").val('');
+        $("#id_supplier").val('');
+        $("#nama_supplier").val('');
+        $("#alamat_supplier").val('');
         $("#kelurahan").val('');
         $("#kecamatan").val('');
         $("#kota").val('');
@@ -388,10 +392,15 @@
         $("#telp").val('');
         $("#kode_pos").val('');
         $("#email").val('');
+        $("#npwp").val('');
+        $("#supplier_nama_contact_person").val('');
+        $("#supplier_telp_contact_person").val('');
+        $("#supplier_telp_contact_person").val('');
+        $("#is_aktif").prop("checked", false);
 
-        $("#id_customer-edit").val('');
-        $("#nama_customer-edit").val('');
-        $("#alamat_customer-edit").val('');
+        $("#id_supplier-edit").val('');
+        $("#nama_supplier-edit").val('');
+        $("#alamat_supplier-edit").val('');
         $("#kelurahan-edit").val('');
         $("#kecamatan-edit").val('');
         $("#kota-edit").val('');
@@ -400,7 +409,10 @@
         $("#telp-edit").val('');
         $("#kode_pos-edit").val('');
         $("#email-edit").val('');
-
+        $("#npwp-edit").val('');
+        $("#supplier_nama_contact_person-edit").val('');
+        $("#supplier_telp_contact_person-edit").val('');
+        $("#is_aktif-edit").prop("checked", false);
 
     }
 </script>

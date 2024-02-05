@@ -64,7 +64,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><span>RITECH</span></a>
+                        <a href="<?= base_url() ?>dashboard" class="site_title"><span>RITECH</span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -73,7 +73,7 @@
                     <div class="profile clearfix">
                         <div class="profile_info">
                             <span>Welcome,</span>
-                            <h2>John Doe</h2>
+                            <h2><?= $this->session->userdata('karyawan_nama') ?></h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -84,7 +84,7 @@
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
                             <ul class="nav side-menu">
-                                <li><a href="<?= base_url() ?>"><i class="fa fa-home"></i> Dashboard</a></li>
+                                <li><a href="<?= base_url() ?>dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
                                 <li><a href="<?= base_url() ?>quotation"><i class="fa fa-edit"></i> Quotation</a></li>
                                 <li><a href="<?= base_url() ?>penjualan"><i class="fa fa-shopping-cart"></i> Penjualan</a></li>
                                 <li><a href="<?= base_url() ?>pembelian"><i class="fa fa-truck"></i> Pembelian</a></li>
@@ -97,7 +97,11 @@
                                     <ul class="nav child_menu">
                                         <li><a href="<?= base_url() ?>barang">Barang</a></li>
                                         <li><a href="<?= base_url() ?>customer">Pelanggan</a></li>
+                                        <li><a href="<?= base_url() ?>supplier">Supplier</a></li>
+                                        <li><a href="<?= base_url() ?>karyawan">Karyawan</a></li>
+                                        <li><a href="<?= base_url() ?>pengguna">Pengguna</a></li>
                                         <li><a href="<?= base_url() ?>perusahaan">Perusahaan</a></li>
+                                        <li><a href="<?= base_url() ?>vrbl">Vrbl</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -116,7 +120,7 @@
                         <a data-toggle="tooltip" data-placement="top" title="Lock">
                             <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                         </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="<?= base_url('Auth/logout') ?>">
                             <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                         </a>
                     </div>
@@ -134,11 +138,11 @@
                         <ul class=" navbar-right">
                             <li class="nav-item dropdown open" style="padding-left: 15px;">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                    John Doe
+                                    <?= $this->session->userdata('karyawan_nama') ?>
                                 </a>
                                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="javascript:;"><i class="fa fa-user pull-right"></i> Profile</a>
-                                    <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                                    <a class="dropdown-item" href="<?= base_url('Auth/logout') ?>"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                                 </div>
                             </li>
 

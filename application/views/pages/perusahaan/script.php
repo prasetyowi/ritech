@@ -4,7 +4,7 @@
     var index_termin = 0;
 
     $(document).ready(function() {
-        Get_customer_by_filter();
+        Get_perusahaan_by_filter();
     });
 
     $('#btn_modal_pilih_barang').click(function(event) {
@@ -16,7 +16,7 @@
     $('#btn_choose_multi_barang').click(function(event) {
 
         $("#modal-barang").modal('hide');
-        Get_list_customer_detail();
+        Get_list_perusahaan_detail();
     });
 
 
@@ -30,32 +30,32 @@
             'termin_pembayaran': 0
         });
 
-        Get_list_customer_termin();
+        Get_list_perusahaan_termin();
     });
 
-    $('#btn_search_customer').click(function(event) {
-        Get_customer_by_filter();
+    $('#btn_search_perusahaan').click(function(event) {
+        Get_perusahaan_by_filter();
     });
 
-    function Get_customer_by_filter() {
+    function Get_perusahaan_by_filter() {
         $.ajax({
             type: 'GET',
-            url: "<?= base_url('Customer/Get_customer_by_filter') ?>",
+            url: "<?= base_url('Perusahaan/Get_perusahaan_by_filter') ?>",
             data: {
-                customer: $("#filter_nama_customer").val()
+                perusahaan: $("#filter_nama_perusahaan").val()
             },
             dataType: "JSON",
             success: function(response) {
 
 
-                $('#table_list_customer').fadeOut("slow", function() {
+                $('#table_list_perusahaan').fadeOut("slow", function() {
                     $(this).hide();
 
-                    $('#table_list_customer > tbody').empty('');
+                    $('#table_list_perusahaan > tbody').empty('');
 
-                    if ($.fn.DataTable.isDataTable('#table_list_customer')) {
-                        $('#table_list_customer').DataTable().clear();
-                        $('#table_list_customer').DataTable().destroy();
+                    if ($.fn.DataTable.isDataTable('#table_list_perusahaan')) {
+                        $('#table_list_perusahaan').DataTable().clear();
+                        $('#table_list_perusahaan').DataTable().destroy();
                     }
 
                 }).fadeIn("slow", function() {
@@ -65,44 +65,44 @@
 
                         $.each(response, function(i, v) {
                             if (v.is_aktif == '1') {
-                                $("#table_list_customer > tbody").append(`
+                                $("#table_list_perusahaan > tbody").append(`
                                     <tr class="even pointer">
                                         <td class="a-center ">${i+1}</td>
-                                        <td class=" ">${v.customer_nama}</td>
-                                        <td class=" ">${v.customer_alamat}</td>
-                                        <td class=" ">${v.customer_kelurahan}</td>
-                                        <td class=" ">${v.customer_kecamatan}</td>
-                                        <td class=" ">${v.customer_kota}</td>
-                                        <td class=" ">${v.customer_provinsi}</td>
-                                        <td class=" ">${v.customer_telp}</td>
-                                        <td class=" ">${v.customer_kode_pos}</td>
+                                        <td class=" ">${v.perusahaan_nama}</td>
+                                        <td class=" ">${v.perusahaan_alamat}</td>
+                                        <td class=" ">${v.perusahaan_kelurahan}</td>
+                                        <td class=" ">${v.perusahaan_kecamatan}</td>
+                                        <td class=" ">${v.perusahaan_kota}</td>
+                                        <td class=" ">${v.perusahaan_provinsi}</td>
+                                        <td class=" ">${v.perusahaan_telp}</td>
+                                        <td class=" ">${v.perusahaan_kode_pos}</td>
                                         <td class=" ">
                                             <span class="badge badge-success">Active</span>
                                         </td>
                                         <td class=" ">
-                                            <button class="btn btn-primary" onclick="ShowCustomerDetail('${v.customer_id}')"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-primary" onclick="ShowperusahaanDetail('${v.perusahaan_id}')"><i class="fa fa-pencil"></i></button>
                                         </td>
                                     </tr>
                                 `);
 
                             } else {
 
-                                $("#table_list_customer > tbody").append(`
+                                $("#table_list_perusahaan > tbody").append(`
                                     <tr class="even pointer">
                                         <td class="a-center ">${i+1}</td>
-                                        <td class=" ">${v.customer_nama}</td>
-                                        <td class=" ">${v.customer_alamat}</td>
-                                        <td class=" ">${v.customer_kelurahan}</td>
-                                        <td class=" ">${v.customer_kecamatan}</td>
-                                        <td class=" ">${v.customer_kota}</td>
-                                        <td class=" ">${v.customer_provinsi}</td>
-                                        <td class=" ">${v.customer_telp}</td>
-                                        <td class=" ">${v.customer_kode_pos}</td>
+                                        <td class=" ">${v.perusahaan_nama}</td>
+                                        <td class=" ">${v.perusahaan_alamat}</td>
+                                        <td class=" ">${v.perusahaan_kelurahan}</td>
+                                        <td class=" ">${v.perusahaan_kecamatan}</td>
+                                        <td class=" ">${v.perusahaan_kota}</td>
+                                        <td class=" ">${v.perusahaan_provinsi}</td>
+                                        <td class=" ">${v.perusahaan_telp}</td>
+                                        <td class=" ">${v.perusahaan_kode_pos}</td>
                                         <td class=" ">
                                             <span class="badge badge-danger">Not Active</span>
                                         </td>
                                         <td class=" ">
-                                            <button class="btn btn-primary" onclick="ShowCustomerDetail('${v.customer_id}')"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-primary" onclick="ShowperusahaanDetail('${v.perusahaan_id}')"><i class="fa fa-pencil"></i></button>
                                         </td>
                                     </tr>
                                 `);
@@ -110,7 +110,7 @@
                             }
                         });
 
-                        $("#table_list_customer").DataTable({
+                        $("#table_list_perusahaan").DataTable({
                             lengthMenu: [
                                 [50, 100, 200, -1],
                                 [50, 100, 200, 'All'],
@@ -122,38 +122,39 @@
         });
     }
 
-    $('#btn_tambah_customer').click(function(event) {
-        $("#modal-customer").modal('show');
+    $('#btn_tambah_perusahaan').click(function(event) {
+        $("#modal-perusahaan").modal('show');
     });
 
-    function ShowCustomerDetail(customer_id) {
+    function ShowperusahaanDetail(perusahaan_id) {
 
-        $("#modal-customer-edit").modal('show');
+        $("#modal-perusahaan-edit").modal('show');
 
         $.ajax({
             type: 'GET',
-            url: "<?= base_url('Customer/Get_all_customer_by_id') ?>",
+            url: "<?= base_url('Perusahaan/Get_all_perusahaan_by_id') ?>",
             data: {
-                id: customer_id
+                id: perusahaan_id
             },
             dataType: "JSON",
             success: function(response) {
 
                 if (response.length > 0) {
                     $.each(response, function(i, v) {
-                        $("#id_customer-edit").val(v.customer_id);
-                        $("#nama_customer-edit").val(v.customer_nama);
-                        $("#alamat_customer-edit").val(v.customer_alamat);
-                        $("#kelurahan-edit").val(v.customer_kelurahan);
-                        $("#kecamatan-edit").val(v.customer_kecamatan);
-                        $("#kota-edit").val(v.customer_kota);
-                        $("#provinsi-edit").val(v.customer_provinsi);
-                        $("#negara-edit").val(v.customer_negara);
-                        $("#telp-edit").val(v.customer_telp);
-                        $("#kode_pos-edit").val(v.customer_kode_pos);
-                        $("#email-edit").val(v.customer_email);
-                        $("#customer_nama_contact_person-edit").val(v.customer_nama_contact_person);
-                        $("#customer_telp_contact_person-edit").val(v.customer_telp_contact_person);
+                        $("#id_perusahaan-edit").val(v.perusahaan_id);
+                        $("#nama_perusahaan-edit").val(v.perusahaan_nama);
+                        $("#alamat_perusahaan-edit").val(v.perusahaan_alamat);
+                        $("#kelurahan-edit").val(v.perusahaan_kelurahan);
+                        $("#kecamatan-edit").val(v.perusahaan_kecamatan);
+                        $("#kota-edit").val(v.perusahaan_kota);
+                        $("#provinsi-edit").val(v.perusahaan_provinsi);
+                        $("#negara-edit").val(v.perusahaan_negara);
+                        $("#telp-edit").val(v.perusahaan_telp);
+                        $("#kode_pos-edit").val(v.perusahaan_kode_pos);
+                        $("#email-edit").val(v.perusahaan_email);
+                        $("#npwp-edit").val(v.perusahaan_npwp);
+                        $("#perusahaan_nama_contact_person-edit").val(v.perusahaan_nama_contact_person);
+                        $("#perusahaan_telp_contact_person-edit").val(v.perusahaan_telp_contact_person);
 
                         if (v.is_aktif == "1") {
                             $("#is_aktif-edit").prop("checked", true);
@@ -165,9 +166,9 @@
 
                 } else {
                     $.each(response, function(i, v) {
-                        $("#id_customer-edit").val('');
-                        $("#nama_customer-edit").val('');
-                        $("#alamat_customer-edit").val('');
+                        $("#id_perusahaan-edit").val('');
+                        $("#nama_perusahaan-edit").val('');
+                        $("#alamat_perusahaan-edit").val('');
                         $("#kelurahan-edit").val('');
                         $("#kecamatan-edit").val('');
                         $("#kota-edit").val('');
@@ -176,8 +177,9 @@
                         $("#telp-edit").val('');
                         $("#kode_pos-edit").val('');
                         $("#email-edit").val('');
-                        $("#customer_nama_contact_person-edit").val('');
-                        $("#customer_telp_contact_person-edit").val('');
+                        $("#npwp-edit").val('');
+                        $("#perusahaan_nama_contact_person-edit").val('');
+                        $("#perusahaan_telp_contact_person-edit").val('');
                     });
 
                 }
@@ -186,13 +188,13 @@
 
     }
 
-    $("#btn_save_customer").click(function() {
+    $("#btn_save_perusahaan").click(function() {
         cek_error = 0;
         setTimeout(() => {
 
             // console.log(arr_list_faktur_klaim);
 
-            if ($("#nama_customer").val() == "") {
+            if ($("#nama_perusahaan").val() == "") {
 
                 let alert = "Nama Pelanggan Tidak Boleh Kosong";
                 message_custom("Error", "error", alert);
@@ -216,7 +218,7 @@
 
                         $.ajax({
                             async: false,
-                            url: "<?= base_url('Customer/insert_customer'); ?>",
+                            url: "<?= base_url('Perusahaan/insert_perusahaan'); ?>",
                             type: "POST",
                             beforeSend: function() {
                                 Swal.fire({
@@ -226,22 +228,23 @@
                                     showConfirmButton: false
                                 });
 
-                                $("#btn_simpan_customer").prop("disabled", true);
+                                $("#btn_simpan_perusahaan").prop("disabled", true);
                             },
                             data: {
-                                customer_id: $("#id_customer").val(),
-                                customer_nama: $("#nama_customer").val(),
-                                customer_alamat: $("#alamat_customer").val(),
-                                customer_kelurahan: $("#kelurahan").val(),
-                                customer_kecamatan: $("#kecamatan").val(),
-                                customer_kota: $("#kota").val(),
-                                customer_provinsi: $("#provinsi").val(),
-                                customer_negara: $("#negara").val(),
-                                customer_telp: $("#telp").val(),
-                                customer_kode_pos: $("#kode_pos").val(),
-                                customer_email: $("#email").val(),
-                                customer_nama_contact_person: $("#customer_nama_contact_person").val(),
-                                customer_telp_contact_person: $("#customer_telp_contact_person").val(),
+                                perusahaan_id: $("#id_perusahaan").val(),
+                                perusahaan_nama: $("#nama_perusahaan").val(),
+                                perusahaan_alamat: $("#alamat_perusahaan").val(),
+                                perusahaan_kelurahan: $("#kelurahan").val(),
+                                perusahaan_kecamatan: $("#kecamatan").val(),
+                                perusahaan_kota: $("#kota").val(),
+                                perusahaan_provinsi: $("#provinsi").val(),
+                                perusahaan_negara: $("#negara").val(),
+                                perusahaan_telp: $("#telp").val(),
+                                perusahaan_kode_pos: $("#kode_pos").val(),
+                                perusahaan_email: $("#email").val(),
+                                perusahaan_npwp: $("#npwp").val(),
+                                perusahaan_nama_contact_person: $("#perusahaan_nama_contact_person").val(),
+                                perusahaan_telp_contact_person: $("#perusahaan_telp_contact_person").val(),
                                 is_aktif: $('#is_aktif:checked').val()
                             },
                             dataType: "JSON",
@@ -250,8 +253,8 @@
                                 if (response.status == 1) {
                                     var alert = "Data Berhasil Disimpan";
                                     message_custom("Success", "success", alert);
-                                    $("#modal-customer").modal('hide');
-                                    Get_customer_by_filter();
+                                    $("#modal-perusahaan").modal('hide');
+                                    Get_perusahaan_by_filter();
 
                                     ResetForm();
                                 } else {
@@ -259,17 +262,17 @@
                                     message_custom("Error", "error", alert);
                                 }
 
-                                $("#btn_simpan_customer").prop("disabled", false);
+                                $("#btn_simpan_perusahaan").prop("disabled", false);
                             },
                             error: function(xhr, ajaxOptions, thrownError) {
                                 var alert = "Error 500 Internal Server Connection Failure";
                                 message_custom("Error", "error", alert);
 
-                                $("#btn_simpan_customer").prop("disabled", false);
+                                $("#btn_simpan_perusahaan").prop("disabled", false);
                             },
                             complete: function() {
                                 // Swal.close();
-                                $("#btn_simpan_customer").prop("disabled", false);
+                                $("#btn_simpan_perusahaan").prop("disabled", false);
                             }
                         });
                     }
@@ -280,13 +283,13 @@
         }, 1000);
     });
 
-    $("#btn_update_customer").click(function() {
+    $("#btn_update_perusahaan").click(function() {
         cek_error = 0;
         setTimeout(() => {
 
             // console.log(arr_list_faktur_klaim);
 
-            if ($("#nama_customer-edit").val() == "") {
+            if ($("#nama_perusahaan-edit").val() == "") {
 
                 let alert = "Nama Pelanggan Tidak Boleh Kosong";
                 message_custom("Error", "error", alert);
@@ -310,7 +313,7 @@
 
                         $.ajax({
                             async: false,
-                            url: "<?= base_url('Customer/update_customer'); ?>",
+                            url: "<?= base_url('Perusahaan/update_perusahaan'); ?>",
                             type: "POST",
                             beforeSend: function() {
                                 Swal.fire({
@@ -320,22 +323,23 @@
                                     showConfirmButton: false
                                 });
 
-                                $("#btn_simpan_customer").prop("disabled", true);
+                                $("#btn_simpan_perusahaan").prop("disabled", true);
                             },
                             data: {
-                                customer_id: $("#id_customer-edit").val(),
-                                customer_nama: $("#nama_customer-edit").val(),
-                                customer_alamat: $("#alamat_customer-edit").val(),
-                                customer_kelurahan: $("#kelurahan-edit").val(),
-                                customer_kecamatan: $("#kecamatan-edit").val(),
-                                customer_kota: $("#kota-edit").val(),
-                                customer_provinsi: $("#provinsi-edit").val(),
-                                customer_negara: $("#negara-edit").val(),
-                                customer_telp: $("#telp-edit").val(),
-                                customer_kode_pos: $("#kode_pos-edit").val(),
-                                customer_email: $("#email-edit").val(),
-                                customer_nama_contact_person: $("#customer_nama_contact_person-edit").val(),
-                                customer_telp_contact_person: $("#customer_telp_contact_person-edit").val(),
+                                perusahaan_id: $("#id_perusahaan-edit").val(),
+                                perusahaan_nama: $("#nama_perusahaan-edit").val(),
+                                perusahaan_alamat: $("#alamat_perusahaan-edit").val(),
+                                perusahaan_kelurahan: $("#kelurahan-edit").val(),
+                                perusahaan_kecamatan: $("#kecamatan-edit").val(),
+                                perusahaan_kota: $("#kota-edit").val(),
+                                perusahaan_provinsi: $("#provinsi-edit").val(),
+                                perusahaan_negara: $("#negara-edit").val(),
+                                perusahaan_telp: $("#telp-edit").val(),
+                                perusahaan_kode_pos: $("#kode_pos-edit").val(),
+                                perusahaan_email: $("#email-edit").val(),
+                                perusahaan_npwp: $("#npwp-edit").val(),
+                                perusahaan_nama_contact_person: $("#perusahaan_nama_contact_person-edit").val(),
+                                perusahaan_telp_contact_person: $("#perusahaan_telp_contact_person-edit").val(),
                                 is_aktif: $('#is_aktif-edit:checked').val()
                             },
                             dataType: "JSON",
@@ -344,9 +348,9 @@
                                 if (response.status == 1) {
                                     var alert = "Data Berhasil Disimpan";
                                     message_custom("Success", "success", alert);
-                                    $("#modal-customer-edit").modal('hide');
+                                    $("#modal-perusahaan-edit").modal('hide');
 
-                                    Get_customer_by_filter();
+                                    Get_perusahaan_by_filter();
 
                                     ResetForm();
                                 } else {
@@ -354,17 +358,17 @@
                                     message_custom("Error", "error", alert);
                                 }
 
-                                $("#btn_simpan_customer").prop("disabled", false);
+                                $("#btn_simpan_perusahaan").prop("disabled", false);
                             },
                             error: function(xhr, ajaxOptions, thrownError) {
                                 var alert = "Error 500 Internal Server Connection Failure";
                                 message_custom("Error", "error", alert);
 
-                                $("#btn_simpan_customer").prop("disabled", false);
+                                $("#btn_simpan_perusahaan").prop("disabled", false);
                             },
                             complete: function() {
                                 // Swal.close();
-                                $("#btn_simpan_customer").prop("disabled", false);
+                                $("#btn_simpan_perusahaan").prop("disabled", false);
                             }
                         });
                     }
@@ -377,9 +381,9 @@
 
     function ResetForm() {
 
-        $("#id_customer").val('');
-        $("#nama_customer").val('');
-        $("#alamat_customer").val('');
+        $("#id_perusahaan").val('');
+        $("#nama_perusahaan").val('');
+        $("#alamat_perusahaan").val('');
         $("#kelurahan").val('');
         $("#kecamatan").val('');
         $("#kota").val('');
@@ -388,10 +392,15 @@
         $("#telp").val('');
         $("#kode_pos").val('');
         $("#email").val('');
+        $("#npwp").val('');
+        $("#perusahaan_nama_contact_person").val('');
+        $("#perusahaan_telp_contact_person").val('');
+        $("#perusahaan_telp_contact_person").val('');
+        $("#is_aktif").prop("checked", false);
 
-        $("#id_customer-edit").val('');
-        $("#nama_customer-edit").val('');
-        $("#alamat_customer-edit").val('');
+        $("#id_perusahaan-edit").val('');
+        $("#nama_perusahaan-edit").val('');
+        $("#alamat_perusahaan-edit").val('');
         $("#kelurahan-edit").val('');
         $("#kecamatan-edit").val('');
         $("#kota-edit").val('');
@@ -400,7 +409,10 @@
         $("#telp-edit").val('');
         $("#kode_pos-edit").val('');
         $("#email-edit").val('');
-
+        $("#npwp-edit").val('');
+        $("#perusahaan_nama_contact_person-edit").val('');
+        $("#perusahaan_telp_contact_person-edit").val('');
+        $("#is_aktif-edit").prop("checked", false);
 
     }
 </script>

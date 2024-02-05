@@ -50,9 +50,9 @@ class Barang extends CI_Controller
         // 	exit();
         // }
 
-        // if (!$this->session->has_userdata('pengguna_id')) {
-        // 	redirect(base_url('MainPage'));
-        // }
+        if (!$this->session->has_userdata('pengguna_id')) {
+            redirect(base_url('Auth/login'));
+        }
 
         // if (!$this->session->has_userdata('depo_id')) {
         // 	redirect(base_url('Main/MainDepo/DepoMenu'));
@@ -133,7 +133,8 @@ class Barang extends CI_Controller
         $barang_id = $this->M_Vrbl->Generate_kode($table, $column, $kode);
 
         $barang_nama = $this->input->post('barang_nama');
-        $harga_satuan = $this->input->post('harga_satuan');
+        $harga_satuan = str_replace(",", ".", $this->input->post('harga_satuan'));
+        $harga_hpp = str_replace(",", ".", $this->input->post('harga_hpp'));
         $barang_desc = $this->input->post('barang_desc');
         $unit = $this->input->post('unit');
 
@@ -146,7 +147,7 @@ class Barang extends CI_Controller
 
         $this->db->trans_begin();
 
-        $this->M_Barang->insert_barang($barang_id, $barang_nama, $harga_satuan, $barang_desc, $unit);
+        $this->M_Barang->insert_barang($barang_id, $barang_nama, $harga_satuan, $harga_hpp, $barang_desc, $unit);
 
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
@@ -161,7 +162,8 @@ class Barang extends CI_Controller
     {
         $barang_id = $this->input->post('barang_id');
         $barang_nama = $this->input->post('barang_nama');
-        $harga_satuan = $this->input->post('harga_satuan');
+        $harga_satuan = str_replace(",", ".", $this->input->post('harga_satuan'));
+        $harga_hpp = str_replace(",", ".", $this->input->post('harga_hpp'));
         $barang_desc = $this->input->post('barang_desc');
         $unit = $this->input->post('unit');
 
@@ -174,7 +176,7 @@ class Barang extends CI_Controller
 
         $this->db->trans_begin();
 
-        $this->M_Barang->update_barang($barang_id, $barang_nama, $harga_satuan, $barang_desc, $unit);
+        $this->M_Barang->update_barang($barang_id, $barang_nama, $harga_satuan, $harga_hpp, $barang_desc, $unit);
 
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
