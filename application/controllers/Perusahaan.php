@@ -148,7 +148,7 @@ class Perusahaan extends CI_Controller
 
         $table = "perusahaan";
         $column = "perusahaan_id";
-        $kode = "SP";
+        $kode = "PRH";
 
         $perusahaan_id = $this->M_Vrbl->Generate_kode($table, $column, $kode);
 

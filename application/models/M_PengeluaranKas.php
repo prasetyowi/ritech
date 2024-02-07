@@ -48,7 +48,7 @@ class M_PengeluaranKas extends CI_Model
 									WHERE a.kas_id = '$kas_id'");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }

@@ -63,7 +63,7 @@ class M_Pembelian extends CI_Model
 									WHERE a.pembelian_id = '$pembelian_id'");
 
 		if ($query->num_rows() == 0) {
-			$query = 0;
+			$query = array();
 		} else {
 			$query = $query->result_array();
 		}
@@ -106,7 +106,7 @@ class M_Pembelian extends CI_Model
 									WHERE a.pembelian_id = '$pembelian_id'");
 
 		if ($query->num_rows() == 0) {
-			$query = 0;
+			$query = array();
 		} else {
 			$query = $query->result_array();
 		}
@@ -134,7 +134,7 @@ class M_Pembelian extends CI_Model
 									ORDER BY a.pembelian_no_item ASC");
 
 		if ($query->num_rows() == 0) {
-			$query = 0;
+			$query = array();
 		} else {
 			$query = $query->result_array();
 		}
@@ -166,7 +166,7 @@ class M_Pembelian extends CI_Model
 									ORDER BY a.pembelian_no_item ASC");
 
 		if ($query->num_rows() == 0) {
-			$query = 0;
+			$query = array();
 		} else {
 			$query = $query->result_array();
 		}
@@ -186,7 +186,7 @@ class M_Pembelian extends CI_Model
 									ORDER BY pembelian_termin_no_item ASC");
 
 		if ($query->num_rows() == 0) {
-			$query = 0;
+			$query = array();
 		} else {
 			$query = $query->result_array();
 		}
@@ -207,7 +207,7 @@ class M_Pembelian extends CI_Model
 									ORDER BY pembelian_termin_no_item ASC");
 
 		if ($query->num_rows() == 0) {
-			$query = 0;
+			$query = array();
 		} else {
 			$query = $query->result_array();
 		}

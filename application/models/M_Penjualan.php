@@ -63,7 +63,7 @@ class M_Penjualan extends CI_Model
 									WHERE a.penjualan_id = '$penjualan_id'");
 
 		if ($query->num_rows() == 0) {
-			$query = 0;
+			$query = array();
 		} else {
 			$query = $query->result_array();
 		}
@@ -106,7 +106,7 @@ class M_Penjualan extends CI_Model
 									WHERE a.penjualan_id = '$penjualan_id'");
 
 		if ($query->num_rows() == 0) {
-			$query = 0;
+			$query = array();
 		} else {
 			$query = $query->result_array();
 		}
@@ -134,7 +134,7 @@ class M_Penjualan extends CI_Model
 									ORDER BY a.penjualan_no_item ASC");
 
 		if ($query->num_rows() == 0) {
-			$query = 0;
+			$query = array();
 		} else {
 			$query = $query->result_array();
 		}
@@ -166,7 +166,7 @@ class M_Penjualan extends CI_Model
 									ORDER BY a.penjualan_no_item ASC");
 
 		if ($query->num_rows() == 0) {
-			$query = 0;
+			$query = array();
 		} else {
 			$query = $query->result_array();
 		}
@@ -186,7 +186,7 @@ class M_Penjualan extends CI_Model
 									ORDER BY penjualan_termin_no_item ASC");
 
 		if ($query->num_rows() == 0) {
-			$query = 0;
+			$query = array();
 		} else {
 			$query = $query->result_array();
 		}
@@ -207,7 +207,7 @@ class M_Penjualan extends CI_Model
 									ORDER BY penjualan_termin_no_item ASC");
 
 		if ($query->num_rows() == 0) {
-			$query = 0;
+			$query = array();
 		} else {
 			$query = $query->result_array();
 		}

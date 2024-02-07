@@ -15,7 +15,7 @@ class M_Barang extends CI_Model
         $query = $this->db->query("SELECT * FROM barang order by barang_nama asc");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }
@@ -36,7 +36,7 @@ class M_Barang extends CI_Model
                                     FROM barang where barang_id = '$barang_id' order by barang_nama asc");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }
@@ -59,7 +59,7 @@ class M_Barang extends CI_Model
                                     ORDER BY barang_nama ASC");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }
@@ -83,7 +83,7 @@ class M_Barang extends CI_Model
         $query = $this->db->query("SELECT * FROM barang where barang_id is not null " . $arr_list_barang_str . " order by barang_nama asc");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }

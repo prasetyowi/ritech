@@ -15,7 +15,7 @@ class M_Supplier extends CI_Model
         $query = $this->db->query("SELECT * FROM supplier order by supplier_nama asc");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }
@@ -48,7 +48,7 @@ class M_Supplier extends CI_Model
                                     ORDER BY supplier_nama ASC");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }
@@ -79,7 +79,7 @@ class M_Supplier extends CI_Model
                                     ORDER BY supplier_nama ASC");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }
@@ -93,7 +93,7 @@ class M_Supplier extends CI_Model
         $query = $this->db->query("SELECT supplier_id as id, supplier_nama as nama, supplier_alamat, supplier_kelurahan, supplier_kecamatan, supplier_kota, supplier_provinsi,supplier_kode_pos FROM supplier where supplier_nama like '%$search%' order by supplier_nama asc LIMIT 25");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }
@@ -117,7 +117,7 @@ class M_Supplier extends CI_Model
         $query = $this->db->query("SELECT * FROM supplier where supplier_id is not null " . $arr_list_supplier_str . " order by supplier_nama asc");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }

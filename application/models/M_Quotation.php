@@ -57,7 +57,7 @@ class M_Quotation extends CI_Model
 									WHERE a.quotation_id = '$quotation_id'");
 
 		if ($query->num_rows() == 0) {
-			$query = 0;
+			$query = array();
 		} else {
 			$query = $query->result_array();
 		}
@@ -85,7 +85,7 @@ class M_Quotation extends CI_Model
 									ORDER BY a.quotation_no_item ASC");
 
 		if ($query->num_rows() == 0) {
-			$query = 0;
+			$query = array();
 		} else {
 			$query = $query->result_array();
 		}
@@ -105,7 +105,7 @@ class M_Quotation extends CI_Model
 									ORDER BY quotation_termin_no_item ASC");
 
 		if ($query->num_rows() == 0) {
-			$query = 0;
+			$query = array();
 		} else {
 			$query = $query->result_array();
 		}

@@ -15,7 +15,21 @@ class M_Perusahaan extends CI_Model
         $query = $this->db->query("SELECT * FROM perusahaan order by perusahaan_nama asc");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
+        } else {
+            $query = $query->result_array();
+        }
+
+        return $query;
+    }
+
+    public function Get_all_perusahaan_aktif()
+    {
+
+        $query = $this->db->query("SELECT * FROM perusahaan where is_aktif='1' order by perusahaan_nama asc");
+
+        if ($query->num_rows() == 0) {
+            $query = array();
         } else {
             $query = $query->result_array();
         }
@@ -48,7 +62,7 @@ class M_Perusahaan extends CI_Model
                                     ORDER BY perusahaan_nama ASC");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }
@@ -79,7 +93,7 @@ class M_Perusahaan extends CI_Model
                                     ORDER BY perusahaan_nama ASC");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }
@@ -93,7 +107,7 @@ class M_Perusahaan extends CI_Model
         $query = $this->db->query("SELECT perusahaan_id as id, perusahaan_nama as nama, perusahaan_alamat, perusahaan_kelurahan, perusahaan_kecamatan, perusahaan_kota, perusahaan_provinsi,perusahaan_kode_pos FROM perusahaan where perusahaan_nama like '%$search%' order by perusahaan_nama asc LIMIT 25");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }
@@ -117,7 +131,7 @@ class M_Perusahaan extends CI_Model
         $query = $this->db->query("SELECT * FROM perusahaan where perusahaan_id is not null " . $arr_list_perusahaan_str . " order by perusahaan_nama asc");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }

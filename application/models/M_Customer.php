@@ -15,7 +15,7 @@ class M_Customer extends CI_Model
         $query = $this->db->query("SELECT * FROM customer order by customer_nama asc");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }
@@ -47,7 +47,7 @@ class M_Customer extends CI_Model
                                     ORDER BY customer_nama ASC");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }
@@ -77,7 +77,7 @@ class M_Customer extends CI_Model
                                     ORDER BY customer_nama ASC");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }
@@ -91,7 +91,7 @@ class M_Customer extends CI_Model
         $query = $this->db->query("SELECT customer_id as id, customer_nama as nama, customer_alamat, customer_kelurahan, customer_kecamatan, customer_kota, customer_provinsi,customer_kode_pos FROM customer where customer_nama like '%$search%' order by customer_nama asc LIMIT 25");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }
@@ -115,7 +115,7 @@ class M_Customer extends CI_Model
         $query = $this->db->query("SELECT * FROM customer where customer_id is not null " . $arr_list_customer_str . " order by customer_nama asc");
 
         if ($query->num_rows() == 0) {
-            $query = 0;
+            $query = array();
         } else {
             $query = $query->result_array();
         }

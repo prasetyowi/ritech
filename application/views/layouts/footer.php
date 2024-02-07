@@ -84,6 +84,10 @@
         'endDate': '<?= date("t-m-Y") ?>'
     });
 
+    $(".select2").select2({
+        width: '100%'
+    });
+
     function message_custom(titleType, iconType, htmlType) {
         Swal.fire({
             title: titleType,
