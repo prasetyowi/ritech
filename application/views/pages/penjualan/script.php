@@ -23,7 +23,9 @@
                 arr_list_termin.push({
                     'idx': "<?= $key + 1 ?>",
                     'keterangan': "<?= $value['keterangan'] ?>",
-                    'termin_pembayaran': <?= $value['termin_pembayaran'] ?>
+                    'termin_pembayaran': <?= $value['termin_pembayaran'] ?>,
+                    'termin_tanggal_bayar': "<?= $value['termin_tanggal_bayar'] ?>",
+                    'termin_status': "<?= $value['termin_status'] ?>"
                 });
             <?php } ?>
 
@@ -82,7 +84,9 @@
         arr_list_termin.push({
             'idx': index_termin,
             'keterangan': "",
-            'termin_pembayaran': 0
+            'termin_pembayaran': 0,
+            'termin_tanggal_bayar': "",
+            'termin_status': ""
         });
 
         Get_list_penjualan_termin();
@@ -122,20 +126,35 @@
                     if (response.length != 0) {
 
                         $.each(response, function(i, v) {
-                            $("#table_list_penjualan > tbody").append(`
-								<tr class="even pointer">
-                                    <td class="a-center ">${i+1}</td>
-                                    <td class=" ">${v.penjualan_id}</td>
-                                    <td class=" ">${v.penjualan_tanggal}</td>
-                                    <td class=" ">${v.penjualan_no_po}</td>
-                                    <td class=" ">${v.customer_nama}</td>
-                                    <td class=" ">${v.penjualan_status}</td>
-                                    <td class=" ">
-                                        <a href="<?= base_url() ?>Penjualan/edit/?id=${v.penjualan_id}" target="_blank" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-                                        <a href="<?= base_url() ?>Penjualan/detail/?id=${v.penjualan_id}" target="_blank" class="btn btn-primary"><i class="fa fa-search"></i></a>
-                                    </td>
-                                </tr>
-							`);
+                            if (v.penjualan_status == "Applied" || v.penjualan_status == "Canceled") {
+                                $("#table_list_penjualan > tbody").append(`
+                                    <tr class="even pointer">
+                                        <td class="a-center ">${i+1}</td>
+                                        <td class=" ">${v.penjualan_id}</td>
+                                        <td class=" ">${v.penjualan_tanggal}</td>
+                                        <td class=" ">${v.penjualan_no_po}</td>
+                                        <td class=" ">${v.customer_nama}</td>
+                                        <td class=" ">${v.penjualan_status}</td>
+                                        <td class="text-center">
+                                            <a href="<?= base_url() ?>Penjualan/detail/?id=${v.penjualan_id}" target="_blank" class="btn btn-primary"><i class="fa fa-search"></i></a>
+                                        </td>
+                                    </tr>
+                                `);
+                            } else {
+                                $("#table_list_penjualan > tbody").append(`
+                                    <tr class="even pointer">
+                                        <td class="a-center ">${i+1}</td>
+                                        <td class=" ">${v.penjualan_id}</td>
+                                        <td class=" ">${v.penjualan_tanggal}</td>
+                                        <td class=" ">${v.penjualan_no_po}</td>
+                                        <td class=" ">${v.customer_nama}</td>
+                                        <td class=" ">${v.penjualan_status}</td>
+                                        <td class="text-center">
+                                            <a href="<?= base_url() ?>Penjualan/edit/?id=${v.penjualan_id}" target="_blank" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                                        </td>
+                                    </tr>
+                                `);
+                            }
                         });
 
                         $("#table_list_penjualan").DataTable({
@@ -209,11 +228,7 @@
             $(this).hide();
 
             $('#table-penjualan-detail > tbody').empty('');
-
-            if ($.fn.DataTable.isDataTable('#table-penjualan-detail')) {
-                $('#table-penjualan-detail').DataTable().clear();
-                $('#table-penjualan-detail').DataTable().destroy();
-            }
+            $('#table-penjualan-detail > tbody').html('');
 
         }).fadeIn("slow", function() {
             $(this).show();
@@ -247,13 +262,6 @@
 						</tr>
 					`);
                 });
-
-                $("#table-penjualan-detail").DataTable({
-                    lengthMenu: [
-                        [50, 100, 200, -1],
-                        [50, 100, 200, 'All'],
-                    ],
-                });
             }
         });
     }
@@ -262,12 +270,8 @@
         $('#table-penjualan-termin').fadeOut("slow", function() {
             $(this).hide();
 
+            $('#table-penjualan-termin > tbody').html('');
             $('#table-penjualan-termin > tbody').empty('');
-
-            if ($.fn.DataTable.isDataTable('#table-penjualan-termin')) {
-                $('#table-penjualan-termin').DataTable().clear();
-                $('#table-penjualan-termin').DataTable().destroy();
-            }
 
         }).fadeIn("slow", function() {
             $(this).show();
@@ -275,30 +279,57 @@
             if (arr_list_termin.length != 0) {
 
                 $.each(arr_list_termin, function(i, v) {
-                    $("#table-penjualan-termin > tbody").append(`
-						<tr>
-						    <td class="text-center" style="width:5%;">
-								${i+1}
-								<input type="hidden" class="form-control" id="item-${i}-penjualan_termin-idx" value="${v.idx}">
-							</td>
-                            <td class="text-left" style="width:45%;">
-                                <input type="text" class="form-control" id="item-${i}-penjualan_termin-keterangan" value="${v.keterangan}"  max="250" onchange="UpdateListTermin('${v.idx}', '${i}','text')">
-                            </td>
-                            <td class="text-left" style="width:45%;">
-                                <input type="number" class="form-control" id="item-${i}-penjualan_termin-termin_pembayaran" value="${v.termin_pembayaran}" onchange="UpdateListTermin('${v.idx}', '${i}','text')">
-                            </td>
-                            <td class="text-center" style="width:5%;">
-								<button type="button" class="btn btn-danger btn-sm" onClick="DeleteListTermin('${v.idx}','${i}')"><i class="fa fa-trash"></i></button>
-							</td>
-						</tr>
-					`);
-                });
 
-                $("#table-penjualan-termin").DataTable({
-                    lengthMenu: [
-                        [50, 100, 200, -1],
-                        [50, 100, 200, 'All'],
-                    ],
+                    if (v.termin_status == "LUNAS") {
+                        $("#table-penjualan-termin > tbody").append(`
+                            <tr style="background-color:#9ED5C5">
+                                <td class="text-center" style="width:5%;">
+                                    ${i+1}
+                                    <input type="hidden" class="form-control" id="item-${i}-penjualan_termin-idx" value="${v.idx}">
+                                </td>
+                                <td class="text-left" style="width:25%;">
+                                    <input type="text" class="form-control" id="item-${i}-penjualan_termin-keterangan" value="${v.keterangan}"  max="250" disabled>
+                                </td>
+                                <td class="text-left" style="width:20%;">
+                                    <input type="number" class="form-control" id="item-${i}-penjualan_termin-termin_pembayaran" value="${v.termin_pembayaran}" disabled>
+                                </td>
+                                <td class="text-center" style="width:10%;">
+                                    <input type="checkbox" id="item-${i}-penjualan_termin-termin_status" value="${v.termin_status}" checked disabled>
+                                </td>
+                                <td class="text-left" style="width:25%;">
+                                    <input type="date" class="form-control" id="item-${i}-penjualan_termin-termin_tanggal_bayar" value="${v.termin_tanggal_bayar}" disabled>
+                                </td>
+                                <td class="text-center" style="width:5%;">
+
+                                </td>
+                            </tr>
+                        `);
+
+                    } else {
+                        $("#table-penjualan-termin > tbody").append(`
+                            <tr>
+                                <td class="text-center" style="width:5%;">
+                                    ${i+1}
+                                    <input type="hidden" class="form-control" id="item-${i}-penjualan_termin-idx" value="${v.idx}">
+                                </td>
+                                <td class="text-left" style="width:25%;">
+                                    <input type="text" class="form-control" id="item-${i}-penjualan_termin-keterangan" value="${v.keterangan}"  max="250" onchange="UpdateListTermin('${v.idx}', '${i}','text')">
+                                </td>
+                                <td class="text-left" style="width:20%;">
+                                    <input type="number" class="form-control" id="item-${i}-penjualan_termin-termin_pembayaran" value="${v.termin_pembayaran}" onchange="UpdateListTermin('${v.idx}', '${i}','text')">
+                                </td>
+                                <td class="text-center" style="width:10%;">
+                                    <input type="checkbox"  id="item-${i}-penjualan_termin-termin_status" value="LUNAS" onchange="UpdateListTermin('${v.idx}', '${i}','text')">
+                                </td>
+                                <td class="text-left" style="width:25%;">
+                                    <input type="date" class="form-control" id="item-${i}-penjualan_termin-termin_tanggal_bayar" value="${v.termin_tanggal_bayar}" onchange="UpdateListTermin('${v.idx}', '${i}','text')">
+                                </td>
+                                <td class="text-center" style="width:5%;">
+                                    <button type="button" class="btn btn-danger btn-sm" onClick="DeleteListTermin('${v.idx}','${i}')"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        `);
+                    }
                 });
             }
         });
@@ -324,12 +355,15 @@
 
         const findIndexData = arr_list_termin.findIndex((value) => value.idx == idx);
 
-
         arr_list_termin[findIndexData] = ({
             'idx': $("#item-" + index + "-penjualan_termin-idx").val(),
             'keterangan': $("#item-" + index + "-penjualan_termin-keterangan").val(),
-            'termin_pembayaran': $("#item-" + index + "-penjualan_termin-termin_pembayaran").val()
+            'termin_pembayaran': $("#item-" + index + "-penjualan_termin-termin_pembayaran").val(),
+            'termin_tanggal_bayar': $("#item-" + index + "-penjualan_termin-termin_tanggal_bayar").val(),
+            'termin_status': $("#item-" + index + "-penjualan_termin-termin_status:checked").val() === undefined ? '' : $("#item-" + index + "-penjualan_termin-termin_status:checked").val()
         });
+
+        console.log(arr_list_termin);
     }
 
     function PushArrayBarang(index, barang_id, barang_nama, unit, harga_satuan, barang_desc) {
@@ -435,6 +469,29 @@
         }
     });
 
+    $("#Penjualan-karyawan_nama").autocomplete({
+        serviceUrl: "<?= base_url('Karyawan/search_karyawan') ?>",
+        params: {},
+        dataType: 'json',
+        onSearchComplete: function(query, suggestions) {
+            if (suggestions.length == 0) {
+                setTimeout(() => {
+                    $("#Penjualan-karyawan_id").val('');
+                    $("#Penjualan-karyawan_nama").val('');
+                }, 1000);
+            }
+        },
+        onSelect: function(data) {
+            if (data) {
+                $("#Penjualan-karyawan_id").val(data.id);
+                $("#Penjualan-karyawan_nama").val(data.nama);
+            } else {
+                $("#Penjualan-karyawan_id").val('');
+                $("#Penjualan-karyawan_nama").val('');
+            }
+        }
+    });
+
     $("#filter_customer").autocomplete({
         serviceUrl: "<?= base_url('Customer/search_customer') ?>",
         params: {},
@@ -527,6 +584,14 @@
                 return false;
             }
 
+            if ($("#Penjualan-karyawan_id").val() == "") {
+
+                let alert = "Sales Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
+
             // if ($("#Penjualan-jumlah").val() == "" || $("#Penjualan-jumlah").val() == "0") {
 
             //     let alert = "Jumlah Material Tidak Boleh Kosong";
@@ -594,16 +659,22 @@
                                 customer_id: $('#Penjualan-customer_id').val(),
                                 penjualan_keterangan: $('#Penjualan-penjualan_keterangan').val(),
                                 penjualan_jumlah: "",
-                                penjualan_status: $('#Penjualan-penjualan_status').val(),
+                                penjualan_status: "Draft",
+                                // penjualan_status: $('#Penjualan-penjualan_status').val(),
                                 penjualan_no_po: $('#Penjualan-penjualan_no_po').val(),
                                 penjualan_pic: $('#Penjualan-penjualan_pic').val(),
                                 penjualan_oleh: $('#Penjualan-penjualan_oleh').val(),
+                                karyawan_id: $('#Penjualan-karyawan_id').val(),
                                 updwho: "",
                                 updtgl: "",
                                 penjualan_waktu_pengiriman: "",
                                 penjualan_waktu_pengerjaan: "",
                                 periode_penawaran: "",
                                 garansi: "",
+                                no_faktur: $('#Penjualan-no_faktur').val(),
+                                tanggal_faktur: $('#Penjualan-tanggal_faktur').val(),
+                                is_ppn: $('#Penjualan-is_ppn:checked').val(),
+                                is_pph: $('#Penjualan-is_pph:checked').val(),
                                 detail: arr_list_barang,
                                 detail2: arr_list_termin
                             },
@@ -620,7 +691,7 @@
                                     ResetForm();
                                 } else if (response.status == "2") {
 
-                                    var msg = "No Penjualan " + $('#Penjualan-penjualan_id').val() + " Sudah Ada";
+                                    var msg = "No Penjualan " + $('#Penjualan-penjualan_kode').val() + " Sudah Ada";
                                     message_custom("Error", "error", alert);
                                 } else {
                                     var alert = "Data Gagal Disimpan";
@@ -720,6 +791,14 @@
                 return false;
             }
 
+            if ($("#Penjualan-karyawan_id").val() == "") {
+
+                let alert = "Sales Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
+
             // if ($("#Penjualan-jumlah").val() == "" || $("#Penjualan-jumlah").val() == "0") {
 
             //     let alert = "Jumlah Material Tidak Boleh Kosong";
@@ -778,7 +857,9 @@
                                     showConfirmButton: false
                                 });
 
-                                $("#btn_simpan_penjualan").prop("disabled", true);
+                                $("#btn_update_penjualan").prop("disabled", true);
+                                $("#btn_konfirmasi_penjualan").prop("disabled", true);
+                                $("#btn_cancel_penjualan").prop("disabled", true);
                             },
                             data: {
                                 penjualan_id: $('#Penjualan-penjualan_id').val(),
@@ -787,16 +868,22 @@
                                 customer_id: $('#Penjualan-customer_id').val(),
                                 penjualan_keterangan: $('#Penjualan-penjualan_keterangan').val(),
                                 penjualan_jumlah: "",
-                                penjualan_status: $('#Penjualan-penjualan_status').val(),
+                                penjualan_status: "Draft",
+                                // penjualan_status: $('#Penjualan-penjualan_status').val(),
                                 penjualan_no_po: $('#Penjualan-penjualan_no_po').val(),
                                 updwho: $('#Penjualan-updwho').val(),
                                 updtgl: $('#Penjualan-updtgl').val(),
                                 penjualan_pic: $('#Penjualan-penjualan_pic').val(),
                                 penjualan_oleh: $('#Penjualan-penjualan_oleh').val(),
+                                karyawan_id: $('#Penjualan-karyawan_id').val(),
                                 penjualan_waktu_pengiriman: "",
                                 penjualan_waktu_pengerjaan: "",
                                 periode_penawaran: "",
                                 garansi: "",
+                                no_faktur: $('#Penjualan-no_faktur').val(),
+                                tanggal_faktur: $('#Penjualan-tanggal_faktur').val(),
+                                is_ppn: $('#Penjualan-is_ppn:checked').val(),
+                                is_pph: $('#Penjualan-is_pph:checked').val(),
                                 detail: arr_list_barang,
                                 detail2: arr_list_termin
                             },
@@ -813,24 +900,30 @@
                                     ResetForm();
                                 } else if (response.status == "2") {
 
-                                    var msg = "No Penjualan " + $('#Penjualan-penjualan_id').val() + " Sudah Ada";
+                                    var msg = "No Penjualan " + $('#Penjualan-penjualan_kode').val() + " Sudah Ada";
                                     message_custom("Error", "error", alert);
                                 } else {
                                     var alert = "Data Gagal Disimpan";
                                     message_custom("Error", "error", alert);
                                 }
 
-                                $("#btn_simpan_penjualan").prop("disabled", false);
+                                $("#btn_update_penjualan").prop("disabled", false);
+                                $("#btn_konfirmasi_penjualan").prop("disabled", false);
+                                $("#btn_cancel_penjualan").prop("disabled", false);
                             },
                             error: function(xhr, ajaxOptions, thrownError) {
                                 var alert = "Error 500 Internal Server Connection Failure";
                                 message_custom("Error", "error", alert);
 
-                                $("#btn_simpan_penjualan").prop("disabled", false);
+                                $("#btn_update_penjualan").prop("disabled", false);
+                                $("#btn_konfirmasi_penjualan").prop("disabled", false);
+                                $("#btn_cancel_penjualan").prop("disabled", false);
                             },
                             complete: function() {
                                 // Swal.close();
-                                $("#btn_simpan_penjualan").prop("disabled", false);
+                                $("#btn_update_penjualan").prop("disabled", false);
+                                $("#btn_konfirmasi_penjualan").prop("disabled", false);
+                                $("#btn_cancel_penjualan").prop("disabled", false);
                             }
                         });
                     }
@@ -840,6 +933,320 @@
 
         }, 1000);
     });
+
+    $("#btn_konfirmasi_penjualan").click(function() {
+        cek_error = 0;
+
+        if (arr_list_barang.length == 0) {
+
+            let alert = "List Barang Tidak Boleh Kosong";
+            message_custom("Error", "error", alert);
+
+            return false;
+        }
+
+        $.each(arr_list_barang, function(i, v) {
+            if (parseInt(v.qty) == 0) {
+                let alert = "Qty Barang Tidak Boleh 0";
+                message_custom("Error", "error", alert);
+
+                cek_error++;
+
+                return false;
+            }
+
+        });
+
+        if (arr_list_termin.length == 0) {
+
+            let alert = "List Termin Tidak Boleh Kosong";
+            message_custom("Error", "error", alert);
+
+            return false;
+        }
+
+        $.each(arr_list_termin, function(i, v) {
+            if (parseInt(v.keterangan) == 0) {
+                let alert = "Keterangan Termin Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                cek_error++;
+
+                return false;
+            }
+
+            if (parseInt(v.termin_pembayaran) == 0) {
+                let alert = "Termin Pembayaran Tidak Boleh 0";
+                message_custom("Error", "error", alert);
+
+                cek_error++;
+
+                return false;
+            }
+
+        });
+
+        setTimeout(() => {
+
+            // console.log(arr_list_faktur_klaim);
+
+            if ($("#Penjualan-penjualan_id").val() == "") {
+
+                let alert = "No Penjualan Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
+
+            if ($("#Penjualan-customer_id").val() == "") {
+
+                let alert = "Pelanggan Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
+
+            if ($("#Penjualan-karyawan_id").val() == "") {
+
+                let alert = "Sales Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
+
+            // if ($("#Penjualan-jumlah").val() == "" || $("#Penjualan-jumlah").val() == "0") {
+
+            //     let alert = "Jumlah Material Tidak Boleh Kosong";
+            //     message_custom("Error", "error", alert);
+
+            //     return false;
+            // }
+
+            // if ($("#Penjualan-penjualan_waktu_pengiriman").val() == "") {
+
+            //     let alert = "Waktu Pengiriman Tidak Boleh Kosong";
+            //     message_custom("Error", "error", alert);
+
+            //     return false;
+            // }
+
+            // if ($("#Penjualan-penjualan_waktu_pengerjaan").val() == "") {
+
+            //     let alert = "Waktu Pengerjaan Tidak Boleh Kosong";
+            //     message_custom("Error", "error", alert);
+
+            //     return false;
+            // }
+
+            // if ($("#Penjualan-periode_penawaran").val() == "") {
+
+            //     let alert = "Periode Penawaran Tidak Boleh Kosong";
+            //     message_custom("Error", "error", alert);
+
+            //     return false;
+            // }
+
+            if (cek_error == 0) {
+
+                Swal.fire({
+                    title: "Apakah anda yakin?",
+                    text: "Pastikan data yang sudah anda input benar!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya",
+                    cancelButtonText: "Tidak"
+                }).then((result) => {
+                    if (result.value == true) {
+
+                        $.ajax({
+                            async: false,
+                            url: "<?= base_url('Penjualan/update_penjualan'); ?>",
+                            type: "POST",
+                            beforeSend: function() {
+                                Swal.fire({
+                                    title: 'Loading ...',
+                                    html: '<span><i class="fa fa-spinner fa-spin" style="font-size:60px"></i></span>',
+                                    timerProgressBar: false,
+                                    showConfirmButton: false
+                                });
+
+                                $("#btn_update_penjualan").prop("disabled", true);
+                                $("#btn_konfirmasi_penjualan").prop("disabled", true);
+                                $("#btn_cancel_penjualan").prop("disabled", true);
+                            },
+                            data: {
+                                penjualan_id: $('#Penjualan-penjualan_id').val(),
+                                penjualan_kode: $('#Penjualan-penjualan_kode').val(),
+                                penjualan_tanggal: $('#Penjualan-penjualan_tanggal').val(),
+                                customer_id: $('#Penjualan-customer_id').val(),
+                                penjualan_keterangan: $('#Penjualan-penjualan_keterangan').val(),
+                                penjualan_jumlah: "",
+                                penjualan_status: "Applied",
+                                // penjualan_status: $('#Penjualan-penjualan_status').val(),
+                                penjualan_no_po: $('#Penjualan-penjualan_no_po').val(),
+                                updwho: $('#Penjualan-updwho').val(),
+                                updtgl: $('#Penjualan-updtgl').val(),
+                                penjualan_pic: $('#Penjualan-penjualan_pic').val(),
+                                penjualan_oleh: $('#Penjualan-penjualan_oleh').val(),
+                                karyawan_id: $('#Penjualan-karyawan_id').val(),
+                                penjualan_waktu_pengiriman: "",
+                                penjualan_waktu_pengerjaan: "",
+                                periode_penawaran: "",
+                                garansi: "",
+                                no_faktur: $('#Penjualan-no_faktur').val(),
+                                tanggal_faktur: $('#Penjualan-tanggal_faktur').val(),
+                                is_ppn: $('#Penjualan-is_ppn:checked').val(),
+                                is_pph: $('#Penjualan-is_pph:checked').val(),
+                                detail: arr_list_barang,
+                                detail2: arr_list_termin
+                            },
+                            dataType: "JSON",
+                            success: function(response) {
+
+                                if (response.status == 1) {
+                                    var alert = "Data Berhasil Disimpan";
+                                    message_custom("Success", "success", alert);
+                                    setTimeout(() => {
+                                        location.href = "<?= base_url() ?>penjualan";
+                                    }, 500);
+
+                                    ResetForm();
+                                } else if (response.status == "2") {
+
+                                    var msg = "No Penjualan " + $('#Penjualan-penjualan_kode').val() + " Sudah Ada";
+                                    message_custom("Error", "error", alert);
+                                } else {
+                                    var alert = "Data Gagal Disimpan";
+                                    message_custom("Error", "error", alert);
+                                }
+
+                                $("#btn_update_penjualan").prop("disabled", false);
+                                $("#btn_konfirmasi_penjualan").prop("disabled", false);
+                                $("#btn_cancel_penjualan").prop("disabled", false);
+                            },
+                            error: function(xhr, ajaxOptions, thrownError) {
+                                var alert = "Error 500 Internal Server Connection Failure";
+                                message_custom("Error", "error", alert);
+
+                                $("#btn_update_penjualan").prop("disabled", false);
+                                $("#btn_konfirmasi_penjualan").prop("disabled", false);
+                                $("#btn_cancel_penjualan").prop("disabled", false);
+                            },
+                            complete: function() {
+                                // Swal.close();
+                                $("#btn_update_penjualan").prop("disabled", false);
+                                $("#btn_konfirmasi_penjualan").prop("disabled", false);
+                                $("#btn_cancel_penjualan").prop("disabled", false);
+                            }
+                        });
+                    }
+                });
+
+            }
+
+        }, 1000);
+    });
+
+    $("#btn_cancel_penjualan").click(function() {
+        Swal.fire({
+            title: "Apakah anda yakin?",
+            text: "Pastikan data yang sudah anda input benar!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya",
+            cancelButtonText: "Tidak"
+        }).then((result) => {
+            if (result.value == true) {
+
+                $.ajax({
+                    async: false,
+                    url: "<?= base_url('Penjualan/update_penjualan'); ?>",
+                    type: "POST",
+                    beforeSend: function() {
+                        Swal.fire({
+                            title: 'Loading ...',
+                            html: '<span><i class="fa fa-spinner fa-spin" style="font-size:60px"></i></span>',
+                            timerProgressBar: false,
+                            showConfirmButton: false
+                        });
+
+                        $("#btn_update_penjualan").prop("disabled", true);
+                        $("#btn_konfirmasi_penjualan").prop("disabled", true);
+                        $("#btn_cancel_penjualan").prop("disabled", true);
+                    },
+                    data: {
+                        penjualan_id: $('#Penjualan-penjualan_id').val(),
+                        penjualan_kode: $('#Penjualan-penjualan_kode').val(),
+                        penjualan_tanggal: $('#Penjualan-penjualan_tanggal').val(),
+                        customer_id: $('#Penjualan-customer_id').val(),
+                        penjualan_keterangan: $('#Penjualan-penjualan_keterangan').val(),
+                        penjualan_jumlah: "",
+                        penjualan_status: "Canceled",
+                        // penjualan_status: $('#Penjualan-penjualan_status').val(),
+                        penjualan_no_po: $('#Penjualan-penjualan_no_po').val(),
+                        updwho: $('#Penjualan-updwho').val(),
+                        updtgl: $('#Penjualan-updtgl').val(),
+                        penjualan_pic: $('#Penjualan-penjualan_pic').val(),
+                        penjualan_oleh: $('#Penjualan-penjualan_oleh').val(),
+                        karyawan_id: $('#Penjualan-karyawan_id').val(),
+                        penjualan_waktu_pengiriman: "",
+                        penjualan_waktu_pengerjaan: "",
+                        periode_penawaran: "",
+                        garansi: "",
+                        no_faktur: $('#Penjualan-no_faktur').val(),
+                        tanggal_faktur: $('#Penjualan-tanggal_faktur').val(),
+                        is_ppn: $('#Penjualan-is_ppn:checked').val(),
+                        is_pph: $('#Penjualan-is_pph:checked').val(),
+                        detail: arr_list_barang,
+                        detail2: arr_list_termin
+                    },
+                    dataType: "JSON",
+                    success: function(response) {
+
+                        if (response.status == 1) {
+                            var alert = "Data Berhasil Disimpan";
+                            message_custom("Success", "success", alert);
+                            setTimeout(() => {
+                                location.href = "<?= base_url() ?>penjualan";
+                            }, 500);
+
+                            ResetForm();
+                        } else if (response.status == "2") {
+
+                            var msg = "No Penjualan " + $('#Penjualan-penjualan_kode').val() + " Sudah Ada";
+                            message_custom("Error", "error", alert);
+                        } else {
+                            var alert = "Data Gagal Disimpan";
+                            message_custom("Error", "error", alert);
+                        }
+
+                        $("#btn_update_penjualan").prop("disabled", false);
+                        $("#btn_konfirmasi_penjualan").prop("disabled", false);
+                        $("#btn_cancel_penjualan").prop("disabled", false);
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        var alert = "Error 500 Internal Server Connection Failure";
+                        message_custom("Error", "error", alert);
+
+                        $("#btn_update_penjualan").prop("disabled", false);
+                        $("#btn_konfirmasi_penjualan").prop("disabled", false);
+                        $("#btn_cancel_penjualan").prop("disabled", false);
+                    },
+                    complete: function() {
+                        // Swal.close();
+                        $("#btn_update_penjualan").prop("disabled", false);
+                        $("#btn_konfirmasi_penjualan").prop("disabled", false);
+                        $("#btn_cancel_penjualan").prop("disabled", false);
+                    }
+                });
+            }
+        });
+    });
+
 
     Dropzone.autoDiscover = false;
 

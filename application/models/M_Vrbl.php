@@ -30,4 +30,18 @@ class M_Vrbl extends CI_Model
 
         return $kode;
     }
+
+    public function Get_vrbl_value($param)
+    {
+
+        $query = $this->db->query("SELECT * FROM vrbl where vrbl_param = '$param'");
+
+        if ($query->num_rows() == 0) {
+            $query = 0;
+        } else {
+            $query = $query->row(0)->vrbl_nilai;
+        }
+
+        return $query;
+    }
 }

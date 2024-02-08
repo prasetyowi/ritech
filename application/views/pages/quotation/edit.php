@@ -38,6 +38,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3 ">Sales</label>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <input type="text" class="form-control col-md-10" id="Quotation-karyawan_nama" name="Quotation[karyawan_nama]" value="<?= $value['karyawan_nama'] ?>" required />
+                                        <input type="hidden" class="form-control col-md-10" id="Quotation-karyawan_id" name="Quotation[karyawan_id]" value="<?= $value['karyawan_id'] ?>" required />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Pelanggan</label>
                                     <div class="col-md-9 col-sm-9 ">
                                         <input type="text" class="form-control col-md-10" id="Quotation-customer_nama" name="Quotation[customer_nama]" value="<?= $value['customer_nama'] ?>" required />
@@ -116,12 +123,12 @@
                                         <textarea class="resizable_textarea form-control col-md-10" id="Quotation-quotation_keterangan" name="Quotation[quotation_keterangan]" style="height:200px"><?= $value['quotation_keterangan'] ?></textarea>
                                     </div>
                                 </div>
-                                <div class=" form-group row">
+                                <!-- <div class=" form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Status</label>
                                     <div class="col-md-9 col-sm-9 ">
                                         <input type="text" class="form-control col-md-10" id="Quotation-quotation_status" name="Quotation[quotation_status]" value="<?= $value['quotation_status'] ?>" disabled />
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="ln_solid"></div>
                                 <div class="form-group row ">
                                     <button class="btn btn-primary" id="btn_tambah_termin"><i class="fa fa-plus"></i> Tambah Termin</button>

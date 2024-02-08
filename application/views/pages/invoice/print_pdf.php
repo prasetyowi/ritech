@@ -1,3 +1,7 @@
+<?php
+$ppn = 0;
+$pph = 0;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -133,137 +137,141 @@
                                     <tr>
                                         <td style="text-align: left;width:20%;">Tanggal faktur PPn</td>
                                         <td>:</td>
-                                        <td><?= $value['penjualan_tanggal'] ?></td>
+                                        <td><?= $value['tanggal_faktur'] ?></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: left;width:20%;">No. Faktur PPn</td>
                                         <td>:</td>
-                                        <td><?= $value['penjualan_no_po'] ?></td>
+                                        <td><?= $value['no_faktur'] ?></td>
                                     </tr>
                                 </table>
+                                <br>
+                                <table class="table-bordered" width="100%" id="table_item_invoice" style="font-size: 12px;">
+                                    <thead>
+                                        <tr style="text-align:center">
+                                            <th>Jumlah Barang</th>
+                                            <th>Nama Barang</th>
+                                            <th>Harga Satuan</th>
+                                            <th>Jumlah</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($Termin as $value2) : ?>
+                                            <tr>
+                                                <td colspan="4" style="text-align:center;color:black;background-color:#2E97A7;color:white"><?= ucfirst($value2['keterangan']); ?> (<?= $value2['termin_pembayaran']; ?>%), Down Payment
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                        <?php
+                                        $grand_total = 0;
+
+                                        foreach ($Detail as $value2) :
+                                            $harga_satuan = $value2['harga_satuan'];
+                                            $jumlah = $value2['harga_satuan'] * $value2['qty'] * $value2['termin_pembayaran'] / 100;
+
+                                            $grand_total += $jumlah;
+
+                                        ?>
+                                            <tr>
+                                                <td style="text-align:left;padding-left:10px;padding-right:10px;">
+                                                    <?= $value2['qty'] . " " . $value2['unit']; ?>
+                                                </td>
+                                                <td style="text-align:left;padding-left:10px;padding-right:10px;">
+                                                    <?= $value2['barang_nama']; ?><br>
+                                                </td>
+                                                <td style="text-align:right;padding-left:10px;padding-right:10px;">
+                                                    IDR <?= format_rupiah($harga_satuan); ?>
+                                                </td>
+                                                <td style="text-align:right;padding-left:10px;padding-right:10px;">
+                                                    IDR <?= format_rupiah($jumlah); ?>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                        <tr>
+                                            <?php
+                                            $ppn = $value['is_ppn'] == "1" ? ($grand_total * $nilai_var_ppn / 100) : 0;
+                                            $pph = $value['is_pph'] == "1" ? ($grand_total * $nilai_var_pph / 100) : 0;
+                                            ?>
+                                            <td style="text-align:center" rowspan="4" colspan="2">
+                                                <b>Terbilang :</b> <?= terbilang($grand_total + $ppn + $pph) ?>
+                                            </td>
+                                            <td style="text-align:left;padding-left:10px;padding-right:10px;">
+                                                Total
+                                            </td>
+                                            <td style="text-align:right;padding-left:10px;padding-right:10px;">
+                                                IDR <?= format_rupiah($grand_total); ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:left;padding-left:10px;padding-right:10px;">
+                                                PPn <?= $nilai_var_ppn ?>%
+                                            </td>
+                                            <td style="text-align:right;padding-left:10px;padding-right:10px;">
+                                                IDR <?= format_rupiah($ppn); ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:left;padding-left:10px;padding-right:10px;">
+                                                PPh <?= $nilai_var_pph ?>%
+                                            </td>
+                                            <td style="text-align:right;padding-left:10px;padding-right:10px;">
+                                                IDR <?= format_rupiah($pph); ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:left;padding-left:10px;padding-right:10px;">
+                                                Grand total
+                                            </td>
+                                            <td style="text-align:right;padding-left:10px;padding-right:10px;">
+                                                IDR <?= format_rupiah($grand_total + $ppn + $pph); ?>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br>
+                                <table width="100%">
+                                    <thead>
+                                        <tr>
+                                            <td width="80%">
+                                                <b>Pembayaran harap ditransfer ke: </b>
+                                            </td>
+                                            <td style="text-align:center">
+                                                Hormat Kami,
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                PT. Kreasi Teknik Unggul
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                A/C. 006-000-879-8799
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Mandiri KCP Pemuda - Jakarta
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <b> Perhatian : Barang-barang yang sudah dibeli tidak dapat ditukar / dikembalikan </b>
+                                            </td>
+                                            <td style="text-align:center">
+                                                ( <?= $value['karyawan_nama'] ?> )
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+
                             <?php endforeach; ?>
-                            <br>
-                            <table class="table-bordered" width="100%" id="table_item_invoice" style="font-size: 12px;">
-                                <thead>
-                                    <tr style="text-align:center">
-                                        <th>Jumlah Barang</th>
-                                        <th>Nama Barang</th>
-                                        <th>Harga Satuan</th>
-                                        <th>Jumlah</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($Termin as $value2) : ?>
-                                        <tr>
-                                            <td colspan="4" style="text-align:center;color:black;background-color:#2E97A7;color:white"><?= ucfirst($value2['keterangan']); ?> (<?= $value2['termin_pembayaran']; ?>%), Down Payment
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                    <?php
-                                    $grand_total = 0;
-
-                                    foreach ($Detail as $value2) :
-                                        $harga_satuan = $value2['harga_satuan'];
-                                        $jumlah = $value2['harga_satuan'] * $value2['qty'] * $value2['termin_pembayaran'] / 100;
-
-                                        $grand_total += $jumlah;
-
-                                    ?>
-                                        <tr>
-                                            <td style="text-align:left;padding-left:10px;padding-right:10px;">
-                                                <?= $value2['qty'] . " " . $value2['unit']; ?>
-                                            </td>
-                                            <td style="text-align:left;padding-left:10px;padding-right:10px;">
-                                                <?= $value2['barang_nama']; ?><br>
-                                            </td>
-                                            <td style="text-align:right;padding-left:10px;padding-right:10px;">
-                                                IDR <?= format_rupiah($harga_satuan); ?>
-                                            </td>
-                                            <td style="text-align:right;padding-left:10px;padding-right:10px;">
-                                                IDR <?= format_rupiah($jumlah); ?>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                    <tr>
-                                        <td style="text-align:center" rowspan="4" colspan="2">
-                                            <b>Terbilang :</b> <?= terbilang($grand_total + ($grand_total * 10 / 100) + ($grand_total * 2 / 100)) ?>
-                                        </td>
-                                        <td style="text-align:left;padding-left:10px;padding-right:10px;">
-                                            Total
-                                        </td>
-                                        <td style="text-align:right;padding-left:10px;padding-right:10px;">
-                                            IDR <?= format_rupiah($grand_total); ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align:left;padding-left:10px;padding-right:10px;">
-                                            PPn 10%
-                                        </td>
-                                        <td style="text-align:right;padding-left:10px;padding-right:10px;">
-                                            IDR <?= format_rupiah($grand_total * 10 / 100); ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align:left;padding-left:10px;padding-right:10px;">
-                                            PPh 2%
-                                        </td>
-                                        <td style="text-align:right;padding-left:10px;padding-right:10px;">
-                                            IDR <?= format_rupiah($grand_total * 2 / 100); ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align:left;padding-left:10px;padding-right:10px;">
-                                            Grand total
-                                        </td>
-                                        <td style="text-align:right;padding-left:10px;padding-right:10px;">
-                                            IDR <?= format_rupiah($grand_total + ($grand_total * 10 / 100) + ($grand_total * 2 / 100)); ?>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <br>
-                            <table width="100%">
-                                <thead>
-                                    <tr>
-                                        <td width="80%">
-                                            <b>Pembayaran harap ditransfer ke: </b>
-                                        </td>
-                                        <td style="text-align:center">
-                                            Hormat Kami,
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            PT. Kreasi Teknik Unggul
-                                        </td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            A/C. 006-000-879-8799
-                                        </td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Mandiri KCP Pemuda - Jakarta
-                                        </td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b> Perhatian : Barang-barang yang sudah dibeli tidak dapat ditukar / dikembalikan </b>
-                                        </td>
-                                        <td style="text-align:center">
-                                            ( Arief Koeswanto )
-                                        </td>
-                                    </tr>
-                                </thead>
-                            </table>
-
                         </div>
 
                         <div class="clearfix"></div>

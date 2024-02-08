@@ -24,13 +24,20 @@
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Nomor Quotation</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Quotation-quotation_kode" name="Quotation[quotation_kode]" value="" maxlength="250" required>
+                                    <input type="text" class="form-control col-md-10" id="Quotation-quotation_kode" name="Quotation[quotation_kode]" value="<?= $LastQuotation ?>" maxlength="250" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Tanggal Quotation</label>
                                 <div class="col-md-9 col-sm-9 ">
                                     <input type="date" class="form-control col-md-10" id="Quotation-quotation_tanggal" name="Quotation[quotation_tanggal]" value="<?= date('Y-m-d') ?>" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Sales</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Quotation-karyawan_nama" name="Quotation[karyawan_nama]" value="" required />
+                                    <input type="hidden" class="form-control col-md-10" id="Quotation-karyawan_id" name="Quotation[karyawan_id]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -120,12 +127,12 @@
 2. Customer menyediakan kebutuhan utilitas (listrik dan sumber air) disediakan oleh customer.</textarea>
                                 </div>
                             </div>
-                            <div class=" form-group row">
+                            <!-- <div class=" form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Status</label>
                                 <div class="col-md-9 col-sm-9 ">
                                     <input type="text" class="form-control col-md-10" id="Quotation-quotation_status" name="Quotation[quotation_status]" value="Draft" disabled />
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="ln_solid"></div>
                             <div class="form-group row ">
                                 <button class="btn btn-primary" id="btn_tambah_termin"><i class="fa fa-plus"></i> Tambah Termin</button>

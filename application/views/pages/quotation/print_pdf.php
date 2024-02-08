@@ -192,7 +192,7 @@
                                                 <td> <br><br><br>Hormat Kami, </td>
                                             </tr>
                                             <tr>
-                                                <td><br><br><br> <u>Arif K.</u><br>Mobile (+62) 812-1722-8185 <br> Note: This letter is sent by email, no need signature for verification.
+                                                <td><br><br><br> <u><?= $value['karyawan_nama']; ?></u><br>Mobile <?= $value['karyawan_telp']; ?> <br> Note: This letter is sent by email, no need signature for verification.
                                                 </td>
                                             </tr>
                                         </tbody>

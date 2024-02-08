@@ -38,6 +38,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3 ">Sales</label>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <input type="text" class="form-control col-md-10" id="Quotation-karyawan_nama" name="Quotation[karyawan_nama]" value="<?= $value['karyawan_nama'] ?>" disabled />
+                                        <input type="hidden" class="form-control col-md-10" id="Quotation-karyawan_id" name="Quotation[karyawan_id]" value="<?= $value['karyawan_id'] ?>" disabled />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Pelanggan</label>
                                     <div class="col-md-9 col-sm-9 ">
                                         <input type="text" class="form-control col-md-10" id="Quotation-customer_nama" name="Quotation[customer_nama]" value="<?= $value['customer_nama'] ?>" disabled />
@@ -113,15 +120,15 @@
                                 <div class="form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Catatan</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <textarea class="resizable_textarea form-control col-md-10" id="Quotation-quotation_keterangan" name="Quotation[quotation_keterangan]" style="height:200px"><?= $value['quotation_keterangan'] ?></textarea>
+                                        <textarea class="resizable_textarea form-control col-md-10" id="Quotation-quotation_keterangan" name="Quotation[quotation_keterangan]" style="height:200px" disabled><?= $value['quotation_keterangan'] ?></textarea>
                                     </div>
                                 </div>
-                                <div class=" form-group row">
+                                <!-- <div class=" form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Status</label>
                                     <div class="col-md-9 col-sm-9 ">
                                         <input type="text" class="form-control col-md-10" id="Quotation-quotation_status" name="Quotation[quotation_status]" value="<?= $value['quotation_status'] ?>" disabled />
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="ln_solid"></div>
                                 <div class="form-group row ">
                                     <div class="table-responsive">
@@ -175,7 +182,7 @@
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <a href="<?= base_url() ?>quotation" class="btn btn-primary"><i class="fa fa-home"></i> Home</a>
-                                    <a href="<?= base_url() ?>quotation/print/?id=<?= $value['quotation_id'] ?>" class="btn btn-primary"><i class="fa fa-print"></i> Print</a>
+                                    <a href="<?= base_url() ?>quotation/print/?id=<?= $value['quotation_id'] ?>" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Print</a>
                                 </div>
                             </div>
                         <?php endforeach; ?>

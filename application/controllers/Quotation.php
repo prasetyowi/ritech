@@ -90,6 +90,7 @@ class Quotation extends CI_Controller
 
 		$data['Title'] = "Quotation";
 		$data['act'] = "add";
+		$data['LastQuotation'] = $this->M_Quotation->Get_last_quotation();
 
 		// Kebutuhan Authority Menu 
 		// $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
@@ -264,7 +265,7 @@ class Quotation extends CI_Controller
 		$quotation_waktu_pengerjaan = $this->input->post('quotation_waktu_pengerjaan');
 		$periode_penawaran = $this->input->post('periode_penawaran');
 		$garansi = $this->input->post('garansi');
-
+		$karyawan_id = $this->input->post('karyawan_id');
 
 		$detail = $this->input->post('detail');
 		$detail2 = $this->input->post('detail2');
@@ -278,7 +279,7 @@ class Quotation extends CI_Controller
 
 		$this->db->trans_begin();
 
-		$this->M_Quotation->insert_quotation($quotation_id, $quotation_kode, $quotation_tanggal, $customer_id, $quotation_keterangan, $quotation_jumlah, $quotation_status, $updwho, $updtgl, $quotation_waktu_pengiriman, $quotation_waktu_pengerjaan, $periode_penawaran, $garansi);
+		$this->M_Quotation->insert_quotation($quotation_id, $quotation_kode, $quotation_tanggal, $customer_id, $quotation_keterangan, $quotation_jumlah, $quotation_status, $updwho, $updtgl, $quotation_waktu_pengiriman, $quotation_waktu_pengerjaan, $periode_penawaran, $garansi, $karyawan_id);
 
 		foreach ($detail as $key => $value) {
 			// $quotation_id = $value['quotation_id'];
@@ -326,13 +327,21 @@ class Quotation extends CI_Controller
 		$quotation_waktu_pengerjaan = $this->input->post('quotation_waktu_pengerjaan');
 		$periode_penawaran = $this->input->post('periode_penawaran');
 		$garansi = $this->input->post('garansi');
+		$karyawan_id = $this->input->post('karyawan_id');
 
 		$detail = $this->input->post('detail');
 		$detail2 = $this->input->post('detail2');
 
+		$cek_data = $this->M_Quotation->cek_quotation_duplicate_edit($quotation_id, $quotation_kode);
+
+		if ($cek_data > 0) {
+			echo json_encode(array("status" => 2, "data" => ""));
+			die;
+		}
+
 		$this->db->trans_begin();
 
-		$this->M_Quotation->update_quotation($quotation_id, $quotation_kode, $quotation_tanggal, $customer_id, $quotation_keterangan, $quotation_jumlah, $quotation_status, $updwho, $updtgl, $quotation_waktu_pengiriman, $quotation_waktu_pengerjaan, $periode_penawaran, $garansi);
+		$this->M_Quotation->update_quotation($quotation_id, $quotation_kode, $quotation_tanggal, $customer_id, $quotation_keterangan, $quotation_jumlah, $quotation_status, $updwho, $updtgl, $quotation_waktu_pengiriman, $quotation_waktu_pengerjaan, $periode_penawaran, $garansi, $karyawan_id);
 
 		$this->M_Quotation->delete_quotation_detail($quotation_id);
 

@@ -434,6 +434,29 @@
         }
     });
 
+    $("#Quotation-karyawan_nama").autocomplete({
+        serviceUrl: "<?= base_url('Karyawan/search_karyawan') ?>",
+        params: {},
+        dataType: 'json',
+        onSearchComplete: function(query, suggestions) {
+            if (suggestions.length == 0) {
+                setTimeout(() => {
+                    $("#Quotation-karyawan_id").val('');
+                    $("#Quotation-karyawan_nama").val('');
+                }, 1000);
+            }
+        },
+        onSelect: function(data) {
+            if (data) {
+                $("#Quotation-karyawan_id").val(data.id);
+                $("#Quotation-karyawan_nama").val(data.nama);
+            } else {
+                $("#Quotation-karyawan_id").val('');
+                $("#Quotation-karyawan_nama").val('');
+            }
+        }
+    });
+
     $("#filter_customer").autocomplete({
         serviceUrl: "<?= base_url('Customer/search_customer') ?>",
         params: {},
@@ -450,6 +473,26 @@
                 $("#filter_customer").val(data.nama);
             } else {
                 $("#filter_customer").val('');
+            }
+        }
+    });
+
+    $("#filter_karyawan").autocomplete({
+        serviceUrl: "<?= base_url('Karyawan/search_karyawan') ?>",
+        params: {},
+        dataType: 'json',
+        onSearchComplete: function(query, suggestions) {
+            if (suggestions.length == 0) {
+                setTimeout(() => {
+                    $("#filter_karyawan").val('');
+                }, 1000);
+            }
+        },
+        onSelect: function(data) {
+            if (data) {
+                $("#filter_karyawan").val(data.nama);
+            } else {
+                $("#filter_karyawan").val('');
             }
         }
     });
@@ -526,6 +569,14 @@
                 return false;
             }
 
+            if ($("#Quotation-karyawan_id").val() == "") {
+
+                let alert = "Sales Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
+
             // if ($("#Quotation-jumlah").val() == "" || $("#Quotation-jumlah").val() == "0") {
 
             //     let alert = "Jumlah Material Tidak Boleh Kosong";
@@ -590,9 +641,11 @@
                                 quotation_kode: $('#Quotation-quotation_kode').val(),
                                 quotation_tanggal: $('#Quotation-quotation_tanggal').val(),
                                 customer_id: $('#Quotation-customer_id').val(),
+                                karyawan_id: $('#Quotation-karyawan_id').val(),
                                 quotation_keterangan: $('#Quotation-quotation_keterangan').val(),
                                 quotation_jumlah: "",
-                                quotation_status: $('#Quotation-quotation_status').val(),
+                                quotation_status: "Draft",
+                                // quotation_status: $('#Quotation-quotation_status').val(),
                                 updwho: "",
                                 updtgl: "",
                                 quotation_waktu_pengiriman: "",
@@ -615,7 +668,7 @@
                                     ResetForm();
                                 } else if (response.status == "2") {
 
-                                    var msg = "No Quotation " + $('#Quotation-quotation_id').val() + " Sudah Ada";
+                                    var msg = "No Quotation " + $('#Quotation-quotation_kode').val() + " Sudah Ada";
                                     message_custom("Error", "error", alert);
                                 } else {
                                     var alert = "Data Gagal Disimpan";
@@ -718,6 +771,14 @@
                 return false;
             }
 
+            if ($("#Quotation-karyawan_id").val() == "") {
+
+                let alert = "Sales Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
+
             // if ($("#Quotation-jumlah").val() == "" || $("#Quotation-jumlah").val() == "0") {
 
             //     let alert = "Jumlah Material Tidak Boleh Kosong";
@@ -783,9 +844,11 @@
                                 quotation_kode: $('#Quotation-quotation_kode').val(),
                                 quotation_tanggal: $('#Quotation-quotation_tanggal').val(),
                                 customer_id: $('#Quotation-customer_id').val(),
+                                karyawan_id: $('#Quotation-karyawan_id').val(),
                                 quotation_keterangan: $('#Quotation-quotation_keterangan').val(),
                                 quotation_jumlah: "",
-                                quotation_status: $('#Quotation-quotation_status').val(),
+                                quotation_status: "Draft",
+                                // quotation_status: $('#Quotation-quotation_status').val(),
                                 updwho: $('#Quotation-updwho').val(),
                                 updtgl: $('#Quotation-updtgl').val(),
                                 quotation_waktu_pengiriman: "",
@@ -808,7 +871,7 @@
                                     ResetForm();
                                 } else if (response.status == "2") {
 
-                                    var msg = "No Quotation " + $('#Quotation-quotation_id').val() + " Sudah Ada";
+                                    var msg = "No Quotation " + $('#Quotation-quotation_kode').val() + " Sudah Ada";
                                     message_custom("Error", "error", alert);
                                 } else {
                                     var alert = "Data Gagal Disimpan";

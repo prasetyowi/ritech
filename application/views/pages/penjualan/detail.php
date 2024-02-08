@@ -44,6 +44,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3 ">Sales</label>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <input type="text" class="form-control col-md-10" id="Penjualan-karyawan_nama" name="Penjualan[karyawan_nama]" value="<?= $value['karyawan_nama'] ?>" disabled />
+                                        <input type="hidden" class="form-control col-md-10" id="Penjualan-karyawan_id" name="Penjualan[karyawan_id]" value="<?= $value['karyawan_id'] ?>" disabled />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Pelanggan</label>
                                     <div class="col-md-9 col-sm-9 ">
                                         <input type="text" class="form-control col-md-10" id="Penjualan-customer_nama" name="Penjualan[customer_nama]" value="<?= $value['customer_nama'] ?>" disabled />
@@ -92,6 +99,30 @@
                                         <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_oleh" name="Penjualan[penjualan_oleh]" value="<?= $value['penjualan_oleh'] ?>" max="250" disabled />
                                     </div>
                                 </div>
+                                <div class="form-group row ">
+                                    <label class="control-label col-md-3 col-sm-3 ">PPn</label>
+                                    <div class="col-md-1 col-sm-1">
+                                        <input type="checkbox" class="form-control col-md-10" id="Penjualan-is_ppn" <?= $value['is_ppn'] == '1' ? 'checked' : '' ?> disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row ">
+                                    <label class="control-label col-md-3 col-sm-3 ">PPh</label>
+                                    <div class="col-md-1 col-sm-1">
+                                        <input type="checkbox" class="form-control col-md-10" id="Penjualan-is_pph" <?= $value['is_pph'] == '1' ? 'checked' : '' ?> value="1" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3 ">No Faktur PPn</label>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <input type="text" class="form-control col-md-10" id="Penjualan-no_faktur" name="Penjualan[no_faktur]" value="<?= $value['no_faktur'] ?>" value="1" disabled />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3 ">Tanggal Faktur PPn</label>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <input type="date" class="form-control col-md-10" id="Penjualan-tanggal_faktur" name="Penjualan[tanggal_faktur]" value="<?= $value['tanggal_faktur'] ?>" disabled>
+                                    </div>
+                                </div>
                                 <!-- <div class="form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Jumlah Material</label>
                                     <div class="col-md-9 col-sm-9 ">
@@ -134,12 +165,12 @@
                                         <textarea class="resizable_textarea form-control col-md-10" id="Penjualan-penjualan_keterangan" name="Penjualan[penjualan_keterangan]" style="height:200px" disabled><?= $value['penjualan_keterangan'] ?></textarea>
                                     </div>
                                 </div>
-                                <div class=" form-group row">
+                                <!-- <div class=" form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Status</label>
                                     <div class="col-md-9 col-sm-9 ">
                                         <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_status" name="Penjualan[penjualan_status]" value="<?= $value['penjualan_status'] ?>" disabled />
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="ln_solid"></div>
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12  ">
@@ -162,29 +193,69 @@
                                     </div>
                                 </div>
                                 <div class="ln_solid"></div>
-                                <a href="<?= base_url() ?>SuratJalan/print/?id=<?= $value['penjualan_id'] ?>" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> Cetak Surat Jalan</a>
+                                <?php if ($value['penjualan_status'] == "Applied") { ?>
+                                    <a href="<?= base_url() ?>SuratJalan/print/?id=<?= $value['penjualan_id'] ?>" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> Cetak Surat Jalan</a>
+                                <?php } ?>
                                 <div class="ln_solid"></div>
                                 <div class="form-group row ">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered jambo_table" id="table-penjualan-termin" style="width:40%">
+                                        <table class="table table-bordered jambo_table" id="table-penjualan-termin" style="width:50%">
                                             <thead>
                                                 <tr class=" headings">
                                                     <th>#</th>
-                                                    <th class="column-title">Keterangan </th>
-                                                    <th class="column-title">Termin Pembayaran (%) </th>
-                                                    <th class="column-title">Invoice </th>
+                                                    <th class="column-title text-center">Keterangan </th>
+                                                    <th class="column-title text-center">Termin Pembayaran (%) </th>
+                                                    <th class="column-title text-center">Lunas </th>
+                                                    <th class="column-title text-center">Tanggal Bayar </th>
+                                                    <th class="column-title text-center">Invoice </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($Termin as $key2 => $value2) : ?>
-                                                    <tr>
-                                                        <td class="text-center" style="width:5%;"><?= $key2 + 1 ?></td>
-                                                        <td class="text-left" style="width:45%;"><?= $value2['keterangan'] ?></td>
-                                                        <td class="text-right" style="width:40%;"><?= $value2['termin_pembayaran'] ?></td>
-                                                        <td class="text-right" style="width:10%;">
-                                                            <a href="<?= base_url() ?>invoice/print/?id=<?= $value2['penjualan_id'] ?>&penjualan_termin_no_item=<?= $value2['penjualan_termin_no_item'] ?>" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
-                                                        </td>
-                                                    </tr>
+                                                    <?php if ($value2['termin_status'] == "LUNAS") { ?>
+                                                        <tr style="background-color:#9ED5C5">
+                                                            <td class="text-center" style="width:5%;"><?= $key2 + 1 ?></td>
+                                                            <td class="text-left" style="width:25%;"><?= $value2['keterangan'] ?></td>
+                                                            <td class="text-right" style="width:20%;"><?= $value2['termin_pembayaran'] ?></td>
+                                                            <td class="text-center" style="width:20%;">
+                                                                <input type="checkbox" id="item-<?= $key2 ?>-penjualan_termin-termin_status" value="<?= $value2['termin_status'] ?>" <?= $value2['termin_status'] == 'LUNAS' ? 'checked' : '' ?> disabled>
+                                                            </td>
+                                                            <td class="text-right" style="width:25%;"><?= $value2['termin_tanggal_bayar'] ?></td>
+                                                            <td class="text-right" style="width:5%;">
+                                                                <?php if ($value['penjualan_status'] == "Applied") { ?>
+                                                                    <a href="<?= base_url() ?>invoice/print/?id=<?= $value2['penjualan_id'] ?>&penjualan_termin_no_item=<?= $value2['penjualan_termin_no_item'] ?>" class="btn btn-primary btn-sm" target="_blank"><i class="fa fa-print"></i></a>
+                                                                <?php } ?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php } else { ?>
+                                                        <?php if ($value['penjualan_status'] == "Applied") { ?>
+                                                            <tr>
+                                                                <td class="text-center" style="width:5%;"><?= $key2 + 1 ?></td>
+                                                                <td class="text-left" style="width:25%;"><?= $value2['keterangan'] ?></td>
+                                                                <td class="text-right" style="width:20%;"><?= $value2['termin_pembayaran'] ?></td>
+                                                                <td class="text-center" style="width:20%;">
+                                                                    <input type="checkbox" id="item-<?= $key2 ?>-penjualan_termin-termin_status" value="<?= $value2['termin_status'] ?>" <?= $value2['termin_status'] == 'LUNAS' ? 'checked' : '' ?> onclick="UpdateTerminPembayaran('<?= $value2['penjualan_termin_no_item'] ?>','<?= $key2 ?>')">
+                                                                </td>
+                                                                <td class="text-right" style="width:25%;">
+                                                                    <input type="date" class="form-control" id="item-<?= $key2 ?>-penjualan_termin-termin_tanggal_bayar" value="<?= $value2['termin_tanggal_bayar'] ?>" onchange="UpdateTerminPembayaran('<?= $value2['penjualan_termin_no_item'] ?>','<?= $key2 ?>')">
+                                                                </td>
+                                                                <td class="text-right" style="width:10%;">
+                                                                    <?php if ($value['penjualan_status'] == "Applied") { ?>
+                                                                        <a href="<?= base_url() ?>invoice/print/?id=<?= $value2['penjualan_id'] ?>&penjualan_termin_no_item=<?= $value2['penjualan_termin_no_item'] ?>" class="btn btn-primary btn-sm" target="_blank"><i class="fa fa-print"></i></a>
+                                                                    <?php } ?>
+                                                                </td>
+                                                            </tr>
+                                                        <?php } else { ?>
+                                                            <tr>
+                                                                <td class="text-center" style="width:5%;"><?= $key2 + 1 ?></td>
+                                                                <td class="text-left" style="width:25%;"><?= $value2['keterangan'] ?></td>
+                                                                <td class="text-right" style="width:20%;"><?= $value2['termin_pembayaran'] ?></td>
+                                                                <td class="text-center" style="width:20%;"></td>
+                                                                <td class="text-right" style="width:25%;"></td>
+                                                                <td class="text-right" style="width:10%;"></td>
+                                                            </tr>
+                                                        <?php } ?>
+                                                    <?php } ?>
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
@@ -197,10 +268,10 @@
                                             <thead>
                                                 <tr class=" headings">
                                                     <th>#</th>
-                                                    <th class="column-title">Nama Barang </th>
-                                                    <th class="column-title">Qty </th>
-                                                    <th class="column-title">Unit </th>
-                                                    <th class="column-title">Remarks </th>
+                                                    <th class="column-title text-center">Nama Barang </th>
+                                                    <th class="column-title text-center">Qty </th>
+                                                    <th class="column-title text-center">Unit </th>
+                                                    <th class="column-title text-center">Remarks </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -232,3 +303,29 @@
     </div>
 </div>
 <!-- /page content -->
+
+<script>
+    function UpdateTerminPembayaran(penjualan_termin_no_item, index) {
+        $.ajax({
+            type: 'POST',
+            url: "<?= base_url('Penjualan/Update_termin_pembayaran') ?>",
+            data: {
+                penjualan_id: $("#Penjualan-penjualan_id").val(),
+                penjualan_termin_no_item: penjualan_termin_no_item,
+                termin_tanggal_bayar: $("#item-" + index + "-penjualan_termin-termin_tanggal_bayar").val(),
+                termin_status: $("#item-" + index + "-penjualan_termin-termin_status").val()
+            },
+            dataType: "JSON",
+            success: function(response) {
+                if (response == "1") {
+                    console.log("UpdateTerminPembayaran success");
+                } else {
+                    console.log("UpdateTerminPembayaran failed");
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                console.log("Error 500 Internal Server Connection Failure");
+            }
+        });
+    }
+</script>

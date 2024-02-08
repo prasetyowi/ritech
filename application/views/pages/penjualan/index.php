@@ -33,7 +33,7 @@
                                 <option value="">Semua Status</option>
                                 <option value="draft">Draft</option>
                                 <option value="applied">Applied</option>
-                                <option value="rejected">Rejected</option>
+                                <option value="canceled">Canceled</option>
                             </select>
                         </div>
 

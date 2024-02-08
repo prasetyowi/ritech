@@ -24,7 +24,7 @@
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Nomor Penjualan</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_kode" name="Penjualan[penjualan_kode]" value="" maxlength="250" required>
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_kode" name="Penjualan[penjualan_kode]" value="<?= $LastPenjualan ?>" maxlength="250" required>
                                     <input type="hidden" class="form-control col-md-10" id="Penjualan-penjualan_id" name="Penjualan[penjualan_id]" value="<?= $penjualan_id; ?>" required>
                                 </div>
                             </div>
@@ -38,6 +38,13 @@
                                 <label class="control-label col-md-3 col-sm-3 ">Nomor Purchase Order</label>
                                 <div class="col-md-9 col-sm-9 ">
                                     <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_no_po" name="Penjualan[penjualan_no_po]" value="" maxlength="250" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Sales</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-karyawan_nama" name="Penjualan[karyawan_nama]" value="" required />
+                                    <input type="hidden" class="form-control col-md-10" id="Penjualan-karyawan_id" name="Penjualan[karyawan_id]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -89,6 +96,30 @@
                                     <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_oleh" name="Penjualan[penjualan_oleh]" value="" maxlength="250" required />
                                 </div>
                             </div>
+                            <div class="form-group row ">
+                                <label class="control-label col-md-3 col-sm-3 ">PPn</label>
+                                <div class="col-md-1 col-sm-1">
+                                    <input type="checkbox" class="form-control col-md-10" id="Penjualan-is_ppn" value="1">
+                                </div>
+                            </div>
+                            <div class="form-group row ">
+                                <label class="control-label col-md-3 col-sm-3 ">PPh</label>
+                                <div class="col-md-1 col-sm-1">
+                                    <input type="checkbox" class="form-control col-md-10" id="Penjualan-is_pph" value="1">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">No Faktur PPn</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Penjualan-no_faktur" name="Penjualan[no_faktur]" value="" required />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Tanggal Faktur PPn</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="date" class="form-control col-md-10" id="Penjualan-tanggal_faktur" name="Penjualan[tanggal_faktur]" value="<?= date('Y-m-d') ?>" required>
+                                </div>
+                            </div>
                             <!-- <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Jumlah Material</label>
                                 <div class="col-md-9 col-sm-9 ">
@@ -133,12 +164,12 @@
 2. Customer menyediakan kebutuhan utilitas (listrik dan sumber air) disediakan oleh customer.</textarea>
                                 </div>
                             </div>
-                            <div class=" form-group row">
+                            <!-- <div class=" form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Status</label>
                                 <div class="col-md-9 col-sm-9 ">
                                     <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_status" name="Penjualan[penjualan_status]" value="Draft" disabled />
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="ln_solid"></div>
                             <div class="row">
                                 <div class="col-md-12 col-sm-12  ">
@@ -159,12 +190,14 @@
                             <div class="form-group row ">
                                 <button class="btn btn-primary" id="btn_tambah_termin"><i class="fa fa-plus"></i> Tambah Termin</button>
                                 <div class="table-responsive">
-                                    <table class="table table-striped jambo_table" id="table-penjualan-termin" style="width:70%">
+                                    <table class="table table-bordered jambo_table" id="table-penjualan-termin" style="width:70%">
                                         <thead>
                                             <tr class=" headings">
                                                 <th>#</th>
-                                                <th class="column-title">Keterangan </th>
-                                                <th class="column-title">Termin Pembayaran (%) </th>
+                                                <th class="column-title text-center">Keterangan </th>
+                                                <th class="column-title text-center">Termin Pembayaran (%) </th>
+                                                <th class="column-title text-center">Lunas </th>
+                                                <th class="column-title text-center">Tanggal Bayar </th>
                                                 <th class="column-title no-link last"><span class="nobr">Action</span></th>
                                             </tr>
                                         </thead>
@@ -177,14 +210,14 @@
                             <div class="form-group row ">
                                 <button class="btn btn-primary" id="btn_modal_pilih_barang"><i class="fa fa-search"></i> Pilih Barang</button>
                                 <div class="table-responsive">
-                                    <table class="table table-striped jambo_table" id="table-penjualan-detail" style="width:100%">
+                                    <table class="table table-bordered jambo_table" id="table-penjualan-detail" style="width:100%">
                                         <thead>
                                             <tr class=" headings">
                                                 <th>#</th>
-                                                <th class="column-title">Nama Barang </th>
-                                                <th class="column-title">Qty </th>
-                                                <th class="column-title">Unit </th>
-                                                <th class="column-title">Remarks </th>
+                                                <th class="column-title text-center">Nama Barang </th>
+                                                <th class="column-title text-center">Qty </th>
+                                                <th class="column-title text-center">Unit </th>
+                                                <th class="column-title text-center">Remarks </th>
                                                 <th class="column-title no-link last"><span class="nobr">Action</span></th>
                                             </tr>
                                         </thead>
@@ -218,15 +251,15 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-striped jambo_table" id="table-list-barang" style="width:100%">
+                <table class="table table-bordered jambo_table" id="table-list-barang" style="width:100%">
                     <thead>
                         <tr class="headings">
                             <th><input type="checkbox" id="check-all-barang"> </th>
-                            <th class="column-title">Kode Barang </th>
-                            <th class="column-title">Nama Barang </th>
-                            <th class="column-title">Unit </th>
-                            <th class="column-title">Harga Satuan </th>
-                            <th class="column-title">Deskripsi </th>
+                            <th class="column-title text-center">Kode Barang </th>
+                            <th class="column-title text-center">Nama Barang </th>
+                            <th class="column-title text-center">Unit </th>
+                            <th class="column-title text-center">Harga Satuan </th>
+                            <th class="column-title text-center">Deskripsi </th>
                         </tr>
                     </thead>
                     <tbody>

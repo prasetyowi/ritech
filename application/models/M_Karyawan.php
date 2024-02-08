@@ -120,7 +120,7 @@ class M_Karyawan extends CI_Model
     public function search_karyawan($search)
     {
 
-        $query = $this->db->query("SELECT karyawan_id as id, karyawan_nama as nama, karyawan_alamat, karyawan_kelurahan, karyawan_kecamatan, karyawan_kota, karyawan_provinsi,karyawan_kode_pos FROM karyawan where karyawan_nama like '%$search%' order by karyawan_nama asc LIMIT 25");
+        $query = $this->db->query("SELECT karyawan_id as id, karyawan_nama as nama FROM karyawan where karyawan_nama like '%$search%' order by karyawan_nama asc LIMIT 25");
 
         if ($query->num_rows() == 0) {
             $query = array();

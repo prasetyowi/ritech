@@ -91,6 +91,7 @@ class Penjualan extends CI_Controller
 
 		$data['Title'] = "Penjualan";
 		$data['act'] = "add";
+		$data['LastPenjualan'] = $this->M_Penjualan->Get_last_penjualan();
 
 		$table = "penjualan";
 		$column = "penjualan_id";
@@ -220,6 +221,11 @@ class Penjualan extends CI_Controller
 		$penjualan_no_po = $this->input->post('penjualan_no_po');
 		$penjualan_pic = $this->input->post('penjualan_pic');
 		$penjualan_oleh = $this->input->post('penjualan_oleh');
+		$karyawan_id = $this->input->post('karyawan_id');
+		$is_ppn = $this->input->post('is_ppn');
+		$is_pph = $this->input->post('is_pph');
+		$tanggal_faktur = $this->input->post('tanggal_faktur');
+		$no_faktur = $this->input->post('no_faktur');
 
 		$detail = $this->input->post('detail');
 		$detail2 = $this->input->post('detail2');
@@ -233,7 +239,7 @@ class Penjualan extends CI_Controller
 
 		$this->db->trans_begin();
 
-		$this->M_Penjualan->insert_penjualan($penjualan_id, $penjualan_kode, $penjualan_tanggal, $customer_id, $penjualan_keterangan, $penjualan_jumlah, $penjualan_status, $updwho, $updtgl, $penjualan_waktu_pengiriman, $penjualan_waktu_pengerjaan, $periode_penawaran, $garansi, $penjualan_no_po, $penjualan_pic, $penjualan_oleh);
+		$this->M_Penjualan->insert_penjualan($penjualan_id, $penjualan_kode, $penjualan_tanggal, $customer_id, $penjualan_keterangan, $penjualan_jumlah, $penjualan_status, $updwho, $updtgl, $penjualan_waktu_pengiriman, $penjualan_waktu_pengerjaan, $periode_penawaran, $garansi, $penjualan_no_po, $penjualan_pic, $penjualan_oleh, $karyawan_id, $is_ppn, $is_pph, $tanggal_faktur, $no_faktur);
 
 		foreach ($detail as $key => $value) {
 			// $penjualan_id = $value['penjualan_id'];
@@ -252,8 +258,10 @@ class Penjualan extends CI_Controller
 			$penjualan_termin_no_item = $key + 1;
 			$keterangan = $value['keterangan'];
 			$termin_pembayaran = $value['termin_pembayaran'];
+			$termin_status = $value['termin_status'];
+			$termin_tanggal_bayar = $value['termin_tanggal_bayar'];
 
-			$this->M_Penjualan->insert_penjualan_termin($penjualan_id, $penjualan_termin_no_item, $keterangan, $termin_pembayaran);
+			$this->M_Penjualan->insert_penjualan_termin($penjualan_id, $penjualan_termin_no_item, $keterangan, $termin_pembayaran, $termin_status, $termin_tanggal_bayar);
 		}
 
 
@@ -284,13 +292,18 @@ class Penjualan extends CI_Controller
 		$penjualan_no_po = $this->input->post('penjualan_no_po');
 		$penjualan_pic = $this->input->post('penjualan_pic');
 		$penjualan_oleh = $this->input->post('penjualan_oleh');
+		$karyawan_id = $this->input->post('karyawan_id');
+		$is_ppn = $this->input->post('is_ppn');
+		$is_pph = $this->input->post('is_pph');
+		$tanggal_faktur = $this->input->post('tanggal_faktur');
+		$no_faktur = $this->input->post('no_faktur');
 
 		$detail = $this->input->post('detail');
 		$detail2 = $this->input->post('detail2');
 
 		$this->db->trans_begin();
 
-		$this->M_Penjualan->update_penjualan($penjualan_id, $penjualan_kode, $penjualan_tanggal, $customer_id, $penjualan_keterangan, $penjualan_jumlah, $penjualan_status, $updwho, $updtgl, $penjualan_waktu_pengiriman, $penjualan_waktu_pengerjaan, $periode_penawaran, $garansi, $penjualan_no_po, $penjualan_pic, $penjualan_oleh);
+		$this->M_Penjualan->update_penjualan($penjualan_id, $penjualan_kode, $penjualan_tanggal, $customer_id, $penjualan_keterangan, $penjualan_jumlah, $penjualan_status, $updwho, $updtgl, $penjualan_waktu_pengiriman, $penjualan_waktu_pengerjaan, $periode_penawaran, $garansi, $penjualan_no_po, $penjualan_pic, $penjualan_oleh, $karyawan_id, $is_ppn, $is_pph, $tanggal_faktur, $no_faktur);
 
 		$this->M_Penjualan->delete_penjualan_detail($penjualan_id);
 
@@ -313,8 +326,10 @@ class Penjualan extends CI_Controller
 			$penjualan_termin_no_item = $key + 1;
 			$keterangan = $value['keterangan'];
 			$termin_pembayaran = $value['termin_pembayaran'];
+			$termin_status = $value['termin_status'];
+			$termin_tanggal_bayar = $value['termin_tanggal_bayar'];
 
-			$this->M_Penjualan->insert_penjualan_termin($penjualan_id, $penjualan_termin_no_item, $keterangan, $termin_pembayaran);
+			$this->M_Penjualan->insert_penjualan_termin($penjualan_id, $penjualan_termin_no_item, $keterangan, $termin_pembayaran, $termin_status, $termin_tanggal_bayar);
 		}
 
 
@@ -324,6 +339,26 @@ class Penjualan extends CI_Controller
 		} else {
 			$this->db->trans_commit();
 			echo json_encode(array("status" => 1, "data" => ""));
+		}
+	}
+
+	public function Update_termin_pembayaran()
+	{
+		$penjualan_id = $this->input->post('penjualan_id');
+		$penjualan_termin_no_item = $this->input->post('penjualan_termin_no_item');
+		$termin_tanggal_bayar = $this->input->post('termin_tanggal_bayar');
+		$termin_status = $this->input->post('termin_status');
+
+		$this->db->trans_begin();
+
+		$this->M_Penjualan->Update_termin_pembayaran($penjualan_id, $penjualan_termin_no_item, $termin_tanggal_bayar, $termin_status);
+
+		if ($this->db->trans_status() === FALSE) {
+			$this->db->trans_rollback();
+			echo json_encode(0);
+		} else {
+			$this->db->trans_commit();
+			echo json_encode(1);
 		}
 	}
 

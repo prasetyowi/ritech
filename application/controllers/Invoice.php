@@ -27,6 +27,7 @@ class Invoice extends CI_Controller
 		$this->load->model('M_Quotation');
 		$this->load->model('M_Pembelian');
 		$this->load->model('M_Penjualan');
+		$this->load->model('M_Vrbl');
 	}
 
 	public function index()
@@ -150,6 +151,8 @@ class Invoice extends CI_Controller
 		$data['Header'] = $this->M_Penjualan->Get_cetak_invoice_penjualan_header_by_id($id);
 		$data['Detail'] = $this->M_Penjualan->Get_cetak_invoice_penjualan_detail_termin_by_id($id, $penjualan_termin_no_item);
 		$data['Termin'] = $this->M_Penjualan->Get_cetak_invoice_penjualan_termin_by_id($id, $penjualan_termin_no_item);
+		$data['nilai_var_ppn'] = $this->M_Vrbl->Get_vrbl_value("PPN");
+		$data['nilai_var_pph'] = $this->M_Vrbl->Get_vrbl_value("PPH");
 
 		// $this->load->view('layouts/header_pdf', $data);
 		// $this->load->view('pages/Invoice/print_pdf', $data);
