@@ -28,20 +28,36 @@ class M_Pembelian extends CI_Model
 		return $query;
 	}
 
+	function Get_last_pembelian()
+	{
+		$query = $this->db->query("SELECT *
+									FROM penjualan
+									ORDER BY updtgl desc
+									LIMIT 1");
+
+		if ($query->num_rows() == 0) {
+			$query = "";
+		} else {
+			$query = $query->row(0)->penjualan_kode;
+		}
+
+		return $query;
+	}
+
 	function Get_pembelian_header_by_id($pembelian_id)
 	{
 		$query = $this->db->query("SELECT
 									a.pembelian_id,
 									a.pembelian_kode,
 									DATE_FORMAT(a.pembelian_tanggal, '%Y-%m-%d') AS pembelian_tanggal,
-									a.customer_id,
-									c.customer_nama,
-									c.customer_alamat,
-									c.customer_kelurahan,
-									c.customer_kecamatan,
-									c.customer_kota,
-									c.customer_provinsi,
-									c.customer_kode_pos,
+									a.supplier_id,
+									c.supplier_nama,
+									c.supplier_alamat,
+									c.supplier_kelurahan,
+									c.supplier_kecamatan,
+									c.supplier_kota,
+									c.supplier_provinsi,
+									c.supplier_kode_pos,
 									a.pembelian_keterangan,
 									a.pembelian_jumlah,
 									a.pembelian_status,
@@ -58,8 +74,8 @@ class M_Pembelian extends CI_Model
 									FROM pembelian a
 									LEFT JOIN pembelian_attachment b
 									ON b.pembelian_id = a.pembelian_id
-									LEFT JOIN customer c
-									ON c.customer_id = a.customer_id
+									LEFT JOIN supplier c
+									ON c.supplier_id = a.supplier_id
 									WHERE a.pembelian_id = '$pembelian_id'");
 
 		if ($query->num_rows() == 0) {
@@ -77,14 +93,14 @@ class M_Pembelian extends CI_Model
 									a.pembelian_id,
 									a.pembelian_kode,
 									DATE_FORMAT(a.pembelian_tanggal, '%d %M %Y') AS pembelian_tanggal,
-									a.customer_id,
-									c.customer_nama,
-									c.customer_alamat,
-									c.customer_kelurahan,
-									c.customer_kecamatan,
-									c.customer_kota,
-									c.customer_provinsi,
-									c.customer_kode_pos,
+									a.supplier_id,
+									c.supplier_nama,
+									c.supplier_alamat,
+									c.supplier_kelurahan,
+									c.supplier_kecamatan,
+									c.supplier_kota,
+									c.supplier_provinsi,
+									c.supplier_kode_pos,
 									a.pembelian_keterangan,
 									a.pembelian_jumlah,
 									a.pembelian_status,
@@ -101,8 +117,8 @@ class M_Pembelian extends CI_Model
 									FROM pembelian a
 									LEFT JOIN pembelian_attachment b
 									ON b.pembelian_id = a.pembelian_id
-									LEFT JOIN customer c
-									ON c.customer_id = a.customer_id
+									LEFT JOIN supplier c
+									ON c.supplier_id = a.supplier_id
 									WHERE a.pembelian_id = '$pembelian_id'");
 
 		if ($query->num_rows() == 0) {
@@ -215,7 +231,7 @@ class M_Pembelian extends CI_Model
 		return $query;
 	}
 
-	public function Get_pembelian_by_filter($tgl1, $tgl2, $pembelian_id, $customer, $status)
+	public function Get_pembelian_by_filter($tgl1, $tgl2, $pembelian_id, $supplier, $status)
 	{
 		if ($pembelian_id != "") {
 			$pembelian_id = "AND a.pembelian_id LIKE '%$pembelian_id%' ";
@@ -223,10 +239,10 @@ class M_Pembelian extends CI_Model
 			$pembelian_id = "";
 		}
 
-		if ($customer != "") {
-			$customer = "AND c.customer_nama LIKE '%$customer%' ";
+		if ($supplier != "") {
+			$supplier = "AND c.supplier_nama LIKE '%$supplier%' ";
 		} else {
-			$customer = "";
+			$supplier = "";
 		}
 
 		if ($status != "") {
@@ -240,8 +256,8 @@ class M_Pembelian extends CI_Model
 									a.pembelian_kode,
 									a.pembelian_no_po,
 									DATE_FORMAT(a.pembelian_tanggal, '%d-%m-%Y') AS pembelian_tanggal,
-									a.customer_id,
-									c.customer_nama,
+									a.supplier_id,
+									c.supplier_nama,
 									a.pembelian_keterangan,
 									a.pembelian_jumlah,
 									a.pembelian_status,
@@ -252,11 +268,11 @@ class M_Pembelian extends CI_Model
 									a.periode_penawaran,
 									a.garansi
 									FROM pembelian a
-									LEFT JOIN customer c
-									ON c.customer_id = a.customer_id
+									LEFT JOIN supplier c
+									ON c.supplier_id = a.supplier_id
 									WHERE DATE_FORMAT(a.pembelian_tanggal, '%Y-%m-%d') BETWEEN '$tgl1' AND '$tgl2'
 									" . $pembelian_id . "
-									" . $customer . "
+									" . $supplier . "
 									" . $status . "
 									ORDER BY a.pembelian_tanggal DESC, a.pembelian_kode ASC");
 
@@ -269,12 +285,12 @@ class M_Pembelian extends CI_Model
 		return $query;
 	}
 
-	public function insert_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $customer_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh)
+	public function insert_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $supplier_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh)
 	{
 		$pembelian_id = $pembelian_id == '' ? null : $pembelian_id;
 		$pembelian_kode = $pembelian_kode == '' ? null : $pembelian_kode;
 		$pembelian_tanggal = $pembelian_tanggal == '' ? null : $pembelian_tanggal;
-		$customer_id = $customer_id == '' ? null : $customer_id;
+		$supplier_id = $supplier_id == '' ? null : $supplier_id;
 		$pembelian_keterangan = $pembelian_keterangan == '' ? null : $pembelian_keterangan;
 		$pembelian_jumlah = $pembelian_jumlah == '' ? null : $pembelian_jumlah;
 		$pembelian_status = $pembelian_status == '' ? null : $pembelian_status;
@@ -291,12 +307,12 @@ class M_Pembelian extends CI_Model
 		$this->db->set('pembelian_id', $pembelian_id);
 		$this->db->set('pembelian_kode', $pembelian_kode);
 		$this->db->set('pembelian_tanggal', $pembelian_tanggal);
-		$this->db->set('customer_id', $customer_id);
+		$this->db->set('supplier_id', $supplier_id);
 		$this->db->set('pembelian_keterangan', $pembelian_keterangan);
 		$this->db->set('pembelian_jumlah', $pembelian_jumlah);
 		$this->db->set('pembelian_status', $pembelian_status);
-		$this->db->set('updwho', "Administrator");
-		$this->db->set('updtgl', date('Y-m-d'));
+		$this->db->set('updwho', $this->session->userdata('pengguna_username'));
+		$this->db->set('updtgl', date('Y-m-d H:i:s'));
 		$this->db->set('pembelian_waktu_pengiriman', $pembelian_waktu_pengiriman);
 		$this->db->set('pembelian_waktu_pengerjaan', $pembelian_waktu_pengerjaan);
 		// $this->db->set('periode_penawaran', $periode_penawaran);
@@ -311,12 +327,12 @@ class M_Pembelian extends CI_Model
 		// return $this->db->last_query();
 	}
 
-	public function update_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $customer_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh)
+	public function update_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $supplier_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh)
 	{
 		$pembelian_id = $pembelian_id == '' ? null : $pembelian_id;
 		$pembelian_kode = $pembelian_kode == '' ? null : $pembelian_kode;
 		$pembelian_tanggal = $pembelian_tanggal == '' ? null : $pembelian_tanggal;
-		$customer_id = $customer_id == '' ? null : $customer_id;
+		$supplier_id = $supplier_id == '' ? null : $supplier_id;
 		$pembelian_keterangan = $pembelian_keterangan == '' ? null : $pembelian_keterangan;
 		$pembelian_jumlah = $pembelian_jumlah == '' ? null : $pembelian_jumlah;
 		$pembelian_status = $pembelian_status == '' ? null : $pembelian_status;
@@ -332,12 +348,12 @@ class M_Pembelian extends CI_Model
 
 		$this->db->set('pembelian_kode', $pembelian_kode);
 		$this->db->set('pembelian_tanggal', $pembelian_tanggal);
-		$this->db->set('customer_id', $customer_id);
+		$this->db->set('supplier_id', $supplier_id);
 		$this->db->set('pembelian_keterangan', $pembelian_keterangan);
 		$this->db->set('pembelian_jumlah', $pembelian_jumlah);
 		$this->db->set('pembelian_status', $pembelian_status);
-		$this->db->set('updwho', "Administrator");
-		$this->db->set('updtgl', date('Y-m-d'));
+		$this->db->set('updwho', $this->session->userdata('pengguna_username'));
+		$this->db->set('updtgl', date('Y-m-d H:i:s'));
 		$this->db->set('pembelian_waktu_pengiriman', $pembelian_waktu_pengiriman);
 		$this->db->set('pembelian_waktu_pengerjaan', $pembelian_waktu_pengerjaan);
 		// $this->db->set('periode_penawaran', $periode_penawaran);

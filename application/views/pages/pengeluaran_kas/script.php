@@ -31,21 +31,44 @@
                     if (response.length != 0) {
 
                         $.each(response, function(i, v) {
-                            $("#table_list_pengeluaran_kas > tbody").append(`
-								<tr class="even pointer">
-                                    <td class="text-center">${i+1}</td>
-                                    <td class="text-left">${v.kas_id}</td>
-                                    <td class="text-left">${v.kas_tanggal}</td>
-                                    <td class="text-left">${v.kas_no_akun}</td>
-                                    <td class="text-left">${v.kas_keterangan}</td>
-                                    <td class="text-left">${v.kas_no_rekening}</td>
-                                    <td class="text-right">${v.kas_jumlah}</td>
-                                    <td class=" ">
-                                        <a href="<?= base_url() ?>PengeluaranKas/edit/?id=${v.kas_id}" target="_blank" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-                                        <a href="<?= base_url() ?>PengeluaranKas/detail/?id=${v.kas_id}" target="_blank" class="btn btn-primary"><i class="fa fa-search"></i></a>
-                                    </td>
-                                </tr>
-							`);
+
+                            if (v.kas_status == "Applied" || v.kas_status == "Canceled") {
+                                $("#table_list_pengeluaran_kas > tbody").append(`
+                                    <tr class="even pointer">
+                                        <td class="text-center">${i+1}</td>
+                                        <td class="text-left">${v.kas_id}</td>
+                                        <td class="text-left">${v.kas_tanggal}</td>
+                                        <td class="text-left">${v.kas_no_akun}</td>
+                                        <td class="text-left">${v.no_po}</td>
+                                        <td class="text-left">${v.customer_nama}</td>
+                                        <td class="text-left">${v.kas_keterangan}</td>
+                                        <td class="text-left">${v.kas_no_rekening}</td>
+                                        <td class="text-right">${v.kas_jumlah}</td>
+                                        <td class=" ">
+                                            <a href="<?= base_url() ?>PengeluaranKas/detail/?id=${v.kas_id}" target="_blank" class="btn btn-primary"><i class="fa fa-search"></i></a>
+                                        </td>
+                                    </tr>
+                                `);
+
+                            } else {
+                                $("#table_list_pengeluaran_kas > tbody").append(`
+                                    <tr class="even pointer">
+                                        <td class="text-center">${i+1}</td>
+                                        <td class="text-left">${v.kas_id}</td>
+                                        <td class="text-left">${v.kas_tanggal}</td>
+                                        <td class="text-left">${v.kas_no_akun}</td>
+                                        <td class="text-left">${v.no_po}</td>
+                                        <td class="text-left">${v.customer_nama}</td>
+                                        <td class="text-left">${v.kas_keterangan}</td>
+                                        <td class="text-left">${v.kas_no_rekening}</td>
+                                        <td class="text-right">${v.kas_jumlah}</td>
+                                        <td class=" ">
+                                            <a href="<?= base_url() ?>PengeluaranKas/edit/?id=${v.kas_id}" target="_blank" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                                        </td>
+                                    </tr>
+                                `);
+
+                            }
                         });
 
                         $("#table_list_pengeluaran_kas").DataTable({
@@ -117,7 +140,9 @@
                             kas_jumlah: $('#jumlah').val(),
                             kas_status: "Draft",
                             updwho: "",
-                            updtgl: ""
+                            updtgl: "",
+                            customer_id: $('#customer_id').val(),
+                            no_po: $('#no_po').val()
                         },
                         dataType: "JSON",
                         success: function(response) {
@@ -204,6 +229,8 @@
                             });
 
                             $("#btn_update_pengeluaran_kas").prop("disabled", true);
+                            $("#btn_konfirmasi_pengeluaran_kas").prop("disabled", true);
+                            $("#btn_cancel_pengeluaran_kas").prop("disabled", true);
                         },
                         data: {
                             kas_id: $('#kas_id').val(),
@@ -215,7 +242,9 @@
                             kas_jumlah: $('#jumlah').val(),
                             kas_status: "Draft",
                             updwho: $('#updwho').val(),
-                            updtgl: $('#updtgl').val()
+                            updtgl: $('#updtgl').val(),
+                            customer_id: $('#customer_id').val(),
+                            no_po: $('#no_po').val()
                         },
                         dataType: "JSON",
                         success: function(response) {
@@ -234,16 +263,230 @@
                             }
 
                             $("#btn_update_pengeluaran_kas").prop("disabled", false);
+                            $("#btn_konfirmasi_pengeluaran_kas").prop("disabled", false);
+                            $("#btn_cancel_pengeluaran_kas").prop("disabled", false);
                         },
                         error: function(xhr, ajaxOptions, thrownError) {
                             var alert = "Error 500 Internal Server Connection Failure";
                             message_custom("Error", "error", alert);
 
                             $("#btn_update_pengeluaran_kas").prop("disabled", false);
+                            $("#btn_konfirmasi_pengeluaran_kas").prop("disabled", false);
+                            $("#btn_cancel_pengeluaran_kas").prop("disabled", false);
                         },
                         complete: function() {
                             // Swal.close();
                             $("#btn_update_pengeluaran_kas").prop("disabled", false);
+                            $("#btn_konfirmasi_pengeluaran_kas").prop("disabled", false);
+                            $("#btn_cancel_pengeluaran_kas").prop("disabled", false);
+                        }
+                    });
+                }
+            });
+
+        }
+    });
+
+    $("#btn_konfirmasi_pengeluaran_kas").click(function() {
+        cek_error = 0;
+
+        if ($("#akun").val() == "") {
+
+            let alert = "Akun Pengeluaran Tidak Boleh Kosong";
+            message_custom("Error", "error", alert);
+
+            return false;
+        }
+
+        if (parseInt($("#jumlah").val()) <= 0) {
+
+            let alert = "Jumlah Nominal Tidak Boleh 0";
+            message_custom("Error", "error", alert);
+
+            return false;
+        }
+
+        if (cek_error == 0) {
+
+            Swal.fire({
+                title: "Apakah anda yakin?",
+                text: "Pastikan data yang sudah anda input benar!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya",
+                cancelButtonText: "Tidak"
+            }).then((result) => {
+                if (result.value == true) {
+
+                    $.ajax({
+                        async: false,
+                        url: "<?= base_url('PengeluaranKas/update_pengeluaran_kas'); ?>",
+                        type: "POST",
+                        beforeSend: function() {
+                            Swal.fire({
+                                title: 'Loading ...',
+                                html: '<span><i class="fa fa-spinner fa-spin" style="font-size:60px"></i></span>',
+                                timerProgressBar: false,
+                                showConfirmButton: false
+                            });
+
+                            $("#btn_update_pengeluaran_kas").prop("disabled", true);
+                            $("#btn_konfirmasi_pengeluaran_kas").prop("disabled", true);
+                            $("#btn_cancel_pengeluaran_kas").prop("disabled", true);
+                        },
+                        data: {
+                            kas_id: $('#kas_id').val(),
+                            kas_tanggal: $('#tanggal_pengeluaran').val(),
+                            tipe_kas: "Out",
+                            kas_no_akun: $('#akun').val(),
+                            kas_keterangan: $('#desc').val(),
+                            kas_no_rekening: $('#no_rekening').val(),
+                            kas_jumlah: $('#jumlah').val(),
+                            kas_status: "Applied",
+                            updwho: $('#updwho').val(),
+                            updtgl: $('#updtgl').val(),
+                            customer_id: $('#customer_id').val(),
+                            no_po: $('#no_po').val()
+                        },
+                        dataType: "JSON",
+                        success: function(response) {
+
+                            if (response.status == 1) {
+                                var alert = "Data Berhasil Disimpan";
+                                message_custom("Success", "success", alert);
+                                setTimeout(() => {
+                                    location.href = "<?= base_url() ?>PengeluaranKas";
+                                }, 500);
+
+                                ResetForm();
+                            } else {
+                                var alert = "Data Gagal Disimpan";
+                                message_custom("Error", "error", alert);
+                            }
+
+                            $("#btn_update_pengeluaran_kas").prop("disabled", false);
+                            $("#btn_konfirmasi_pengeluaran_kas").prop("disabled", false);
+                            $("#btn_cancel_pengeluaran_kas").prop("disabled", false);
+                        },
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            var alert = "Error 500 Internal Server Connection Failure";
+                            message_custom("Error", "error", alert);
+
+                            $("#btn_update_pengeluaran_kas").prop("disabled", false);
+                            $("#btn_konfirmasi_pengeluaran_kas").prop("disabled", false);
+                            $("#btn_cancel_pengeluaran_kas").prop("disabled", false);
+                        },
+                        complete: function() {
+                            // Swal.close();
+                            $("#btn_update_pengeluaran_kas").prop("disabled", false);
+                            $("#btn_konfirmasi_pengeluaran_kas").prop("disabled", false);
+                            $("#btn_cancel_pengeluaran_kas").prop("disabled", false);
+                        }
+                    });
+                }
+            });
+
+        }
+    });
+
+    $("#btn_cancel_pengeluaran_kas").click(function() {
+        cek_error = 0;
+
+        if ($("#akun").val() == "") {
+
+            let alert = "Akun Pengeluaran Tidak Boleh Kosong";
+            message_custom("Error", "error", alert);
+
+            return false;
+        }
+
+        if (parseInt($("#jumlah").val()) <= 0) {
+
+            let alert = "Jumlah Nominal Tidak Boleh 0";
+            message_custom("Error", "error", alert);
+
+            return false;
+        }
+
+        if (cek_error == 0) {
+
+            Swal.fire({
+                title: "Apakah anda yakin?",
+                text: "Pastikan data yang sudah anda input benar!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya",
+                cancelButtonText: "Tidak"
+            }).then((result) => {
+                if (result.value == true) {
+
+                    $.ajax({
+                        async: false,
+                        url: "<?= base_url('PengeluaranKas/update_pengeluaran_kas'); ?>",
+                        type: "POST",
+                        beforeSend: function() {
+                            Swal.fire({
+                                title: 'Loading ...',
+                                html: '<span><i class="fa fa-spinner fa-spin" style="font-size:60px"></i></span>',
+                                timerProgressBar: false,
+                                showConfirmButton: false
+                            });
+
+                            $("#btn_update_pengeluaran_kas").prop("disabled", true);
+                            $("#btn_konfirmasi_pengeluaran_kas").prop("disabled", true);
+                            $("#btn_cancel_pengeluaran_kas").prop("disabled", true);
+                        },
+                        data: {
+                            kas_id: $('#kas_id').val(),
+                            kas_tanggal: $('#tanggal_pengeluaran').val(),
+                            tipe_kas: "Out",
+                            kas_no_akun: $('#akun').val(),
+                            kas_keterangan: $('#desc').val(),
+                            kas_no_rekening: $('#no_rekening').val(),
+                            kas_jumlah: $('#jumlah').val(),
+                            kas_status: "Canceled",
+                            updwho: $('#updwho').val(),
+                            updtgl: $('#updtgl').val(),
+                            customer_id: $('#customer_id').val(),
+                            no_po: $('#no_po').val()
+                        },
+                        dataType: "JSON",
+                        success: function(response) {
+
+                            if (response.status == 1) {
+                                var alert = "Data Berhasil Disimpan";
+                                message_custom("Success", "success", alert);
+                                setTimeout(() => {
+                                    location.href = "<?= base_url() ?>PengeluaranKas";
+                                }, 500);
+
+                                ResetForm();
+                            } else {
+                                var alert = "Data Gagal Disimpan";
+                                message_custom("Error", "error", alert);
+                            }
+
+                            $("#btn_update_pengeluaran_kas").prop("disabled", false);
+                            $("#btn_konfirmasi_pengeluaran_kas").prop("disabled", false);
+                            $("#btn_cancel_pengeluaran_kas").prop("disabled", false);
+                        },
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            var alert = "Error 500 Internal Server Connection Failure";
+                            message_custom("Error", "error", alert);
+
+                            $("#btn_update_pengeluaran_kas").prop("disabled", false);
+                            $("#btn_konfirmasi_pengeluaran_kas").prop("disabled", false);
+                            $("#btn_cancel_pengeluaran_kas").prop("disabled", false);
+                        },
+                        complete: function() {
+                            // Swal.close();
+                            $("#btn_update_pengeluaran_kas").prop("disabled", false);
+                            $("#btn_konfirmasi_pengeluaran_kas").prop("disabled", false);
+                            $("#btn_cancel_pengeluaran_kas").prop("disabled", false);
                         }
                     });
                 }

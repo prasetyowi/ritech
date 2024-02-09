@@ -23,6 +23,20 @@ class M_Customer extends CI_Model
         return $query;
     }
 
+    public function Get_all_customer_aktif()
+    {
+
+        $query = $this->db->query("SELECT * FROM customer where is_aktif='1' order by customer_nama asc");
+
+        if ($query->num_rows() == 0) {
+            $query = array();
+        } else {
+            $query = $query->result_array();
+        }
+
+        return $query;
+    }
+
     public function Get_all_customer_by_id($customer_id)
     {
 

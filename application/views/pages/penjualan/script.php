@@ -29,6 +29,10 @@
                 });
             <?php } ?>
 
+            if ($("#Penjualan-penjualan_status").val() != "Draft") {
+                location.href = "<?= base_url() ?>Penjualan/detail/?id=" + $("#Penjualan-penjualan_id").val();
+            }
+
             Get_list_penjualan_detail();
             Get_list_penjualan_termin();
         <?php } ?>

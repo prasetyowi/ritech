@@ -63,6 +63,8 @@
                                         <th class="column-title" style="text-align: center;">No. Pengeluaran</th>
                                         <th class="column-title" style="text-align: center;">Tanggal </th>
                                         <th class="column-title" style="text-align: center;">Akun </th>
+                                        <th class="column-title" style="text-align: center;">No PO </th>
+                                        <th class="column-title" style="text-align: center;">Pelanggan </th>
                                         <th class="column-title" style="text-align: center;">Deskripsi</th>
                                         <th class="column-title" style="text-align: center;">Jumlah </th>
                                         <th class="column-title" style="text-align: center;">No. Rekening </th>

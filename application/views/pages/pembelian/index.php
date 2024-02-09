@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="col-md-6 col-sm-6  form-group has-feedback">
-                            <input type="text" class="form-control" name="filter_customer" id="filter_customer" placeholder="Nama Pelanggan">
+                            <input type="text" class="form-control" name="filter_supplier" id="filter_supplier" placeholder="Nama Supplier">
                         </div>
 
                         <div class="col-md-6 col-sm-6  form-group has-feedback">
@@ -74,7 +74,7 @@
                                         <th class="column-title">No Pembelian </th>
                                         <th class="column-title">Tanggal </th>
                                         <th class="column-title">No PO </th>
-                                        <th class="column-title">Pelanggan </th>
+                                        <th class="column-title">Supplier </th>
                                         <th class="column-title">Status </th>
                                         <th class="column-title no-link last"><span class="nobr">Action</span></th>
                                     </tr>

@@ -25,119 +25,93 @@
                                 <div class="form-group row ">
                                     <label class="control-label col-md-3 col-sm-3 ">Nomor Pembelian</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_kode" name="Pembelian[pembelian_kode]" value="<?= $value['pembelian_kode'] ?>" disabled>
-                                        <input type="hidden" class="form-control col-md-10" id="Pembelian-pembelian_id" name="Pembelian[pembelian_id]" value="<?= $value['pembelian_id'] ?>" disabled>
-                                        <input type="hidden" class="form-control col-md-10" id="Pembelian-updwho" name="Pembelian[updwho]" value="<?= $value['updwho'] ?>" disabled>
-                                        <input type="hidden" class="form-control col-md-10" id="Pembelian-updtgl" name="Pembelian[updtgl]" value="<?= $value['updtgl'] ?>" disabled>
+                                        <input type="text" class="form-control col-md-12" id="Pembelian-pembelian_kode" name="Pembelian[pembelian_kode]" value="<?= $value['pembelian_kode'] ?>" disabled>
+                                        <input type="hidden" class="form-control col-md-12" id="Pembelian-pembelian_id" name="Pembelian[pembelian_id]" value="<?= $value['pembelian_id'] ?>" disabled>
+                                        <input type="hidden" class="form-control col-md-12" id="Pembelian-updwho" name="Pembelian[updwho]" value="<?= $value['updwho'] ?>" disabled>
+                                        <input type="hidden" class="form-control col-md-12" id="Pembelian-updtgl" name="Pembelian[updtgl]" value="<?= $value['updtgl'] ?>" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Tanggal Pembelian</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="date" class="form-control col-md-10" id="Pembelian-pembelian_tanggal" name="Pembelian[pembelian_tanggal]" value="<?= $value['pembelian_tanggal'] ?>" disabled>
+                                        <input type="date" class="form-control col-md-12" id="Pembelian-pembelian_tanggal" name="Pembelian[pembelian_tanggal]" value="<?= $value['pembelian_tanggal'] ?>" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="control-label col-md-3 col-sm-3 ">Nomor Purchase Order</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_no_po" name="Pembelian[pembelian_no_po]" value="<?= $value['pembelian_no_po'] ?>" disabled>
+                                        <input type="text" class="form-control col-md-12" id="Pembelian-pembelian_no_po" name="Pembelian[pembelian_no_po]" value="<?= $value['pembelian_no_po'] ?>" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-md-3 col-sm-3 ">Pelanggan</label>
+                                    <label class="control-label col-md-3 col-sm-3 ">Supplier</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Pembelian-customer_nama" name="Pembelian[customer_nama]" value="<?= $value['customer_nama'] ?>" disabled />
-                                        <input type="hidden" class="form-control col-md-10" id="Pembelian-customer_id" name="Pembelian[customer_id]" value="<?= $value['customer_id'] ?>" disabled />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3 col-sm-3 ">Kelurahan</label>
-                                    <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Pembelian-customer_kelurahan" name="Pembelian[customer_kelurahan]" value="<?= $value['customer_kelurahan'] ?>" disabled />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3 col-sm-3 ">Kecamatan</label>
-                                    <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Pembelian-customer_kecamatan" name="Pembelian[customer_kecamatan]" value="<?= $value['customer_kecamatan'] ?>" disabled />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3 col-sm-3 ">Kota</label>
-                                    <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Pembelian-customer_kota" name="Pembelian[customer_kota]" value="<?= $value['customer_kota'] ?>" disabled />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3 col-sm-3 ">Provinsi</label>
-                                    <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Pembelian-customer_provinsi" name="Pembelian[customer_provinsi]" value="<?= $value['customer_provinsi'] ?>" disabled />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3 col-sm-3 ">Kodepos</label>
-                                    <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Pembelian-customer_kode_pos" name="Pembelian[customer_kode_pos]" value="<?= $value['customer_kode_pos'] ?>" disabled />
+                                        <select class="form-control select2 col-md-12" id="Pembelian-supplier_id" name="Pembelian[supplier_id]" disabled>
+                                            <option value="">Pilih Supplier</option>
+                                            <?php foreach ($Supplier as $row) { ?>
+                                                <option value="<?= $row['supplier_id'] ?>" <?= $value['supplier_id'] == $row['supplier_id'] ? 'selected' : '' ?>><?= $row['supplier_nama'] ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">PIC</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_pic" name="Pembelian[pembelian_pic]" value="<?= $value['pembelian_pic'] ?>" max="250" disabled />
+                                        <input type="text" class="form-control col-md-12" id="Pembelian-pembelian_pic" name="Pembelian[pembelian_pic]" value="<?= $value['pembelian_pic'] ?>" max="250" disabled />
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Oleh</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_oleh" name="Pembelian[pembelian_oleh]" value="<?= $value['pembelian_oleh'] ?>" max="250" disabled />
+                                        <input type="text" class="form-control col-md-12" id="Pembelian-pembelian_oleh" name="Pembelian[pembelian_oleh]" value="<?= $value['pembelian_oleh'] ?>" max="250" disabled />
                                     </div>
                                 </div>
                                 <!-- <div class="form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Jumlah Material</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Pembelian-jumlah" name="Pembelian[jumlah]" value="" required />
+                                        <input type="text" class="form-control col-md-12" id="Pembelian-jumlah" name="Pembelian[jumlah]" value="" required />
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Waktu Pengiriman (Hari)</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_waktu_pengiriman" name="Pembelian[pembelian_waktu_pengiriman]" value="" required />
+                                        <input type="text" class="form-control col-md-12" id="Pembelian-pembelian_waktu_pengiriman" name="Pembelian[pembelian_waktu_pengiriman]" value="" required />
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Waktu Pengerjaan (Hari)</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_waktu_pengerjaan" name="Pembelian[pembelian_waktu_pengerjaan]" value="" required />
+                                        <input type="text" class="form-control col-md-12" id="Pembelian-pembelian_waktu_pengerjaan" name="Pembelian[pembelian_waktu_pengerjaan]" value="" required />
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Jumlah Termin Pembayaran</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_termin_pembayaran" name="Pembelian[pembelian_termin_pembayaran]" value="" required />
+                                        <input type="text" class="form-control col-md-12" id="Pembelian-pembelian_termin_pembayaran" name="Pembelian[pembelian_termin_pembayaran]" value="" required />
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Periode Penawaran</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Pembelian-periode_penawaran" name="Pembelian[periode_penawaran]" value="" required />
+                                        <input type="text" class="form-control col-md-12" id="Pembelian-periode_penawaran" name="Pembelian[periode_penawaran]" value="" required />
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Garansi</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Pembelian-garansi" name="Pembelian[garansi]" value="" required />
+                                        <input type="text" class="form-control col-md-12" id="Pembelian-garansi" name="Pembelian[garansi]" value="" required />
                                     </div>
                                 </div> -->
                                 <div class="form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Catatan</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <textarea class="resizable_textarea form-control col-md-10" id="Pembelian-pembelian_keterangan" name="Pembelian[pembelian_keterangan]" style="height:200px" disabled><?= $value['pembelian_keterangan'] ?></textarea>
+                                        <textarea class="resizable_textarea form-control col-md-12" id="Pembelian-pembelian_keterangan" name="Pembelian[pembelian_keterangan]" style="height:200px" disabled><?= $value['pembelian_keterangan'] ?></textarea>
                                     </div>
                                 </div>
                                 <div class=" form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Status</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_status" name="Pembelian[pembelian_status]" value="<?= $value['pembelian_status'] ?>" disabled />
+                                        <input type="text" class="form-control col-md-12" id="Pembelian-pembelian_status" name="Pembelian[pembelian_status]" value="<?= $value['pembelian_status'] ?>" disabled />
                                     </div>
                                 </div>
                                 <div class="ln_solid"></div>
@@ -159,35 +133,6 @@
                                                 <br />
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="ln_solid"></div>
-                                <a href="<?= base_url() ?>SuratJalan/print/?id=<?= $value['pembelian_id'] ?>" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> Cetak Surat Jalan</a>
-                                <div class="ln_solid"></div>
-                                <div class="form-group row ">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered jambo_table" id="table-pembelian-termin" style="width:40%">
-                                            <thead>
-                                                <tr class=" headings">
-                                                    <th>#</th>
-                                                    <th class="column-title">Keterangan </th>
-                                                    <th class="column-title">Termin Pembayaran (%) </th>
-                                                    <th class="column-title">Invoice </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php foreach ($Termin as $key2 => $value2) : ?>
-                                                    <tr>
-                                                        <td class="text-center" style="width:5%;"><?= $key2 + 1 ?></td>
-                                                        <td class="text-left" style="width:45%;"><?= $value2['keterangan'] ?></td>
-                                                        <td class="text-right" style="width:40%;"><?= $value2['termin_pembayaran'] ?></td>
-                                                        <td class="text-right" style="width:10%;">
-                                                            <a href="<?= base_url() ?>invoice/print/?id=<?= $value2['pembelian_id'] ?>&pembelian_termin_no_item=<?= $value2['pembelian_termin_no_item'] ?>" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
                                     </div>
                                 </div>
                                 <div class="ln_solid"></div>

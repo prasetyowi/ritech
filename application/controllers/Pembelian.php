@@ -24,6 +24,7 @@ class Pembelian extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('M_Pembelian');
+		$this->load->model('M_Supplier');
 		$this->load->model('M_Vrbl');
 		$this->load->helper(array('url', 'file'));
 	}
@@ -97,6 +98,8 @@ class Pembelian extends CI_Controller
 		$kode = "PMB" . date('ymd');
 
 		$data['pembelian_id'] = $this->M_Vrbl->Generate_kode($table, $column, $kode);
+		$data['LastPembelian'] = $this->M_Pembelian->Get_last_pembelian();
+		$data['Supplier'] = $this->M_Supplier->Get_all_supplier_aktif();
 
 		// Kebutuhan Authority Menu 
 		// $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
@@ -136,7 +139,7 @@ class Pembelian extends CI_Controller
 
 		$data['Header'] = $this->M_Pembelian->Get_pembelian_header_by_id($id);
 		$data['Detail'] = $this->M_Pembelian->Get_pembelian_detail_by_id($id);
-		$data['Termin'] = $this->M_Pembelian->Get_pembelian_termin_by_id($id);
+		$data['Supplier'] = $this->M_Supplier->Get_all_supplier_aktif();
 
 		$data['act'] = "edit";
 
@@ -176,7 +179,7 @@ class Pembelian extends CI_Controller
 		// $query['Copyright'] = Get_Copyright_Name();
 		$data['Header'] = $this->M_Pembelian->Get_pembelian_header_by_id($id);
 		$data['Detail'] = $this->M_Pembelian->Get_pembelian_detail_by_id($id);
-		$data['Termin'] = $this->M_Pembelian->Get_pembelian_termin_by_id($id);
+		$data['Supplier'] = $this->M_Supplier->Get_all_supplier_aktif();
 		$data['act'] = "detail";
 
 		// Kebutuhan Authority Menu 
@@ -207,7 +210,7 @@ class Pembelian extends CI_Controller
 		$pembelian_id = str_replace("'", "", $this->input->post('pembelian_id'));
 		$pembelian_kode = str_replace("'", "", $this->input->post('pembelian_kode'));
 		$pembelian_tanggal = $this->input->post('pembelian_tanggal');
-		$customer_id = $this->input->post('customer_id');
+		$supplier_id = $this->input->post('supplier_id');
 		$pembelian_keterangan = str_replace("'", "", $this->input->post('pembelian_keterangan'));
 		$pembelian_jumlah = $this->input->post('pembelian_jumlah');
 		$pembelian_status = $this->input->post('pembelian_status');
@@ -222,7 +225,6 @@ class Pembelian extends CI_Controller
 		$pembelian_oleh = $this->input->post('pembelian_oleh');
 
 		$detail = $this->input->post('detail');
-		$detail2 = $this->input->post('detail2');
 
 		$cek_data = $this->M_Pembelian->cek_pembelian_duplicate($pembelian_kode);
 
@@ -233,7 +235,7 @@ class Pembelian extends CI_Controller
 
 		$this->db->trans_begin();
 
-		$this->M_Pembelian->insert_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $customer_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh);
+		$this->M_Pembelian->insert_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $supplier_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh);
 
 		foreach ($detail as $key => $value) {
 			// $pembelian_id = $value['pembelian_id'];
@@ -245,15 +247,6 @@ class Pembelian extends CI_Controller
 			$remarks = $value['remarks'];
 
 			$this->M_Pembelian->insert_pembelian_detail($pembelian_id, $pembelian_no_item, $barang_id, $qty, $harga_satuan, $pembelian_total, $remarks);
-		}
-
-		foreach ($detail2 as $key => $value) {
-			// $pembelian_id = $value['pembelian_id'];
-			$pembelian_termin_no_item = $key + 1;
-			$keterangan = $value['keterangan'];
-			$termin_pembayaran = $value['termin_pembayaran'];
-
-			$this->M_Pembelian->insert_pembelian_termin($pembelian_id, $pembelian_termin_no_item, $keterangan, $termin_pembayaran);
 		}
 
 
@@ -271,7 +264,7 @@ class Pembelian extends CI_Controller
 		$pembelian_id = $this->input->post('pembelian_id');
 		$pembelian_kode = str_replace("'", "", $this->input->post('pembelian_kode'));
 		$pembelian_tanggal = $this->input->post('pembelian_tanggal');
-		$customer_id = $this->input->post('customer_id');
+		$supplier_id = $this->input->post('supplier_id');
 		$pembelian_keterangan = str_replace("'", "", $this->input->post('pembelian_keterangan'));
 		$pembelian_jumlah = $this->input->post('pembelian_jumlah');
 		$pembelian_status = $this->input->post('pembelian_status');
@@ -290,7 +283,7 @@ class Pembelian extends CI_Controller
 
 		$this->db->trans_begin();
 
-		$this->M_Pembelian->update_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $customer_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh);
+		$this->M_Pembelian->update_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $supplier_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh);
 
 		$this->M_Pembelian->delete_pembelian_detail($pembelian_id);
 
@@ -306,17 +299,87 @@ class Pembelian extends CI_Controller
 			$this->M_Pembelian->insert_pembelian_detail($pembelian_id, $pembelian_no_item, $barang_id, $qty, $harga_satuan, $pembelian_total, $remarks);
 		}
 
-		$this->M_Pembelian->delete_pembelian_termin($pembelian_id);
+		if ($this->db->trans_status() === FALSE) {
+			$this->db->trans_rollback();
+			echo json_encode(array("status" => 0, "data" => ""));
+		} else {
+			$this->db->trans_commit();
+			echo json_encode(array("status" => 1, "data" => ""));
+		}
+	}
 
-		foreach ($detail2 as $key => $value) {
+	public function konfirmasi_pembelian()
+	{
+		$pembelian_id = $this->input->post('pembelian_id');
+		$pembelian_kode = str_replace("'", "", $this->input->post('pembelian_kode'));
+		$pembelian_tanggal = $this->input->post('pembelian_tanggal');
+		$supplier_id = $this->input->post('supplier_id');
+		$pembelian_keterangan = str_replace("'", "", $this->input->post('pembelian_keterangan'));
+		$pembelian_jumlah = $this->input->post('pembelian_jumlah');
+		$pembelian_status = $this->input->post('pembelian_status');
+		$updwho = $this->input->post('updwho');
+		$updtgl = $this->input->post('updtgl');
+		$pembelian_waktu_pengiriman = $this->input->post('pembelian_waktu_pengiriman');
+		$pembelian_waktu_pengerjaan = $this->input->post('pembelian_waktu_pengerjaan');
+		$periode_penawaran = $this->input->post('periode_penawaran');
+		$garansi = $this->input->post('garansi');
+		$pembelian_no_po = $this->input->post('pembelian_no_po');
+		$pembelian_pic = $this->input->post('pembelian_pic');
+		$pembelian_oleh = $this->input->post('pembelian_oleh');
+
+		$detail = $this->input->post('detail');
+
+		$this->db->trans_begin();
+
+		$this->M_Pembelian->update_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $supplier_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh);
+
+		$this->M_Pembelian->delete_pembelian_detail($pembelian_id);
+
+		foreach ($detail as $key => $value) {
 			// $pembelian_id = $value['pembelian_id'];
-			$pembelian_termin_no_item = $key + 1;
-			$keterangan = $value['keterangan'];
-			$termin_pembayaran = $value['termin_pembayaran'];
+			$pembelian_no_item = $key + 1;
+			$barang_id = $value['barang_id'];
+			$qty = $value['qty'];
+			$harga_satuan = $value['harga_satuan'];
+			$pembelian_total = $qty * $harga_satuan;
+			$remarks = $value['remarks'];
 
-			$this->M_Pembelian->insert_pembelian_termin($pembelian_id, $pembelian_termin_no_item, $keterangan, $termin_pembayaran);
+			$this->M_Pembelian->insert_pembelian_detail($pembelian_id, $pembelian_no_item, $barang_id, $qty, $harga_satuan, $pembelian_total, $remarks);
 		}
 
+		if ($this->db->trans_status() === FALSE) {
+			$this->db->trans_rollback();
+			echo json_encode(array("status" => 0, "data" => ""));
+		} else {
+			$this->db->trans_commit();
+			echo json_encode(array("status" => 1, "data" => ""));
+		}
+	}
+
+	public function cancel_pembelian()
+	{
+		$pembelian_id = $this->input->post('pembelian_id');
+		$pembelian_kode = str_replace("'", "", $this->input->post('pembelian_kode'));
+		$pembelian_tanggal = $this->input->post('pembelian_tanggal');
+		$supplier_id = $this->input->post('supplier_id');
+		$pembelian_keterangan = str_replace("'", "", $this->input->post('pembelian_keterangan'));
+		$pembelian_jumlah = $this->input->post('pembelian_jumlah');
+		$pembelian_status = $this->input->post('pembelian_status');
+		$updwho = $this->input->post('updwho');
+		$updtgl = $this->input->post('updtgl');
+		$pembelian_waktu_pengiriman = $this->input->post('pembelian_waktu_pengiriman');
+		$pembelian_waktu_pengerjaan = $this->input->post('pembelian_waktu_pengerjaan');
+		$periode_penawaran = $this->input->post('periode_penawaran');
+		$garansi = $this->input->post('garansi');
+		$pembelian_no_po = $this->input->post('pembelian_no_po');
+		$pembelian_pic = $this->input->post('pembelian_pic');
+		$pembelian_oleh = $this->input->post('pembelian_oleh');
+
+		$detail = $this->input->post('detail');
+
+		$this->db->trans_begin();
+
+		$this->M_Pembelian->update_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $supplier_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh);
 
 		if ($this->db->trans_status() === FALSE) {
 			$this->db->trans_rollback();

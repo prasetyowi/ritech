@@ -23,6 +23,20 @@ class M_Supplier extends CI_Model
         return $query;
     }
 
+    public function Get_all_supplier_aktif()
+    {
+
+        $query = $this->db->query("SELECT * FROM supplier where is_aktif = '1' order by supplier_nama asc");
+
+        if ($query->num_rows() == 0) {
+            $query = array();
+        } else {
+            $query = $query->result_array();
+        }
+
+        return $query;
+    }
+
     public function Get_all_supplier_by_id($supplier_id)
     {
 

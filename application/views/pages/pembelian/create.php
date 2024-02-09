@@ -24,111 +24,85 @@
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Nomor Pembelian</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_kode" name="Pembelian[pembelian_kode]" value="" maxlength="250" required>
-                                    <input type="hidden" class="form-control col-md-10" id="Pembelian-pembelian_id" name="Pembelian[pembelian_id]" value="<?= $pembelian_id; ?>" required>
+                                    <input type="text" class="form-control col-md-12" id="Pembelian-pembelian_kode" name="Pembelian[pembelian_kode]" value="<?= $LastPembelian; ?>" maxlength="250" required>
+                                    <input type="hidden" class="form-control col-md-12" id="Pembelian-pembelian_id" name="Pembelian[pembelian_id]" value="<?= $pembelian_id; ?>" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Tanggal Pembelian</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="date" class="form-control col-md-10" id="Pembelian-pembelian_tanggal" name="Pembelian[pembelian_tanggal]" value="<?= date('Y-m-d') ?>" required>
+                                    <input type="date" class="form-control col-md-12" id="Pembelian-pembelian_tanggal" name="Pembelian[pembelian_tanggal]" value="<?= date('Y-m-d') ?>" required>
                                 </div>
                             </div>
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Nomor Purchase Order</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_no_po" name="Pembelian[pembelian_no_po]" value="" maxlength="250" required>
+                                    <input type="text" class="form-control col-md-12" id="Pembelian-pembelian_no_po" name="Pembelian[pembelian_no_po]" value="" maxlength="250" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-md-3 col-sm-3 ">Pelanggan</label>
+                                <label class="control-label col-md-3 col-sm-3 ">Supplier</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-customer_nama" name="Pembelian[customer_nama]" value="" required />
-                                    <input type="hidden" class="form-control col-md-10" id="Pembelian-customer_id" name="Pembelian[customer_id]" value="" required />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-md-3 col-sm-3 ">Kelurahan</label>
-                                <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-customer_kelurahan" name="Pembelian[customer_kelurahan]" value="" disabled />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-md-3 col-sm-3 ">Kecamatan</label>
-                                <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-customer_kecamatan" name="Pembelian[customer_kecamatan]" value="" disabled />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-md-3 col-sm-3 ">Kota</label>
-                                <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-customer_kota" name="Pembelian[customer_kota]" value="" disabled />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-md-3 col-sm-3 ">Provinsi</label>
-                                <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-customer_provinsi" name="Pembelian[customer_provinsi]" value="" disabled />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-md-3 col-sm-3 ">Kodepos</label>
-                                <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-customer_kode_pos" name="Pembelian[customer_kode_pos]" value="" disabled />
+                                    <select class="form-control select2 col-md-12" id="Pembelian-supplier_id" name="Pembelian[supplier_id]">
+                                        <option value="">Pilih Supplier</option>
+                                        <?php foreach ($Supplier as $row) { ?>
+                                            <option value="<?= $row['supplier_id'] ?>"><?= $row['supplier_nama'] ?></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">PIC</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_pic" name="Pembelian[pembelian_pic]" value="" maxlength="250" required />
+                                    <input type="text" class="form-control col-md-12" id="Pembelian-pembelian_pic" name="Pembelian[pembelian_pic]" value="" maxlength="250" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Oleh</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_oleh" name="Pembelian[pembelian_oleh]" value="" maxlength="250" required />
+                                    <input type="text" class="form-control col-md-12" id="Pembelian-pembelian_oleh" name="Pembelian[pembelian_oleh]" value="" maxlength="250" required />
                                 </div>
                             </div>
                             <!-- <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Jumlah Material</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-jumlah" name="Pembelian[jumlah]" value="" required />
+                                    <input type="text" class="form-control col-md-12" id="Pembelian-jumlah" name="Pembelian[jumlah]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Waktu Pengiriman (Hari)</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_waktu_pengiriman" name="Pembelian[pembelian_waktu_pengiriman]" value="" required />
+                                    <input type="text" class="form-control col-md-12" id="Pembelian-pembelian_waktu_pengiriman" name="Pembelian[pembelian_waktu_pengiriman]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Waktu Pengerjaan (Hari)</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_waktu_pengerjaan" name="Pembelian[pembelian_waktu_pengerjaan]" value="" required />
+                                    <input type="text" class="form-control col-md-12" id="Pembelian-pembelian_waktu_pengerjaan" name="Pembelian[pembelian_waktu_pengerjaan]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Jumlah Termin Pembayaran</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_termin_pembayaran" name="Pembelian[pembelian_termin_pembayaran]" value="" required />
+                                    <input type="text" class="form-control col-md-12" id="Pembelian-pembelian_termin_pembayaran" name="Pembelian[pembelian_termin_pembayaran]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Periode Penawaran</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-periode_penawaran" name="Pembelian[periode_penawaran]" value="" required />
+                                    <input type="text" class="form-control col-md-12" id="Pembelian-periode_penawaran" name="Pembelian[periode_penawaran]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Garansi</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-garansi" name="Pembelian[garansi]" value="" required />
+                                    <input type="text" class="form-control col-md-12" id="Pembelian-garansi" name="Pembelian[garansi]" value="" required />
                                 </div>
                             </div> -->
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Catatan</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <textarea class="resizable_textarea form-control col-md-10" id="Pembelian-pembelian_keterangan" name="Pembelian[pembelian_keterangan]" style="height:200px">
+                                    <textarea class="resizable_textarea form-control col-md-12" id="Pembelian-pembelian_keterangan" name="Pembelian[pembelian_keterangan]" style="height:200px">
 1. Harga belum termasuk PPn 11% dan franco Driyorejo (pabrik customer) dan berlaku sampai 31 Juli 2023.
 2. Customer menyediakan kebutuhan utilitas (listrik dan sumber air) disediakan oleh customer.</textarea>
                                 </div>
@@ -136,7 +110,7 @@
                             <div class=" form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Status</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Pembelian-pembelian_status" name="Pembelian[pembelian_status]" value="Draft" disabled />
+                                    <input type="text" class="form-control col-md-12" id="Pembelian-pembelian_status" name="Pembelian[pembelian_status]" value="Draft" disabled />
                                 </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -153,24 +127,6 @@
                                             <br />
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="ln_solid"></div>
-                            <div class="form-group row ">
-                                <button class="btn btn-primary" id="btn_tambah_termin"><i class="fa fa-plus"></i> Tambah Termin</button>
-                                <div class="table-responsive">
-                                    <table class="table table-striped jambo_table" id="table-pembelian-termin" style="width:70%">
-                                        <thead>
-                                            <tr class=" headings">
-                                                <th>#</th>
-                                                <th class="column-title">Keterangan </th>
-                                                <th class="column-title">Termin Pembayaran (%) </th>
-                                                <th class="column-title no-link last"><span class="nobr">Action</span></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
                             <div class="ln_solid"></div>

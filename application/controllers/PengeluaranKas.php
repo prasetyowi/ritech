@@ -24,6 +24,7 @@ class PengeluaranKas extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_PengeluaranKas');
+        $this->load->model('M_Customer');
         $this->load->model('M_Vrbl');
         $this->load->helper(array('url', 'file'));
     }
@@ -98,6 +99,8 @@ class PengeluaranKas extends CI_Controller
         $kode = "KAS" . date('ymd');
 
         $data['kas_id'] = $this->M_Vrbl->Generate_kode($table, $column, $kode);
+        $data['Customer'] = $this->M_Customer->Get_all_customer_aktif();
+        $data['TipeKas'] = $this->M_PengeluaranKas->Get_tipe_kas();
 
         // Kebutuhan Authority Menu 
         // $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
@@ -136,6 +139,8 @@ class PengeluaranKas extends CI_Controller
         // $query['Copyright'] = Get_Copyright_Name();
 
         $data['Header'] = $this->M_PengeluaranKas->Get_pengeluaran_kas_header_by_id($id);
+        $data['Customer'] = $this->M_Customer->Get_all_customer_aktif();
+        $data['TipeKas'] = $this->M_PengeluaranKas->Get_tipe_kas();
 
         $data['act'] = "edit";
 
@@ -174,6 +179,8 @@ class PengeluaranKas extends CI_Controller
         $data['Title'] = "Pengeluaran Kas";
         // $query['Copyright'] = Get_Copyright_Name();
         $data['Header'] = $this->M_PengeluaranKas->Get_pengeluaran_kas_header_by_id($id);
+        $data['Customer'] = $this->M_Customer->Get_all_customer_aktif();
+        $data['TipeKas'] = $this->M_PengeluaranKas->Get_tipe_kas();
         $data['act'] = "detail";
 
         // Kebutuhan Authority Menu 
@@ -211,6 +218,8 @@ class PengeluaranKas extends CI_Controller
         $kas_status = $this->input->post('kas_status');
         $updwho = $this->input->post('updwho');
         $updtgl = $this->input->post('updtgl');
+        $customer_id = $this->input->post('customer_id');
+        $no_po = $this->input->post('no_po');
 
         $cek_data = $this->M_PengeluaranKas->cek_pengeluaran_kas_duplicate($kas_id);
 
@@ -221,7 +230,7 @@ class PengeluaranKas extends CI_Controller
 
         $this->db->trans_begin();
 
-        $this->M_PengeluaranKas->insert_pengeluaran_kas($kas_id, $kas_tanggal, $tipe_kas, $kas_no_akun, $kas_keterangan, $kas_no_rekening, $kas_jumlah, $kas_status, $updwho, $updtgl);
+        $this->M_PengeluaranKas->insert_pengeluaran_kas($kas_id, $kas_tanggal, $tipe_kas, $kas_no_akun, $kas_keterangan, $kas_no_rekening, $kas_jumlah, $kas_status, $updwho, $updtgl, $customer_id, $no_po);
 
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
@@ -244,10 +253,12 @@ class PengeluaranKas extends CI_Controller
         $kas_status = $this->input->post('kas_status');
         $updwho = $this->input->post('updwho');
         $updtgl = $this->input->post('updtgl');
+        $customer_id = $this->input->post('customer_id');
+        $no_po = $this->input->post('no_po');
 
         $this->db->trans_begin();
 
-        $this->M_PengeluaranKas->update_pengeluaran_kas($kas_id, $kas_tanggal, $tipe_kas, $kas_no_akun, $kas_keterangan, $kas_no_rekening, $kas_jumlah, $kas_status, $updwho, $updtgl);
+        $this->M_PengeluaranKas->update_pengeluaran_kas($kas_id, $kas_tanggal, $tipe_kas, $kas_no_akun, $kas_keterangan, $kas_no_rekening, $kas_jumlah, $kas_status, $updwho, $updtgl, $customer_id, $no_po);
 
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();

@@ -28,6 +28,20 @@ class M_PengeluaranKas extends CI_Model
         return $query;
     }
 
+    public function Get_tipe_kas()
+    {
+
+        $query = $this->db->query("SELECT * FROM tipe_kas order by tipe_id asc");
+
+        if ($query->num_rows() == 0) {
+            $query = array();
+        } else {
+            $query = $query->result_array();
+        }
+
+        return $query;
+    }
+
     function Get_pengeluaran_kas_header_by_id($kas_id)
     {
         $query = $this->db->query("SELECT
@@ -41,6 +55,8 @@ class M_PengeluaranKas extends CI_Model
                                     a.kas_status,
                                     a.updwho,
                                     a.updtgl,
+                                    a.customer_id,
+                                    a.no_po,
 									IFNULL(b.attachment, '') AS attachment
 									FROM kas a
 									LEFT JOIN kas_attachment b
@@ -80,8 +96,13 @@ class M_PengeluaranKas extends CI_Model
                                     kas_jumlah,
                                     kas_status,
                                     updwho,
-                                    updtgl
+                                    updtgl,
+                                    kas.customer_id,
+                                    customer.customer_nama,
+                                    kas.no_po
 									FROM kas
+                                    LEFT JOIN customer
+                                    ON customer.customer_id = kas.customer_id
 									WHERE DATE_FORMAT(kas_tanggal, '%Y-%m-%d') BETWEEN '$tgl1' AND '$tgl2'
 									" . $kas_id . "
 									" . $status . "
@@ -96,7 +117,7 @@ class M_PengeluaranKas extends CI_Model
         return $query;
     }
 
-    public function insert_pengeluaran_kas($kas_id, $kas_tanggal, $tipe_kas, $kas_no_akun, $kas_keterangan, $kas_no_rekening, $kas_jumlah, $kas_status, $updwho, $updtgl)
+    public function insert_pengeluaran_kas($kas_id, $kas_tanggal, $tipe_kas, $kas_no_akun, $kas_keterangan, $kas_no_rekening, $kas_jumlah, $kas_status, $updwho, $updtgl, $customer_id, $no_po)
     {
         $kas_id = $kas_id == '' ? null : $kas_id;
         $kas_tanggal = $kas_tanggal == '' ? null : $kas_tanggal;
@@ -108,6 +129,8 @@ class M_PengeluaranKas extends CI_Model
         $kas_status = $kas_status == '' ? null : $kas_status;
         $updwho = $updwho == '' ? null : $updwho;
         $updtgl = $updtgl == '' ? null : $updtgl;
+        $customer_id = $customer_id == '' ? null : $customer_id;
+        $no_po = $no_po == '' ? null : $no_po;
 
         $this->db->set('kas_id', $kas_id);
         $this->db->set('kas_tanggal', $kas_tanggal);
@@ -117,6 +140,8 @@ class M_PengeluaranKas extends CI_Model
         $this->db->set('kas_no_rekening', $kas_no_rekening);
         $this->db->set('kas_jumlah', $kas_jumlah);
         $this->db->set('kas_status', $kas_status);
+        $this->db->set('customer_id', $customer_id);
+        $this->db->set('no_po', $no_po);
         $this->db->set('updwho', "Administrator");
         $this->db->set('updtgl', date('Y-m-d'));
 
@@ -126,7 +151,7 @@ class M_PengeluaranKas extends CI_Model
         // return $this->db->last_query();
     }
 
-    public function update_pengeluaran_kas($kas_id, $kas_tanggal, $tipe_kas, $kas_no_akun, $kas_keterangan, $kas_no_rekening, $kas_jumlah, $kas_status, $updwho, $updtgl)
+    public function update_pengeluaran_kas($kas_id, $kas_tanggal, $tipe_kas, $kas_no_akun, $kas_keterangan, $kas_no_rekening, $kas_jumlah, $kas_status, $updwho, $updtgl, $customer_id, $no_po)
     {
         $kas_id = $kas_id == '' ? null : $kas_id;
         $kas_tanggal = $kas_tanggal == '' ? null : $kas_tanggal;
@@ -138,6 +163,8 @@ class M_PengeluaranKas extends CI_Model
         $kas_status = $kas_status == '' ? null : $kas_status;
         $updwho = $updwho == '' ? null : $updwho;
         $updtgl = $updtgl == '' ? null : $updtgl;
+        $customer_id = $customer_id == '' ? null : $customer_id;
+        $no_po = $no_po == '' ? null : $no_po;
 
         $this->db->set('kas_tanggal', $kas_tanggal);
         $this->db->set('tipe_kas', $tipe_kas);
@@ -146,6 +173,8 @@ class M_PengeluaranKas extends CI_Model
         $this->db->set('kas_no_rekening', $kas_no_rekening);
         $this->db->set('kas_jumlah', $kas_jumlah);
         $this->db->set('kas_status', $kas_status);
+        $this->db->set('customer_id', $customer_id);
+        $this->db->set('no_po', $no_po);
         $this->db->set('updwho', "Administrator");
         $this->db->set('updtgl', date('Y-m-d'));
 

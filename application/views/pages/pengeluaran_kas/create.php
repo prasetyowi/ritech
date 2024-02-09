@@ -24,36 +24,54 @@
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Tanggal</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="date" class="form-control col-md-10" id="tanggal_pengeluaran" name="tanggal_pengeluaran" value="<?= date('Y-m-d') ?>" required>
-                                    <input type="hidden" class="form-control col-md-10" id="kas_id" name="kas_id" value="<?= $kas_id ?>" required>
+                                    <input type="date" class="form-control col-md-12" id="tanggal_pengeluaran" name="tanggal_pengeluaran" value="<?= date('Y-m-d') ?>" required>
+                                    <input type="hidden" class="form-control col-md-12" id="kas_id" name="kas_id" value="<?= $kas_id ?>" required>
                                 </div>
                             </div>
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Akun Pengeluaran</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <select class="form-control col-md-10" style="width:100%" name="akun" id="akun">
+                                    <select class="form-control col-md-12" style="width:100%" name="akun" id="akun">
                                         <option value="">Pilih Kategori Akun</option>
-                                        <option value="Jasa">Jasa</option>
-                                        <option value="Lain-lain">Lain-lain</option>
+                                        <?php foreach ($TipeKas as $row) { ?>
+                                            <option value="<?= $row['tipe_kas'] ?>"><?= $row['tipe_kas'] ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Jumlah</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="jumlah" placeholder="ex: 500000">
+                                    <input type="text" class="form-control col-md-12" id="jumlah" placeholder="ex: 500000">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Deskripsi Pengeluaran</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" name="desc" id="desc" class="form-control col-md-10" placeholder="Deskripsi Pengeluaran" maxlength="500" />
+                                    <input type="text" name="desc" id="desc" class="form-control col-md-12" placeholder="Deskripsi Pengeluaran" maxlength="500" />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">No. Rekening</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" name="no_rekening" id="no_rekening" class="form-control col-md-10" placeholder="ex: 91991027663" maxlength="250" />
+                                    <input type="text" name="no_rekening" id="no_rekening" class="form-control col-md-12" placeholder="ex: 91991027663" maxlength="250" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Pelanggan</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <select class="form-control select2 col-md-12" id="customer_id" name="customer_id">
+                                        <option value="">Pilih Pelanggan</option>
+                                        <?php foreach ($Customer as $row) { ?>
+                                            <option value="<?= $row['customer_id'] ?>"><?= $row['customer_nama'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">No. PO</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" name="no_po" id="no_po" class="form-control col-md-12" placeholder="ex: 91991027663" maxlength="250" />
                                 </div>
                             </div>
                             <div class="ln_solid"></div>

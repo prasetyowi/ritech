@@ -24,38 +24,56 @@
                                 <div class="form-group row ">
                                     <label class="control-label col-md-3 col-sm-3 ">Tanggal</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="date" class="form-control col-md-10" id="tanggal_pengeluaran" name="tanggal_pengeluaran" value="<?= date('Y-m-d') ?>" required>
-                                        <input type="hidden" class="form-control col-md-10" id="kas_id" name="kas_id" value="<?= $value['kas_id'] ?>" required>
-                                        <input type="hidden" class="form-control col-md-10" id="updwho" name="updwho" value="<?= $value['updwho'] ?>" required>
-                                        <input type="hidden" class="form-control col-md-10" id="updtgl" name="updtgl" value="<?= $value['updtgl'] ?>" required>
+                                        <input type="date" class="form-control col-md-12" id="tanggal_pengeluaran" name="tanggal_pengeluaran" value="<?= date('Y-m-d') ?>" required>
+                                        <input type="hidden" class="form-control col-md-12" id="kas_id" name="kas_id" value="<?= $value['kas_id'] ?>" required>
+                                        <input type="hidden" class="form-control col-md-12" id="updwho" name="updwho" value="<?= $value['updwho'] ?>" required>
+                                        <input type="hidden" class="form-control col-md-12" id="updtgl" name="updtgl" value="<?= $value['updtgl'] ?>" required>
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="control-label col-md-3 col-sm-3 ">Akun Pengeluaran</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <select class="form-control col-md-10" style="width:100%" name="akun" id="akun">
+                                        <select class="form-control col-md-12" style="width:100%" name="akun" id="akun">
                                             <option value="">Pilih Kategori Akun</option>
-                                            <option value="Jasa" <?= $value['kas_no_akun'] == 'Jasa' ? 'selected' : '' ?>>Jasa</option>
-                                            <option value="Lain-lain" <?= $value['kas_no_akun'] == 'Lain-lain' ? 'selected' : '' ?>>Lain-lain</option>
+                                            <?php foreach ($TipeKas as $row) { ?>
+                                                <option value="<?= $row['tipe_kas'] ?>" <?= $value['kas_no_akun'] == $row['tipe_kas'] ? 'selected' : '' ?>><?= $row['tipe_kas'] ?></option>
+                                            <?php } ?>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Jumlah</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" class="form-control col-md-10" id="jumlah" placeholder="ex: 500000" value="<?= $value['kas_jumlah'] ?>">
+                                        <input type="text" class="form-control col-md-12" id="jumlah" placeholder="ex: 500000" value="<?= $value['kas_jumlah'] ?>">
                                     </div>
                                 </div>
                                 <div class=" form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Deskripsi Pengeluaran</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" name="desc" id="desc" class="form-control col-md-10" placeholder="Deskripsi Pengeluaran" value="<?= $value['kas_keterangan'] ?>" maxlength="500" />
+                                        <input type="text" name="desc" id="desc" class="form-control col-md-12" placeholder="Deskripsi Pengeluaran" value="<?= $value['kas_keterangan'] ?>" maxlength="500" />
                                     </div>
                                 </div>
                                 <div class=" form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">No. Rekening</label>
                                     <div class="col-md-9 col-sm-9 ">
-                                        <input type="text" name="no_rekening" id="no_rekening" class="form-control col-md-10" placeholder="ex: 91991027663" value="<?= $value['kas_no_rekening'] ?>" maxlength="250" />
+                                        <input type="text" name="no_rekening" id="no_rekening" class="form-control col-md-12" placeholder="ex: 91991027663" value="<?= $value['kas_no_rekening'] ?>" maxlength="250" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3 ">Pelanggan</label>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <select class="form-control select2 col-md-12" id="customer_id" name="customer_id">
+                                            <option value="">Pilih Pelanggan</option>
+                                            <?php foreach ($Customer as $row) { ?>
+                                                <option value="<?= $row['customer_id'] ?>" <?= $row['customer_id'] == $value['customer_id'] ? 'selected' : '' ?>><?= $row['customer_nama'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3 ">No. PO</label>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <input type="text" name="no_po" id="no_po" class="form-control col-md-12" placeholder="ex: 91991027663" maxlength="250" value="<?= $value['no_po'] ?>" />
                                     </div>
                                 </div>
                                 <div class="ln_solid"></div>
@@ -86,6 +104,8 @@
                                 <div class="form-group">
                                     <a href="<?= base_url() ?>PengeluaranKas" class="btn btn-primary"><i class="fa fa-home"></i> Home</a>
                                     <button class="btn btn-success" id="btn_update_pengeluaran_kas"><i class="fa fa-save"></i> Simpan</button>
+                                    <button class="btn btn-success" id="btn_konfirmasi_pengeluaran_kas"><i class="fa fa-check"></i> Konfirmasi</button>
+                                    <button class="btn btn-danger" id="btn_cancel_pengeluaran_kas"><i class="fa fa-times"></i> Batal</button>
                                 </div>
                             </div>
                         <?php endforeach; ?>
