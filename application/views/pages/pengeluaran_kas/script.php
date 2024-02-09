@@ -3,6 +3,14 @@
         Get_pengeluaran_kas_by_filter();
     });
 
+    <?php if (isset($act)) { ?>
+        <?php if ($act == "edit" || $act == "detail") { ?>
+            if ($("#status").val() != "Draft") {
+                location.href = "<?= base_url() ?>PengeluaranKas/detail/?id=" + $("#kas_id").val();
+            }
+        <?php } ?>
+    <?php } ?>
+
     function Get_pengeluaran_kas_by_filter() {
         $.ajax({
             type: 'POST',

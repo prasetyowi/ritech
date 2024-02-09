@@ -66,8 +66,8 @@
                                         <th class="column-title" style="text-align: center;">No PO </th>
                                         <th class="column-title" style="text-align: center;">Pelanggan </th>
                                         <th class="column-title" style="text-align: center;">Deskripsi</th>
-                                        <th class="column-title" style="text-align: center;">Jumlah </th>
                                         <th class="column-title" style="text-align: center;">No. Rekening </th>
+                                        <th class="column-title" style="text-align: center;">Jumlah </th>
                                         <th class="column-title no-link last" colspan="2" style="text-align: center;"><span class="nobr">Action</span></th>
                                     </tr>
                                 </thead>
