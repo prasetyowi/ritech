@@ -31,6 +31,12 @@
                                         <input type="hidden" class="form-control col-md-10" id="Quotation-updtgl" name="Quotation[updtgl]" value="<?= $value['updtgl'] ?>" disabled>
                                     </div>
                                 </div>
+                                <div class="form-group row ">
+                                    <label class="control-label col-md-3 col-sm-3 ">Nama Penawaran</label>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <input type="text" class="form-control col-md-10" id="Quotation-nama_penawaran" name="Quotation[nama_penawaran]" value="<?= $value['nama_penawaran'] ?>" maxlength="500" required>
+                                    </div>
+                                </div>
                                 <div class="form-group row">
                                     <label class="control-label col-md-3 col-sm-3 ">Tanggal Quotation</label>
                                     <div class="col-md-9 col-sm-9 ">

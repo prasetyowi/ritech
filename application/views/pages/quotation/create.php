@@ -20,11 +20,16 @@
                     <div class="x_content">
                         <br />
                         <div class="form-horizontal form-label-left">
-
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Nomor Quotation</label>
                                 <div class="col-md-9 col-sm-9 ">
                                     <input type="text" class="form-control col-md-10" id="Quotation-quotation_kode" name="Quotation[quotation_kode]" value="<?= $LastQuotation ?>" maxlength="250" required>
+                                </div>
+                            </div>
+                            <div class="form-group row ">
+                                <label class="control-label col-md-3 col-sm-3 ">Nama Penawaran</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-10" id="Quotation-nama_penawaran" name="Quotation[nama_penawaran]" value="" maxlength="500" required>
                                 </div>
                             </div>
                             <div class="form-group row">

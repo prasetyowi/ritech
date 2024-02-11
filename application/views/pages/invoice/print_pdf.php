@@ -59,6 +59,7 @@ $pph = 0;
         body {
             font-family: 'Comic Sans MS', cursive;
             color: black;
+            font-size: 10px;
         }
 
         .right-align {
@@ -127,7 +128,11 @@ $pph = 0;
                                     <tr>
                                         <td style="text-align: left;width:20%;">Tanggal Invoice</td>
                                         <td>:</td>
-                                        <td><?= $value['penjualan_tanggal'] ?></td>
+                                        <td>
+                                            <?php foreach ($Termin as $value2) {
+                                                echo $value2['tanggal_invoice'];
+                                            } ?>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: left;width:20%;">No. PO</td>
@@ -146,7 +151,7 @@ $pph = 0;
                                     </tr>
                                 </table>
                                 <br>
-                                <table class="table-bordered" width="100%" id="table_item_invoice" style="font-size: 12px;">
+                                <table class="table-bordered" width="100%" id="table_item_invoice" style="font-size: 8px;">
                                     <thead>
                                         <tr style="text-align:center">
                                             <th>Jumlah Barang</th>

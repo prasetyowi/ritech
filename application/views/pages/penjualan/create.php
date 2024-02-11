@@ -20,146 +20,158 @@
                     <div class="x_content">
                         <br />
                         <div class="form-horizontal form-label-left">
-
-                            <div class="form-group row ">
+                            <!-- <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Nomor Penjualan</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_kode" name="Penjualan[penjualan_kode]" value="<?= $LastPenjualan ?>" maxlength="250" required>
-                                    <input type="hidden" class="form-control col-md-10" id="Penjualan-penjualan_id" name="Penjualan[penjualan_id]" value="<?= $penjualan_id; ?>" required>
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-penjualan_kode" name="Penjualan[penjualan_kode]" value="<?= $LastPenjualan ?>" maxlength="250" required>
+                                    <input type="hidden" class="form-control col-md-12" id="Penjualan-penjualan_id" name="Penjualan[penjualan_id]" value="<?= $penjualan_id; ?>" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Tanggal Penjualan</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="date" class="form-control col-md-10" id="Penjualan-penjualan_tanggal" name="Penjualan[penjualan_tanggal]" value="<?= date('Y-m-d') ?>" required>
+                                    <input type="date" class="form-control col-md-12" id="Penjualan-penjualan_tanggal" name="Penjualan[penjualan_tanggal]" value="<?= date('Y-m-d') ?>" required>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Nomor Purchase Order</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_no_po" name="Penjualan[penjualan_no_po]" value="" maxlength="250" required>
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-penjualan_no_po" name="Penjualan[penjualan_no_po]" value="<?= $LastPenjualan ?>" maxlength="250" required>
+                                    <input type="hidden" class="form-control col-md-12" id="Penjualan-penjualan_id" name="Penjualan[penjualan_id]" value="<?= $penjualan_id; ?>" required>
+                                    <input type="hidden" class="form-control col-md-12" id="Penjualan-penjualan_tanggal" name="Penjualan[penjualan_tanggal]" value="<?= date('Y-m-d') ?>" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Sales</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-karyawan_nama" name="Penjualan[karyawan_nama]" value="" required />
-                                    <input type="hidden" class="form-control col-md-10" id="Penjualan-karyawan_id" name="Penjualan[karyawan_id]" value="" required />
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-karyawan_nama" name="Penjualan[karyawan_nama]" value="" required />
+                                    <input type="hidden" class="form-control col-md-12" id="Penjualan-karyawan_id" name="Penjualan[karyawan_id]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Pelanggan</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-customer_nama" name="Penjualan[customer_nama]" value="" required />
-                                    <input type="hidden" class="form-control col-md-10" id="Penjualan-customer_id" name="Penjualan[customer_id]" value="" required />
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-customer_nama" name="Penjualan[customer_nama]" value="" required />
+                                    <input type="hidden" class="form-control col-md-12" id="Penjualan-customer_id" name="Penjualan[customer_id]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Kelurahan</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-customer_kelurahan" name="Penjualan[customer_kelurahan]" value="" disabled />
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-customer_kelurahan" name="Penjualan[customer_kelurahan]" value="" disabled />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Kecamatan</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-customer_kecamatan" name="Penjualan[customer_kecamatan]" value="" disabled />
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-customer_kecamatan" name="Penjualan[customer_kecamatan]" value="" disabled />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Kota</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-customer_kota" name="Penjualan[customer_kota]" value="" disabled />
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-customer_kota" name="Penjualan[customer_kota]" value="" disabled />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Provinsi</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-customer_provinsi" name="Penjualan[customer_provinsi]" value="" disabled />
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-customer_provinsi" name="Penjualan[customer_provinsi]" value="" disabled />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Kodepos</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-customer_kode_pos" name="Penjualan[customer_kode_pos]" value="" disabled />
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-customer_kode_pos" name="Penjualan[customer_kode_pos]" value="" disabled />
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-md-3 col-sm-3 ">PIC</label>
+                                <label class="control-label col-md-3 col-sm-3 ">Perusahaan</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_pic" name="Penjualan[penjualan_pic]" value="" maxlength="250" required />
+                                    <select class="form-control select2 col-md-12" id="Penjualan-perusahaan_id" name="Penjualan[perusahaan_id]">
+                                        <option value="">Pilih Perusahaan</option>
+                                        <?php foreach ($Perusahaan as $row) { ?>
+                                            <option value="<?= $row['perusahaan_id'] ?>"><?= $row['perusahaan_nama'] ?></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-md-3 col-sm-3 ">Oleh</label>
+                                <label class="control-label col-md-3 col-sm-3 ">PIC dari Pelanggan</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_oleh" name="Penjualan[penjualan_oleh]" value="" maxlength="250" required />
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-penjualan_pic" name="Penjualan[penjualan_pic]" value="" maxlength="250" required />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Dikirim Oleh</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-penjualan_oleh" name="Penjualan[penjualan_oleh]" value="" maxlength="250" required />
                                 </div>
                             </div>
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">PPn</label>
                                 <div class="col-md-1 col-sm-1">
-                                    <input type="checkbox" class="form-control col-md-10" id="Penjualan-is_ppn" value="1">
+                                    <input type="checkbox" class="form-control col-md-12" id="Penjualan-is_ppn" value="1">
                                 </div>
                             </div>
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">PPh</label>
                                 <div class="col-md-1 col-sm-1">
-                                    <input type="checkbox" class="form-control col-md-10" id="Penjualan-is_pph" value="1">
+                                    <input type="checkbox" class="form-control col-md-12" id="Penjualan-is_pph" value="1">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">No Faktur PPn</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-no_faktur" name="Penjualan[no_faktur]" value="" required />
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-no_faktur" name="Penjualan[no_faktur]" value="" data-inputmask="'mask': '999.999-99.999999999'" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Tanggal Faktur PPn</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="date" class="form-control col-md-10" id="Penjualan-tanggal_faktur" name="Penjualan[tanggal_faktur]" value="<?= date('Y-m-d') ?>" required>
+                                    <input type="date" class="form-control col-md-12" id="Penjualan-tanggal_faktur" name="Penjualan[tanggal_faktur]" value="<?= date('Y-m-d') ?>" required>
                                 </div>
                             </div>
                             <!-- <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Jumlah Material</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-jumlah" name="Penjualan[jumlah]" value="" required />
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-jumlah" name="Penjualan[jumlah]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Waktu Pengiriman (Hari)</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_waktu_pengiriman" name="Penjualan[penjualan_waktu_pengiriman]" value="" required />
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-penjualan_waktu_pengiriman" name="Penjualan[penjualan_waktu_pengiriman]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Waktu Pengerjaan (Hari)</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_waktu_pengerjaan" name="Penjualan[penjualan_waktu_pengerjaan]" value="" required />
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-penjualan_waktu_pengerjaan" name="Penjualan[penjualan_waktu_pengerjaan]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Jumlah Termin Pembayaran</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_termin_pembayaran" name="Penjualan[penjualan_termin_pembayaran]" value="" required />
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-penjualan_termin_pembayaran" name="Penjualan[penjualan_termin_pembayaran]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Periode Penawaran</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-periode_penawaran" name="Penjualan[periode_penawaran]" value="" required />
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-periode_penawaran" name="Penjualan[periode_penawaran]" value="" required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Garansi</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-garansi" name="Penjualan[garansi]" value="" required />
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-garansi" name="Penjualan[garansi]" value="" required />
                                 </div>
                             </div> -->
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Catatan</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <textarea class="resizable_textarea form-control col-md-10" id="Penjualan-penjualan_keterangan" name="Penjualan[penjualan_keterangan]" style="height:200px">
+                                    <textarea class="resizable_textarea form-control col-md-12" id="Penjualan-penjualan_keterangan" name="Penjualan[penjualan_keterangan]" style="height:200px">
 1. Harga belum termasuk PPn 11% dan franco Driyorejo (pabrik customer) dan berlaku sampai 31 Juli 2023.
 2. Customer menyediakan kebutuhan utilitas (listrik dan sumber air) disediakan oleh customer.</textarea>
                                 </div>
@@ -167,7 +179,7 @@
                             <div class=" form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Status</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-10" id="Penjualan-penjualan_status" name="Penjualan[penjualan_status]" value="Draft" disabled />
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-penjualan_status" name="Penjualan[penjualan_status]" value="Draft" disabled />
                                 </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -175,7 +187,7 @@
                                 <div class="col-md-12 col-sm-12  ">
                                     <div class="x_panel">
                                         <div class="x_title">
-                                            <h2>File Uploader</h2>
+                                            <h2>Upload File Pendukung</h2>
                                             <div class="clearfix"></div>
                                         </div>
                                         <div class="x_content">
@@ -190,11 +202,12 @@
                             <div class="form-group row ">
                                 <button class="btn btn-primary" id="btn_tambah_termin"><i class="fa fa-plus"></i> Tambah Termin</button>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered jambo_table" id="table-penjualan-termin" style="width:70%">
+                                    <table class="table table-bordered jambo_table" id="table-penjualan-termin" style="width:100%">
                                         <thead>
                                             <tr class=" headings">
                                                 <th>#</th>
                                                 <th class="column-title text-center">Keterangan </th>
+                                                <th class="column-title text-center">Tanggal Invoice </th>
                                                 <th class="column-title text-center">Termin Pembayaran (%) </th>
                                                 <th class="column-title text-center">Lunas </th>
                                                 <th class="column-title text-center">Tanggal Bayar </th>

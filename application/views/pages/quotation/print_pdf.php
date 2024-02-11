@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentelella Alela! | </title>
+    <title>RITECH | Quotation </title>
 
     <!-- Bootstrap -->
     <link href="<?= base_url() ?>assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -55,6 +55,7 @@
         body {
             font-family: 'Comic Sans MS', cursive;
             color: black;
+            font-size: 10px;
         }
 
         .right-align {
@@ -122,7 +123,7 @@
                                             <td class="right-align"></td>
                                         </tr>
                                     </table>
-                                    Dengan hormat, <br><?php echo "Berikut kami sampaikan penawaran harga material clean room dengan spesifikasi sebagai berikut:"; ?>
+                                    Dengan hormat, <br><?php echo "Berikut kami sampaikan penawaran harga material " . $value['nama_penawaran'] . " dengan spesifikasi sebagai berikut:"; ?>
                                     <br>
                                     <table class="table-bordered" width="100%" id="table_quotation">
                                         <thead>
@@ -158,7 +159,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td style="text-align:center;padding-left: 5px;padding-right:5px;"></td>
-                                                    <td style="text-align:left;padding-left: 5px;padding-right:5px;">
+                                                    <td style="text-align:left;padding-left: 5px;padding-right:5px;font-size:9px;">
                                                         <?php foreach ($barang_desc as $val_desc) {
                                                             echo $val_desc . "<br>";
                                                         } ?>

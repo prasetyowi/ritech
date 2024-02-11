@@ -23,6 +23,7 @@
                 arr_list_termin.push({
                     'idx': "<?= $key + 1 ?>",
                     'keterangan': "<?= $value['keterangan'] ?>",
+                    'tanggal_invoice': "<?= $value['tanggal_invoice'] ?>",
                     'termin_pembayaran': <?= $value['termin_pembayaran'] ?>,
                     'termin_tanggal_bayar': "<?= $value['termin_tanggal_bayar'] ?>",
                     'termin_status': "<?= $value['termin_status'] ?>"
@@ -40,6 +41,7 @@
 
     $('#check-all-barang').click(function(event) {
         if (this.checked) {
+            arr_list_barang = [];
             // Iterate each checkbox
             $('[name="CheckboxBarang"]:checkbox').each(function() {
                 this.checked = true;
@@ -88,6 +90,7 @@
         arr_list_termin.push({
             'idx': index_termin,
             'keterangan': "",
+            'tanggal_invoice': "",
             'termin_pembayaran': 0,
             'termin_tanggal_bayar': "",
             'termin_status': ""
@@ -291,8 +294,11 @@
                                     ${i+1}
                                     <input type="hidden" class="form-control" id="item-${i}-penjualan_termin-idx" value="${v.idx}">
                                 </td>
-                                <td class="text-left" style="width:25%;">
+                                <td class="text-left" style="width:20%;">
                                     <input type="text" class="form-control" id="item-${i}-penjualan_termin-keterangan" value="${v.keterangan}"  max="250" disabled>
+                                </td>
+                                <td class="text-left" style="width:20%;">
+                                    <input type="date" class="form-control" id="item-${i}-penjualan_termin-tanggal_invoice" value="${v.tanggal_invoice}" disabled>
                                 </td>
                                 <td class="text-left" style="width:20%;">
                                     <input type="number" class="form-control" id="item-${i}-penjualan_termin-termin_pembayaran" value="${v.termin_pembayaran}" disabled>
@@ -300,7 +306,7 @@
                                 <td class="text-center" style="width:10%;">
                                     <input type="checkbox" id="item-${i}-penjualan_termin-termin_status" value="${v.termin_status}" checked disabled>
                                 </td>
-                                <td class="text-left" style="width:25%;">
+                                <td class="text-left" style="width:20%;">
                                     <input type="date" class="form-control" id="item-${i}-penjualan_termin-termin_tanggal_bayar" value="${v.termin_tanggal_bayar}" disabled>
                                 </td>
                                 <td class="text-center" style="width:5%;">
@@ -316,8 +322,11 @@
                                     ${i+1}
                                     <input type="hidden" class="form-control" id="item-${i}-penjualan_termin-idx" value="${v.idx}">
                                 </td>
-                                <td class="text-left" style="width:25%;">
+                                <td class="text-left" style="width:20%;">
                                     <input type="text" class="form-control" id="item-${i}-penjualan_termin-keterangan" value="${v.keterangan}"  max="250" onchange="UpdateListTermin('${v.idx}', '${i}','text')">
+                                </td>
+                                <td class="text-left" style="width:20%;">
+                                    <input type="date" class="form-control" id="item-${i}-penjualan_termin-tanggal_invoice" value="${v.tanggal_invoice}" onchange="UpdateListTermin('${v.idx}', '${i}','text')">
                                 </td>
                                 <td class="text-left" style="width:20%;">
                                     <input type="number" class="form-control" id="item-${i}-penjualan_termin-termin_pembayaran" value="${v.termin_pembayaran}" onchange="UpdateListTermin('${v.idx}', '${i}','text')">
@@ -325,7 +334,7 @@
                                 <td class="text-center" style="width:10%;">
                                     <input type="checkbox"  id="item-${i}-penjualan_termin-termin_status" value="LUNAS" onchange="UpdateListTermin('${v.idx}', '${i}','text')">
                                 </td>
-                                <td class="text-left" style="width:25%;">
+                                <td class="text-left" style="width:20%;">
                                     <input type="date" class="form-control" id="item-${i}-penjualan_termin-termin_tanggal_bayar" value="${v.termin_tanggal_bayar}" onchange="UpdateListTermin('${v.idx}', '${i}','text')">
                                 </td>
                                 <td class="text-center" style="width:5%;">
@@ -362,6 +371,7 @@
         arr_list_termin[findIndexData] = ({
             'idx': $("#item-" + index + "-penjualan_termin-idx").val(),
             'keterangan': $("#item-" + index + "-penjualan_termin-keterangan").val(),
+            'tanggal_invoice': $("#item-" + index + "-penjualan_termin-tanggal_invoice").val(),
             'termin_pembayaran': $("#item-" + index + "-penjualan_termin-termin_pembayaran").val(),
             'termin_tanggal_bayar': $("#item-" + index + "-penjualan_termin-termin_tanggal_bayar").val(),
             'termin_status': $("#item-" + index + "-penjualan_termin-termin_status:checked").val() === undefined ? '' : $("#item-" + index + "-penjualan_termin-termin_status:checked").val()
@@ -566,6 +576,15 @@
                 return false;
             }
 
+            if (parseInt(v.tanggal_invoice) == 0) {
+                let alert = "Tanggal Invoice Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                cek_error++;
+
+                return false;
+            }
+
         });
 
         setTimeout(() => {
@@ -575,6 +594,14 @@
             if ($("#Penjualan-penjualan_id").val() == "") {
 
                 let alert = "No Penjualan Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
+
+            if ($("#Penjualan-penjualan_no_po").val() == "") {
+
+                let alert = "No PO Tidak Boleh Kosong";
                 message_custom("Error", "error", alert);
 
                 return false;
@@ -658,7 +685,7 @@
                             },
                             data: {
                                 penjualan_id: $('#Penjualan-penjualan_id').val(),
-                                penjualan_kode: $('#Penjualan-penjualan_kode').val(),
+                                penjualan_kode: $('#Penjualan-penjualan_no_po').val(),
                                 penjualan_tanggal: $('#Penjualan-penjualan_tanggal').val(),
                                 customer_id: $('#Penjualan-customer_id').val(),
                                 penjualan_keterangan: $('#Penjualan-penjualan_keterangan').val(),
@@ -677,6 +704,7 @@
                                 garansi: "",
                                 no_faktur: $('#Penjualan-no_faktur').val(),
                                 tanggal_faktur: $('#Penjualan-tanggal_faktur').val(),
+                                perusahaan_id: $('#Penjualan-perusahaan_id').val(),
                                 is_ppn: $('#Penjualan-is_ppn:checked').val(),
                                 is_pph: $('#Penjualan-is_pph:checked').val(),
                                 detail: arr_list_barang,
@@ -695,7 +723,7 @@
                                     ResetForm();
                                 } else if (response.status == "2") {
 
-                                    var msg = "No Penjualan " + $('#Penjualan-penjualan_kode').val() + " Sudah Ada";
+                                    var msg = "No Penjualan " + $('#Penjualan-penjualan_no_po').val() + " Sudah Ada";
                                     message_custom("Error", "error", alert);
                                 } else {
                                     var alert = "Data Gagal Disimpan";
@@ -773,6 +801,15 @@
                 return false;
             }
 
+            if (parseInt(v.tanggal_invoice) == 0) {
+                let alert = "Tanggal Invoice Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                cek_error++;
+
+                return false;
+            }
+
         });
 
         setTimeout(() => {
@@ -782,6 +819,14 @@
             if ($("#Penjualan-penjualan_id").val() == "") {
 
                 let alert = "No Penjualan Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
+
+            if ($("#Penjualan-penjualan_no_po").val() == "") {
+
+                let alert = "No PO Tidak Boleh Kosong";
                 message_custom("Error", "error", alert);
 
                 return false;
@@ -867,7 +912,7 @@
                             },
                             data: {
                                 penjualan_id: $('#Penjualan-penjualan_id').val(),
-                                penjualan_kode: $('#Penjualan-penjualan_kode').val(),
+                                penjualan_kode: $('#Penjualan-penjualan_no_po').val(),
                                 penjualan_tanggal: $('#Penjualan-penjualan_tanggal').val(),
                                 customer_id: $('#Penjualan-customer_id').val(),
                                 penjualan_keterangan: $('#Penjualan-penjualan_keterangan').val(),
@@ -884,6 +929,7 @@
                                 penjualan_waktu_pengerjaan: "",
                                 periode_penawaran: "",
                                 garansi: "",
+                                perusahaan_id: $('#Penjualan-perusahaan_id').val(),
                                 no_faktur: $('#Penjualan-no_faktur').val(),
                                 tanggal_faktur: $('#Penjualan-tanggal_faktur').val(),
                                 is_ppn: $('#Penjualan-is_ppn:checked').val(),
@@ -904,7 +950,7 @@
                                     ResetForm();
                                 } else if (response.status == "2") {
 
-                                    var msg = "No Penjualan " + $('#Penjualan-penjualan_kode').val() + " Sudah Ada";
+                                    var msg = "No Penjualan " + $('#Penjualan-penjualan_no_po').val() + " Sudah Ada";
                                     message_custom("Error", "error", alert);
                                 } else {
                                     var alert = "Data Gagal Disimpan";
@@ -988,6 +1034,15 @@
                 return false;
             }
 
+            if (parseInt(v.tanggal_invoice) == 0) {
+                let alert = "Tanggal Invoice Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                cek_error++;
+
+                return false;
+            }
+
         });
 
         setTimeout(() => {
@@ -997,6 +1052,14 @@
             if ($("#Penjualan-penjualan_id").val() == "") {
 
                 let alert = "No Penjualan Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
+
+            if ($("#Penjualan-penjualan_no_po").val() == "") {
+
+                let alert = "No PO Boleh Kosong";
                 message_custom("Error", "error", alert);
 
                 return false;
@@ -1082,7 +1145,7 @@
                             },
                             data: {
                                 penjualan_id: $('#Penjualan-penjualan_id').val(),
-                                penjualan_kode: $('#Penjualan-penjualan_kode').val(),
+                                penjualan_kode: $('#Penjualan-penjualan_no_po').val(),
                                 penjualan_tanggal: $('#Penjualan-penjualan_tanggal').val(),
                                 customer_id: $('#Penjualan-customer_id').val(),
                                 penjualan_keterangan: $('#Penjualan-penjualan_keterangan').val(),
@@ -1099,6 +1162,7 @@
                                 penjualan_waktu_pengerjaan: "",
                                 periode_penawaran: "",
                                 garansi: "",
+                                perusahaan_id: $('#Penjualan-perusahaan_id').val(),
                                 no_faktur: $('#Penjualan-no_faktur').val(),
                                 tanggal_faktur: $('#Penjualan-tanggal_faktur').val(),
                                 is_ppn: $('#Penjualan-is_ppn:checked').val(),
@@ -1119,7 +1183,7 @@
                                     ResetForm();
                                 } else if (response.status == "2") {
 
-                                    var msg = "No Penjualan " + $('#Penjualan-penjualan_kode').val() + " Sudah Ada";
+                                    var msg = "No Penjualan " + $('#Penjualan-penjualan_no_po').val() + " Sudah Ada";
                                     message_custom("Error", "error", alert);
                                 } else {
                                     var alert = "Data Gagal Disimpan";
@@ -1184,7 +1248,7 @@
                     },
                     data: {
                         penjualan_id: $('#Penjualan-penjualan_id').val(),
-                        penjualan_kode: $('#Penjualan-penjualan_kode').val(),
+                        penjualan_kode: $('#Penjualan-penjualan_no_po').val(),
                         penjualan_tanggal: $('#Penjualan-penjualan_tanggal').val(),
                         customer_id: $('#Penjualan-customer_id').val(),
                         penjualan_keterangan: $('#Penjualan-penjualan_keterangan').val(),
@@ -1201,6 +1265,7 @@
                         penjualan_waktu_pengerjaan: "",
                         periode_penawaran: "",
                         garansi: "",
+                        perusahaan_id: $('#Penjualan-perusahaan_id').val(),
                         no_faktur: $('#Penjualan-no_faktur').val(),
                         tanggal_faktur: $('#Penjualan-tanggal_faktur').val(),
                         is_ppn: $('#Penjualan-is_ppn:checked').val(),
@@ -1221,7 +1286,7 @@
                             ResetForm();
                         } else if (response.status == "2") {
 
-                            var msg = "No Penjualan " + $('#Penjualan-penjualan_kode').val() + " Sudah Ada";
+                            var msg = "No Penjualan " + $('#Penjualan-penjualan_no_po').val() + " Sudah Ada";
                             message_custom("Error", "error", alert);
                         } else {
                             var alert = "Data Gagal Disimpan";

@@ -24,6 +24,7 @@ class Penjualan extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('M_Penjualan');
+		$this->load->model('M_Perusahaan');
 		$this->load->model('M_Vrbl');
 		$this->load->helper(array('url', 'file'));
 	}
@@ -92,6 +93,7 @@ class Penjualan extends CI_Controller
 		$data['Title'] = "Penjualan";
 		$data['act'] = "add";
 		$data['LastPenjualan'] = $this->M_Penjualan->Get_last_penjualan();
+		$data['Perusahaan'] = $this->M_Perusahaan->Get_all_perusahaan_aktif();
 
 		$table = "penjualan";
 		$column = "penjualan_id";
@@ -138,6 +140,7 @@ class Penjualan extends CI_Controller
 		$data['Header'] = $this->M_Penjualan->Get_penjualan_header_by_id($id);
 		$data['Detail'] = $this->M_Penjualan->Get_penjualan_detail_by_id($id);
 		$data['Termin'] = $this->M_Penjualan->Get_penjualan_termin_by_id($id);
+		$data['Perusahaan'] = $this->M_Perusahaan->Get_all_perusahaan_aktif();
 
 		$data['act'] = "edit";
 
@@ -178,6 +181,7 @@ class Penjualan extends CI_Controller
 		$data['Header'] = $this->M_Penjualan->Get_penjualan_header_by_id($id);
 		$data['Detail'] = $this->M_Penjualan->Get_penjualan_detail_by_id($id);
 		$data['Termin'] = $this->M_Penjualan->Get_penjualan_termin_by_id($id);
+		$data['Perusahaan'] = $this->M_Perusahaan->Get_all_perusahaan_aktif();
 		$data['act'] = "detail";
 
 		// Kebutuhan Authority Menu 
@@ -226,6 +230,7 @@ class Penjualan extends CI_Controller
 		$is_pph = $this->input->post('is_pph');
 		$tanggal_faktur = $this->input->post('tanggal_faktur');
 		$no_faktur = $this->input->post('no_faktur');
+		$perusahaan_id = $this->input->post('perusahaan_id');
 
 		$detail = $this->input->post('detail');
 		$detail2 = $this->input->post('detail2');
@@ -239,7 +244,7 @@ class Penjualan extends CI_Controller
 
 		$this->db->trans_begin();
 
-		$this->M_Penjualan->insert_penjualan($penjualan_id, $penjualan_kode, $penjualan_tanggal, $customer_id, $penjualan_keterangan, $penjualan_jumlah, $penjualan_status, $updwho, $updtgl, $penjualan_waktu_pengiriman, $penjualan_waktu_pengerjaan, $periode_penawaran, $garansi, $penjualan_no_po, $penjualan_pic, $penjualan_oleh, $karyawan_id, $is_ppn, $is_pph, $tanggal_faktur, $no_faktur);
+		$this->M_Penjualan->insert_penjualan($penjualan_id, $penjualan_kode, $penjualan_tanggal, $customer_id, $penjualan_keterangan, $penjualan_jumlah, $penjualan_status, $updwho, $updtgl, $penjualan_waktu_pengiriman, $penjualan_waktu_pengerjaan, $periode_penawaran, $garansi, $penjualan_no_po, $penjualan_pic, $penjualan_oleh, $karyawan_id, $is_ppn, $is_pph, $tanggal_faktur, $no_faktur, $perusahaan_id);
 
 		foreach ($detail as $key => $value) {
 			// $penjualan_id = $value['penjualan_id'];
@@ -260,8 +265,9 @@ class Penjualan extends CI_Controller
 			$termin_pembayaran = $value['termin_pembayaran'];
 			$termin_status = $value['termin_status'];
 			$termin_tanggal_bayar = $value['termin_tanggal_bayar'];
+			$tanggal_invoice = $value['tanggal_invoice'];
 
-			$this->M_Penjualan->insert_penjualan_termin($penjualan_id, $penjualan_termin_no_item, $keterangan, $termin_pembayaran, $termin_status, $termin_tanggal_bayar);
+			$this->M_Penjualan->insert_penjualan_termin($penjualan_id, $penjualan_termin_no_item, $keterangan, $termin_pembayaran, $termin_status, $termin_tanggal_bayar, $tanggal_invoice);
 		}
 
 
@@ -297,13 +303,14 @@ class Penjualan extends CI_Controller
 		$is_pph = $this->input->post('is_pph');
 		$tanggal_faktur = $this->input->post('tanggal_faktur');
 		$no_faktur = $this->input->post('no_faktur');
+		$perusahaan_id = $this->input->post('perusahaan_id');
 
 		$detail = $this->input->post('detail');
 		$detail2 = $this->input->post('detail2');
 
 		$this->db->trans_begin();
 
-		$this->M_Penjualan->update_penjualan($penjualan_id, $penjualan_kode, $penjualan_tanggal, $customer_id, $penjualan_keterangan, $penjualan_jumlah, $penjualan_status, $updwho, $updtgl, $penjualan_waktu_pengiriman, $penjualan_waktu_pengerjaan, $periode_penawaran, $garansi, $penjualan_no_po, $penjualan_pic, $penjualan_oleh, $karyawan_id, $is_ppn, $is_pph, $tanggal_faktur, $no_faktur);
+		$this->M_Penjualan->update_penjualan($penjualan_id, $penjualan_kode, $penjualan_tanggal, $customer_id, $penjualan_keterangan, $penjualan_jumlah, $penjualan_status, $updwho, $updtgl, $penjualan_waktu_pengiriman, $penjualan_waktu_pengerjaan, $periode_penawaran, $garansi, $penjualan_no_po, $penjualan_pic, $penjualan_oleh, $karyawan_id, $is_ppn, $is_pph, $tanggal_faktur, $no_faktur, $perusahaan_id);
 
 		$this->M_Penjualan->delete_penjualan_detail($penjualan_id);
 
@@ -328,8 +335,9 @@ class Penjualan extends CI_Controller
 			$termin_pembayaran = $value['termin_pembayaran'];
 			$termin_status = $value['termin_status'];
 			$termin_tanggal_bayar = $value['termin_tanggal_bayar'];
+			$tanggal_invoice = $value['tanggal_invoice'];
 
-			$this->M_Penjualan->insert_penjualan_termin($penjualan_id, $penjualan_termin_no_item, $keterangan, $termin_pembayaran, $termin_status, $termin_tanggal_bayar);
+			$this->M_Penjualan->insert_penjualan_termin($penjualan_id, $penjualan_termin_no_item, $keterangan, $termin_pembayaran, $termin_status, $termin_tanggal_bayar, $tanggal_invoice);
 		}
 
 
@@ -348,10 +356,11 @@ class Penjualan extends CI_Controller
 		$penjualan_termin_no_item = $this->input->post('penjualan_termin_no_item');
 		$termin_tanggal_bayar = $this->input->post('termin_tanggal_bayar');
 		$termin_status = $this->input->post('termin_status');
+		$tanggal_invoice = $this->input->post('tanggal_invoice');
 
 		$this->db->trans_begin();
 
-		$this->M_Penjualan->Update_termin_pembayaran($penjualan_id, $penjualan_termin_no_item, $termin_tanggal_bayar, $termin_status);
+		$this->M_Penjualan->Update_termin_pembayaran($penjualan_id, $penjualan_termin_no_item, $termin_tanggal_bayar, $termin_status, $tanggal_invoice);
 
 		if ($this->db->trans_status() === FALSE) {
 			$this->db->trans_rollback();
@@ -423,5 +432,13 @@ class Penjualan extends CI_Controller
 
 
 		echo "{}";
+	}
+
+	function Get_penjualan_termin_by_id()
+	{
+		$id = $this->input->get('penjualan_id');
+		$data = $this->M_Penjualan->Get_penjualan_termin_by_id($id);
+
+		echo json_encode($data);
 	}
 }

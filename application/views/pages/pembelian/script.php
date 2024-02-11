@@ -25,6 +25,7 @@
 
     $('#check-all-barang').click(function(event) {
         if (this.checked) {
+            arr_list_barang = [];
             // Iterate each checkbox
             $('[name="CheckboxBarang"]:checkbox').each(function() {
                 this.checked = true;

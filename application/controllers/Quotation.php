@@ -266,6 +266,7 @@ class Quotation extends CI_Controller
 		$periode_penawaran = $this->input->post('periode_penawaran');
 		$garansi = $this->input->post('garansi');
 		$karyawan_id = $this->input->post('karyawan_id');
+		$nama_penawaran = $this->input->post('nama_penawaran');
 
 		$detail = $this->input->post('detail');
 		// $detail2 = $this->input->post('detail2');
@@ -279,7 +280,7 @@ class Quotation extends CI_Controller
 
 		$this->db->trans_begin();
 
-		$this->M_Quotation->insert_quotation($quotation_id, $quotation_kode, $quotation_tanggal, $customer_id, $quotation_keterangan, $quotation_jumlah, $quotation_status, $updwho, $updtgl, $quotation_waktu_pengiriman, $quotation_waktu_pengerjaan, $periode_penawaran, $garansi, $karyawan_id);
+		$this->M_Quotation->insert_quotation($quotation_id, $quotation_kode, $quotation_tanggal, $customer_id, $quotation_keterangan, $quotation_jumlah, $quotation_status, $updwho, $updtgl, $quotation_waktu_pengiriman, $quotation_waktu_pengerjaan, $periode_penawaran, $garansi, $karyawan_id, $nama_penawaran);
 
 		foreach ($detail as $key => $value) {
 			// $quotation_id = $value['quotation_id'];
@@ -328,6 +329,7 @@ class Quotation extends CI_Controller
 		$periode_penawaran = $this->input->post('periode_penawaran');
 		$garansi = $this->input->post('garansi');
 		$karyawan_id = $this->input->post('karyawan_id');
+		$nama_penawaran = $this->input->post('nama_penawaran');
 
 		$detail = $this->input->post('detail');
 		// $detail2 = $this->input->post('detail2');
@@ -341,7 +343,7 @@ class Quotation extends CI_Controller
 
 		$this->db->trans_begin();
 
-		$this->M_Quotation->update_quotation($quotation_id, $quotation_kode, $quotation_tanggal, $customer_id, $quotation_keterangan, $quotation_jumlah, $quotation_status, $updwho, $updtgl, $quotation_waktu_pengiriman, $quotation_waktu_pengerjaan, $periode_penawaran, $garansi, $karyawan_id);
+		$this->M_Quotation->update_quotation($quotation_id, $quotation_kode, $quotation_tanggal, $customer_id, $quotation_keterangan, $quotation_jumlah, $quotation_status, $updwho, $updtgl, $quotation_waktu_pengiriman, $quotation_waktu_pengerjaan, $periode_penawaran, $garansi, $karyawan_id, $nama_penawaran);
 
 		$this->M_Quotation->delete_quotation_detail($quotation_id);
 

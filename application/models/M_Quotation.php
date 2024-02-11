@@ -59,6 +59,7 @@ class M_Quotation extends CI_Model
 		$query = $this->db->query("SELECT
 									a.quotation_id,
 									a.quotation_kode,
+									a.nama_penawaran,
 									DATE_FORMAT(a.quotation_tanggal, '%Y-%m-%d') AS quotation_tanggal,
 									a.karyawan_id,
 									k.karyawan_nama,
@@ -167,6 +168,7 @@ class M_Quotation extends CI_Model
 		$query = $this->db->query("SELECT
 									a.quotation_id,
 									a.quotation_kode,
+									a.nama_penawaran,
 									DATE_FORMAT(a.quotation_tanggal, '%d-%m-%Y') AS quotation_tanggal,
 									a.customer_id,
 									c.customer_nama,
@@ -197,7 +199,7 @@ class M_Quotation extends CI_Model
 		return $query;
 	}
 
-	public function insert_quotation($quotation_id, $quotation_kode, $quotation_tanggal, $customer_id, $quotation_keterangan, $quotation_jumlah, $quotation_status, $updwho, $updtgl, $quotation_waktu_pengiriman, $quotation_waktu_pengerjaan, $periode_penawaran, $garansi, $karyawan_id)
+	public function insert_quotation($quotation_id, $quotation_kode, $quotation_tanggal, $customer_id, $quotation_keterangan, $quotation_jumlah, $quotation_status, $updwho, $updtgl, $quotation_waktu_pengiriman, $quotation_waktu_pengerjaan, $periode_penawaran, $garansi, $karyawan_id, $nama_penawaran)
 	{
 		$quotation_id = $quotation_id == '' ? null : $quotation_id;
 		$quotation_kode = $quotation_kode == '' ? null : $quotation_kode;
@@ -213,6 +215,7 @@ class M_Quotation extends CI_Model
 		$periode_penawaran = $periode_penawaran == '' ? null : $periode_penawaran;
 		$garansi = $garansi == '' ? null : $garansi;
 		$karyawan_id = $karyawan_id == '' ? null : $karyawan_id;
+		$nama_penawaran = $nama_penawaran == '' ? null : $nama_penawaran;
 
 		$this->db->set('quotation_id', $quotation_id);
 		$this->db->set('quotation_kode', $quotation_kode);
@@ -228,6 +231,7 @@ class M_Quotation extends CI_Model
 		// $this->db->set('periode_penawaran', $periode_penawaran);
 		$this->db->set('garansi', $garansi);
 		$this->db->set('karyawan_id', $karyawan_id);
+		$this->db->set('nama_penawaran', $nama_penawaran);
 
 		$queryinsert = $this->db->insert("quotation");
 
@@ -235,7 +239,7 @@ class M_Quotation extends CI_Model
 		// return $this->db->last_query();
 	}
 
-	public function update_quotation($quotation_id, $quotation_kode, $quotation_tanggal, $customer_id, $quotation_keterangan, $quotation_jumlah, $quotation_status, $updwho, $updtgl, $quotation_waktu_pengiriman, $quotation_waktu_pengerjaan, $periode_penawaran, $garansi, $karyawan_id)
+	public function update_quotation($quotation_id, $quotation_kode, $quotation_tanggal, $customer_id, $quotation_keterangan, $quotation_jumlah, $quotation_status, $updwho, $updtgl, $quotation_waktu_pengiriman, $quotation_waktu_pengerjaan, $periode_penawaran, $garansi, $karyawan_id, $nama_penawaran)
 	{
 		$quotation_id = $quotation_id == '' ? null : $quotation_id;
 		$quotation_kode = $quotation_kode == '' ? null : $quotation_kode;
@@ -251,6 +255,7 @@ class M_Quotation extends CI_Model
 		$periode_penawaran = $periode_penawaran == '' ? null : $periode_penawaran;
 		$garansi = $garansi == '' ? null : $garansi;
 		$karyawan_id = $karyawan_id == '' ? null : $karyawan_id;
+		$nama_penawaran = $nama_penawaran == '' ? null : $nama_penawaran;
 
 		$this->db->set('quotation_kode', $quotation_kode);
 		$this->db->set('quotation_tanggal', $quotation_tanggal);
@@ -265,6 +270,7 @@ class M_Quotation extends CI_Model
 		// $this->db->set('periode_penawaran', $periode_penawaran);
 		$this->db->set('garansi', $garansi);
 		$this->db->set('karyawan_id', $karyawan_id);
+		$this->db->set('nama_penawaran', $nama_penawaran);
 
 		$this->db->where('quotation_id', $quotation_id);
 

@@ -71,6 +71,7 @@ class M_Penjualan extends CI_Model
 									a.periode_penawaran,
 									a.garansi,
 									a.penjualan_no_po,
+									a.perusahaan_id,
 									a.penjualan_pic,
 									a.penjualan_oleh,
 									IFNULL(a.is_ppn,0) AS is_ppn,
@@ -123,6 +124,7 @@ class M_Penjualan extends CI_Model
 									a.periode_penawaran,
 									a.garansi,
 									a.penjualan_no_po,
+									a.perusahaan_id,
 									a.penjualan_pic,
 									a.penjualan_oleh,
 									IFNULL(a.is_ppn,0) AS is_ppn,
@@ -217,6 +219,7 @@ class M_Penjualan extends CI_Model
 									IFNULL(termin_pembayaran, 0) AS termin_pembayaran,
 									IFNULL(termin_status, '') AS termin_status,
 									DATE_FORMAT(termin_tanggal_bayar, '%Y-%m-%d') AS termin_tanggal_bayar,
+									DATE_FORMAT(tanggal_invoice, '%Y-%m-%d') AS tanggal_invoice,
 									DATE_FORMAT(termin_tanggal_update, '%Y-%m-%d %H:%i:%s') AS termin_tanggal_update
 									FROM penjualan_termin
 									WHERE penjualan_id = '$penjualan_id'
@@ -237,7 +240,8 @@ class M_Penjualan extends CI_Model
 									penjualan_id,
 									penjualan_termin_no_item,
 									keterangan,
-									IFNULL(termin_pembayaran, 0) AS termin_pembayaran
+									IFNULL(termin_pembayaran, 0) AS termin_pembayaran,
+									DATE_FORMAT(tanggal_invoice, '%d %M %Y') AS tanggal_invoice
 									FROM penjualan_termin
 									WHERE penjualan_id = '$penjualan_id'
 									AND penjualan_termin_no_item = '$no_urut'
@@ -306,7 +310,7 @@ class M_Penjualan extends CI_Model
 		return $query;
 	}
 
-	public function insert_penjualan($penjualan_id, $penjualan_kode, $penjualan_tanggal, $customer_id, $penjualan_keterangan, $penjualan_jumlah, $penjualan_status, $updwho, $updtgl, $penjualan_waktu_pengiriman, $penjualan_waktu_pengerjaan, $periode_penawaran, $garansi, $penjualan_no_po, $penjualan_pic, $penjualan_oleh, $karyawan_id, $is_ppn, $is_pph, $tanggal_faktur, $no_faktur)
+	public function insert_penjualan($penjualan_id, $penjualan_kode, $penjualan_tanggal, $customer_id, $penjualan_keterangan, $penjualan_jumlah, $penjualan_status, $updwho, $updtgl, $penjualan_waktu_pengiriman, $penjualan_waktu_pengerjaan, $periode_penawaran, $garansi, $penjualan_no_po, $penjualan_pic, $penjualan_oleh, $karyawan_id, $is_ppn, $is_pph, $tanggal_faktur, $no_faktur, $perusahaan_id)
 	{
 		$penjualan_id = $penjualan_id == '' ? null : $penjualan_id;
 		$penjualan_kode = $penjualan_kode == '' ? null : $penjualan_kode;
@@ -329,6 +333,7 @@ class M_Penjualan extends CI_Model
 		$is_pph = $is_pph == '' ? null : $is_pph;
 		$tanggal_faktur = $tanggal_faktur == '' ? null : $tanggal_faktur;
 		$no_faktur = $no_faktur == '' ? null : $no_faktur;
+		$perusahaan_id = $perusahaan_id == '' ? null : $perusahaan_id;
 
 		$this->db->set('penjualan_id', $penjualan_id);
 		$this->db->set('penjualan_kode', $penjualan_kode);
@@ -351,6 +356,7 @@ class M_Penjualan extends CI_Model
 		$this->db->set('is_pph', $is_pph);
 		$this->db->set('tanggal_faktur', $tanggal_faktur);
 		$this->db->set('no_faktur', $no_faktur);
+		$this->db->set('perusahaan_id', $perusahaan_id);
 
 		$queryinsert = $this->db->insert("penjualan");
 
@@ -358,7 +364,7 @@ class M_Penjualan extends CI_Model
 		// return $this->db->last_query();
 	}
 
-	public function update_penjualan($penjualan_id, $penjualan_kode, $penjualan_tanggal, $customer_id, $penjualan_keterangan, $penjualan_jumlah, $penjualan_status, $updwho, $updtgl, $penjualan_waktu_pengiriman, $penjualan_waktu_pengerjaan, $periode_penawaran, $garansi, $penjualan_no_po, $penjualan_pic, $penjualan_oleh, $karyawan_id, $is_ppn, $is_pph, $tanggal_faktur, $no_faktur)
+	public function update_penjualan($penjualan_id, $penjualan_kode, $penjualan_tanggal, $customer_id, $penjualan_keterangan, $penjualan_jumlah, $penjualan_status, $updwho, $updtgl, $penjualan_waktu_pengiriman, $penjualan_waktu_pengerjaan, $periode_penawaran, $garansi, $penjualan_no_po, $penjualan_pic, $penjualan_oleh, $karyawan_id, $is_ppn, $is_pph, $tanggal_faktur, $no_faktur, $perusahaan_id)
 	{
 		$penjualan_id = $penjualan_id == '' ? null : $penjualan_id;
 		$penjualan_kode = $penjualan_kode == '' ? null : $penjualan_kode;
@@ -381,6 +387,7 @@ class M_Penjualan extends CI_Model
 		$is_pph = $is_pph == '' ? null : $is_pph;
 		$tanggal_faktur = $tanggal_faktur == '' ? null : $tanggal_faktur;
 		$no_faktur = $no_faktur == '' ? null : $no_faktur;
+		$perusahaan_id = $perusahaan_id == '' ? null : $perusahaan_id;
 
 		$this->db->set('penjualan_kode', $penjualan_kode);
 		$this->db->set('penjualan_tanggal', $penjualan_tanggal);
@@ -402,6 +409,7 @@ class M_Penjualan extends CI_Model
 		$this->db->set('is_pph', $is_pph);
 		$this->db->set('tanggal_faktur', $tanggal_faktur);
 		$this->db->set('no_faktur', $no_faktur);
+		$this->db->set('perusahaan_id', $perusahaan_id);
 
 		$this->db->where('penjualan_id', $penjualan_id);
 
@@ -435,7 +443,7 @@ class M_Penjualan extends CI_Model
 		// return $this->db->last_query();
 	}
 
-	public function insert_penjualan_termin($penjualan_id, $penjualan_termin_no_item, $keterangan, $termin_pembayaran, $termin_status, $termin_tanggal_bayar)
+	public function insert_penjualan_termin($penjualan_id, $penjualan_termin_no_item, $keterangan, $termin_pembayaran, $termin_status, $termin_tanggal_bayar, $tanggal_invoice)
 	{
 		$penjualan_id = $penjualan_id == '' ? null : $penjualan_id;
 		$penjualan_termin_no_item = $penjualan_termin_no_item == '' ? null : $penjualan_termin_no_item;
@@ -443,6 +451,7 @@ class M_Penjualan extends CI_Model
 		$termin_pembayaran = $termin_pembayaran == '' ? null : $termin_pembayaran;
 		$termin_status = $termin_status == '' ? null : $termin_status;
 		$termin_tanggal_bayar = $termin_tanggal_bayar == '' ? null : $termin_tanggal_bayar;
+		$tanggal_invoice = $tanggal_invoice == '' ? null : $tanggal_invoice;
 
 		$this->db->set('penjualan_id', $penjualan_id);
 		$this->db->set('penjualan_termin_no_item', $penjualan_termin_no_item);
@@ -451,6 +460,7 @@ class M_Penjualan extends CI_Model
 		$this->db->set('termin_status', $termin_status);
 		$this->db->set('termin_tanggal_bayar', $termin_tanggal_bayar);
 		$this->db->set('termin_tanggal_update', date('Y-m-d H:i:s'));
+		$this->db->set('tanggal_invoice', $tanggal_invoice);
 
 		$queryinsert = $this->db->insert("penjualan_termin");
 
@@ -476,12 +486,13 @@ class M_Penjualan extends CI_Model
 		// return $this->db->last_query();
 	}
 
-	public function Update_termin_pembayaran($penjualan_id, $penjualan_termin_no_item, $termin_tanggal_bayar, $termin_status)
+	public function Update_termin_pembayaran($penjualan_id, $penjualan_termin_no_item, $termin_tanggal_bayar, $termin_status, $tanggal_invoice)
 	{
 		$penjualan_id = $penjualan_id == '' ? null : $penjualan_id;
 		$penjualan_termin_no_item = $penjualan_termin_no_item == '' ? null : $penjualan_termin_no_item;
 		$termin_tanggal_bayar = $termin_tanggal_bayar == '' ? null : $termin_tanggal_bayar;
 		$termin_status = $termin_status == '' ? null : $termin_status;
+		$tanggal_invoice = $tanggal_invoice == '' ? null : $tanggal_invoice;
 
 		$this->db->set('updwho', $this->session->userdata('pengguna_username'));
 		$this->db->set('updtgl', date('Y-m-d H:i:s'));
@@ -492,6 +503,7 @@ class M_Penjualan extends CI_Model
 
 		$this->db->set('termin_tanggal_bayar', $termin_tanggal_bayar);
 		$this->db->set('termin_status', $termin_status);
+		$this->db->set('tanggal_invoice', $tanggal_invoice);
 		$this->db->set('termin_tanggal_update', date('Y-m-d H:i:s'));
 
 		$this->db->where('penjualan_termin_no_item', $penjualan_termin_no_item);

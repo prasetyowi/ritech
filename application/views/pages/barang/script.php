@@ -374,4 +374,32 @@
         $("#desc_barang-edit").val('');
         $("#satuan-edit").val('');
     }
+
+    var harga = document.getElementById('harga');
+    harga.addEventListener('keyup', function(e) {
+        // tambahkan 'Rp.' pada saat form di ketik
+        // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+        harga.value = formatRupiah(this.value);
+    });
+
+    var harga_hpp = document.getElementById('harga_hpp');
+    harga_hpp.addEventListener('keyup', function(e) {
+        // tambahkan 'Rp.' pada saat form di ketik
+        // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+        harga_hpp.value = formatRupiah(this.value);
+    });
+
+    var harga_edit = document.getElementById('harga-edit');
+    harga_edit.addEventListener('keyup', function(e) {
+        // tambahkan 'Rp.' pada saat form di ketik
+        // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+        harga_edit.value = formatRupiah(this.value);
+    });
+
+    var harga_hpp_edit = document.getElementById('harga_hpp-edit');
+    harga_hpp_edit.addEventListener('keyup', function(e) {
+        // tambahkan 'Rp.' pada saat form di ketik
+        // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+        harga_hpp_edit.value = formatRupiah(this.value);
+    });
 </script>

@@ -72,6 +72,7 @@
                                     <tr class="headings">
                                         <th>#</th>
                                         <th class="column-title">No Quotation </th>
+                                        <th class="column-title">Nama Penawaran </th>
                                         <th class="column-title">Tanggal </th>
                                         <th class="column-title">Pelanggan </th>
                                         <th class="column-title">Status </th>

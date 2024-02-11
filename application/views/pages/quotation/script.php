@@ -99,6 +99,7 @@
 								<tr class="even pointer">
                                     <td class="a-center ">${i+1}</td>
                                     <td class=" ">${v.quotation_kode}</td>
+                                    <td class=" ">${v.nama_penawaran}</td>
                                     <td class=" ">${v.quotation_tanggal}</td>
                                     <td class=" ">${v.customer_nama}</td>
                                     <td class=" ">${v.quotation_status}</td>
@@ -435,6 +436,14 @@
                 return false;
             }
 
+            if ($("#Quotation-nama_penawaran").val() == "") {
+
+                let alert = "Nama Penawaran Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
+
             if ($("#Quotation-customer_id").val() == "") {
 
                 let alert = "Pelanggan Tidak Boleh Kosong";
@@ -513,6 +522,7 @@
                             },
                             data: {
                                 quotation_kode: $('#Quotation-quotation_kode').val(),
+                                nama_penawaran: $('#Quotation-nama_penawaran').val(),
                                 quotation_tanggal: $('#Quotation-quotation_tanggal').val(),
                                 customer_id: $('#Quotation-customer_id').val(),
                                 karyawan_id: $('#Quotation-karyawan_id').val(),
@@ -604,6 +614,14 @@
                 return false;
             }
 
+            if ($("#Quotation-nama_penawaran").val() == "") {
+
+                let alert = "Nama Penawaran Tidak Boleh Kosong";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
+
             if ($("#Quotation-customer_id").val() == "") {
 
                 let alert = "Pelanggan Tidak Boleh Kosong";
@@ -683,6 +701,7 @@
                             data: {
                                 quotation_id: $('#Quotation-quotation_id').val(),
                                 quotation_kode: $('#Quotation-quotation_kode').val(),
+                                nama_penawaran: $('#Quotation-nama_penawaran').val(),
                                 quotation_tanggal: $('#Quotation-quotation_tanggal').val(),
                                 customer_id: $('#Quotation-customer_id').val(),
                                 karyawan_id: $('#Quotation-karyawan_id').val(),
