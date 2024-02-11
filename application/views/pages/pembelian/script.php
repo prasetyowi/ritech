@@ -470,7 +470,7 @@
                                     ResetForm();
                                 } else if (response.status == "2") {
 
-                                    var msg = "No Pembelian " + $('#Pembelian-pembelian_id').val() + " Sudah Ada";
+                                    var msg = "No Pembelian " + $('#Pembelian-pembelian_kode').val() + " Sudah Ada";
                                     message_custom("Error", "error", alert);
                                 } else {
                                     var alert = "Data Gagal Disimpan";
@@ -635,7 +635,7 @@
                                     ResetForm();
                                 } else if (response.status == "2") {
 
-                                    var msg = "No Pembelian " + $('#Pembelian-pembelian_id').val() + " Sudah Ada";
+                                    var msg = "No Pembelian " + $('#Pembelian-pembelian_kode').val() + " Sudah Ada";
                                     message_custom("Error", "error", alert);
                                 } else {
                                     var alert = "Data Gagal Disimpan";

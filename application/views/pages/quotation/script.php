@@ -8,7 +8,7 @@
                     'barang_id': "<?= $value['barang_id'] ?>",
                     'barang_nama': "<?= $value['barang_nama'] ?>",
                     'unit': "<?= $value['unit'] ?>",
-                    'barang_desc': "<?= $value['barang_desc'] ?>",
+                    'barang_desc': "",
                     'harga_satuan': "<?= $value['harga_satuan'] ?>",
                     'remarks': "<?= $value['remarks'] ?>",
                     'qty': <?= $value['qty'] ?>
@@ -34,7 +34,7 @@
                     'barang_id': barang_id,
                     'barang_nama': barang_nama,
                     'unit': unit,
-                    'barang_desc': barang_desc,
+                    'barang_desc': "",
                     'harga_satuan': harga_satuan,
                     'remarks': "",
                     'qty': 0
@@ -153,7 +153,7 @@
                             $("#table-list-barang > tbody").append(`
 								<tr class="even pointer">
                                     <td class="a-center ">
-                                        <input type="checkbox" class="flat" id="item-${i}-barang_id" name="CheckboxBarang" data-barang_id="${v.barang_id}" data-barang_nama="${v.barang_nama}" data-unit="${v.unit}" data-harga_satuan="${v.harga_satuan}" data-barang_desc="${v.barang_desc}" value="${v.barang_id}" onClick="PushArrayBarang('${i}','${v.barang_id}','${v.barang_nama}','${v.unit}','${v.harga_satuan}','${v.barang_desc}')">
+                                        <input type="checkbox" class="flat" id="item-${i}-barang_id" name="CheckboxBarang" data-barang_id="${v.barang_id}" data-barang_nama="${v.barang_nama}" data-unit="${v.unit}" data-harga_satuan="${v.harga_satuan}" data-barang_desc="" value="${v.barang_id}" onClick="PushArrayBarang('${i}','${v.barang_id}','${v.barang_nama}','${v.unit}','${v.harga_satuan}','')">
                                     </td>
                                     <td class=" ">${v.barang_id}</td>
                                     <td class=" ">${v.barang_nama}</td>
@@ -198,7 +198,7 @@
 						    <td class="text-center" style="width:5%;">
 								${i+1}
 								<input type="hidden" class="form-control" id="item-${i}-quotation-barang_id" value="${v.barang_id}">
-								<input type="hidden" class="form-control" id="item-${i}-quotation-barang_desc" value="${v.barang_desc}">
+								<input type="hidden" class="form-control" id="item-${i}-quotation-barang_desc" value="">
 								<input type="hidden" class="form-control" id="item-${i}-quotation-harga_satuan" value="${v.harga_satuan}">
 							</td>
 							<td class="text-left" style="width:20%;">
@@ -239,7 +239,7 @@
             'barang_id': $('#item-' + index + '-quotation-barang_id').val(),
             'barang_nama': $('#item-' + index + '-quotation-barang_nama').text(),
             'unit': $('#item-' + index + '-quotation-uniy').text(),
-            'barang_desc': $('#item-' + index + '-quotation-barang_desc').val(),
+            'barang_desc': "",
             'harga_satuan': $('#item-' + index + '-quotation-harga_satuan').val(),
             'remarks': $('#item-' + index + '-quotation-remarks').val(),
             'qty': $('#item-' + index + '-quotation-qty').val()
@@ -255,7 +255,7 @@
                 'barang_id': barang_id,
                 'barang_nama': barang_nama,
                 'unit': unit,
-                'barang_desc': barang_desc,
+                'barang_desc': "",
                 'harga_satuan': harga_satuan,
                 'remarks': "",
                 'qty': 0
@@ -277,6 +277,8 @@
                 arr_list_barang.splice(findIndexData, 1); // 2nd parameter means remove one item only
             }
         }
+
+        console.log(arr_list_barang);
 
     }
 
