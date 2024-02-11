@@ -1,7 +1,5 @@
 <script type="text/javascript">
     var arr_list_barang = [];
-    var arr_list_termin = [];
-    var index_termin = 0;
 
     <?php if (isset($act)) { ?>
         <?php if ($act == "edit" || $act == "detail") { ?>
@@ -17,18 +15,7 @@
                 });
             <?php } ?>
 
-            index_termin = <?= count($Termin) ?>;
-
-            <?php foreach ($Termin as $key => $value) { ?>
-                arr_list_termin.push({
-                    'idx': "<?= $key + 1 ?>",
-                    'keterangan': "<?= $value['keterangan'] ?>",
-                    'termin_pembayaran': <?= $value['termin_pembayaran'] ?>
-                });
-            <?php } ?>
-
             Get_list_quotation_detail();
-            Get_list_quotation_termin();
         <?php } ?>
     <?php } ?>
 
@@ -72,20 +59,6 @@
 
         $("#modal-barang").modal('hide');
         Get_list_quotation_detail();
-    });
-
-
-    $('#btn_tambah_termin').click(function(event) {
-
-        index_termin++;
-
-        arr_list_termin.push({
-            'idx': index_termin,
-            'keterangan': "",
-            'termin_pembayaran': 0
-        });
-
-        Get_list_quotation_termin();
     });
 
     $('#btn_search_quotation').click(function(event) {
@@ -257,52 +230,6 @@
         });
     }
 
-    function Get_list_quotation_termin() {
-        $('#table-quotation-termin').fadeOut("slow", function() {
-            $(this).hide();
-
-            $('#table-quotation-termin > tbody').empty('');
-
-            if ($.fn.DataTable.isDataTable('#table-quotation-termin')) {
-                $('#table-quotation-termin').DataTable().clear();
-                $('#table-quotation-termin').DataTable().destroy();
-            }
-
-        }).fadeIn("slow", function() {
-            $(this).show();
-
-            if (arr_list_termin.length != 0) {
-
-                $.each(arr_list_termin, function(i, v) {
-                    $("#table-quotation-termin > tbody").append(`
-						<tr>
-						    <td class="text-center" style="width:5%;">
-								${i+1}
-								<input type="hidden" class="form-control" id="item-${i}-quotation_termin-idx" value="${v.idx}">
-							</td>
-                            <td class="text-left" style="width:45%;">
-                                <input type="text" class="form-control" id="item-${i}-quotation_termin-keterangan" value="${v.keterangan}" onchange="UpdateListTermin('${v.idx}', '${i}','text')">
-                            </td>
-                            <td class="text-left" style="width:45%;">
-                                <input type="number" class="form-control" id="item-${i}-quotation_termin-termin_pembayaran" value="${v.termin_pembayaran}" onchange="UpdateListTermin('${v.idx}', '${i}','text')">
-                            </td>
-                            <td class="text-center" style="width:5%;">
-								<button type="button" class="btn btn-danger btn-sm" onClick="DeleteListTermin('${v.idx}','${i}')"><i class="fa fa-trash"></i></button>
-							</td>
-						</tr>
-					`);
-                });
-
-                $("#table-quotation-termin").DataTable({
-                    lengthMenu: [
-                        [50, 100, 200, -1],
-                        [50, 100, 200, 'All'],
-                    ],
-                });
-            }
-        });
-    }
-
     function UpdateListBarang(barang_id, index, tipe) {
 
         const findIndexData = arr_list_barang.findIndex((value) => value.barang_id == barang_id);
@@ -316,18 +243,6 @@
             'harga_satuan': $('#item-' + index + '-quotation-harga_satuan').val(),
             'remarks': $('#item-' + index + '-quotation-remarks').val(),
             'qty': $('#item-' + index + '-quotation-qty').val()
-        });
-    }
-
-    function UpdateListTermin(idx, index, tipe) {
-
-        const findIndexData = arr_list_termin.findIndex((value) => value.idx == idx);
-
-
-        arr_list_termin[findIndexData] = ({
-            'idx': $("#item-" + index + "-quotation_termin-idx").val(),
-            'keterangan': $("#item-" + index + "-quotation_termin-keterangan").val(),
-            'termin_pembayaran': $("#item-" + index + "-quotation_termin-termin_pembayaran").val()
         });
     }
 
@@ -376,20 +291,6 @@
         // console.log(arr_list_barang);
 
         Get_list_quotation_detail();
-
-    }
-
-    function DeleteListTermin(idx, index) {
-
-        const findIndexData = arr_list_termin.findIndex((value) => value.idx == idx);
-
-        if (findIndexData > -1) { // only splice array when item is found
-            arr_list_termin.splice(findIndexData, 1); // 2nd parameter means remove one item only
-        }
-
-        // console.log(arr_list_barang);
-
-        Get_list_quotation_termin();
 
     }
 
@@ -520,35 +421,6 @@
 
         });
 
-        if (arr_list_termin.length == 0) {
-
-            let alert = "List Termin Tidak Boleh Kosong";
-            message_custom("Error", "error", alert);
-
-            return false;
-        }
-
-        $.each(arr_list_termin, function(i, v) {
-            if (parseInt(v.keterangan) == 0) {
-                let alert = "Keterangan Termin Tidak Boleh Kosong";
-                message_custom("Error", "error", alert);
-
-                cek_error++;
-
-                return false;
-            }
-
-            if (parseInt(v.termin_pembayaran) == 0) {
-                let alert = "Termin Pembayaran Tidak Boleh 0";
-                message_custom("Error", "error", alert);
-
-                cek_error++;
-
-                return false;
-            }
-
-        });
-
         setTimeout(() => {
 
             // console.log(arr_list_faktur_klaim);
@@ -652,8 +524,7 @@
                                 quotation_waktu_pengerjaan: "",
                                 periode_penawaran: "",
                                 garansi: "",
-                                detail: arr_list_barang,
-                                detail2: arr_list_termin
+                                detail: arr_list_barang
                             },
                             dataType: "JSON",
                             success: function(response) {
@@ -699,9 +570,6 @@
     $("#btn_update_quotation").click(function() {
         cek_error = 0;
 
-        console.log(arr_list_barang);
-        console.log(arr_list_termin);
-
         if (arr_list_barang.length == 0) {
 
             let alert = "List Barang Tidak Boleh Kosong";
@@ -713,35 +581,6 @@
         $.each(arr_list_barang, function(i, v) {
             if (parseInt(v.qty) == 0) {
                 let alert = "Qty Barang Tidak Boleh 0";
-                message_custom("Error", "error", alert);
-
-                cek_error++;
-
-                return false;
-            }
-
-        });
-
-        if (arr_list_termin.length == 0) {
-
-            let alert = "List Termin Tidak Boleh Kosong";
-            message_custom("Error", "error", alert);
-
-            return false;
-        }
-
-        $.each(arr_list_termin, function(i, v) {
-            if (parseInt(v.keterangan) == 0) {
-                let alert = "Keterangan Termin Tidak Boleh Kosong";
-                message_custom("Error", "error", alert);
-
-                cek_error++;
-
-                return false;
-            }
-
-            if (parseInt(v.termin_pembayaran) == 0) {
-                let alert = "Termin Pembayaran Tidak Boleh 0";
                 message_custom("Error", "error", alert);
 
                 cek_error++;
@@ -855,8 +694,7 @@
                                 quotation_waktu_pengerjaan: "",
                                 periode_penawaran: "",
                                 garansi: "",
-                                detail: arr_list_barang,
-                                detail2: arr_list_termin
+                                detail: arr_list_barang
                             },
                             dataType: "JSON",
                             success: function(response) {

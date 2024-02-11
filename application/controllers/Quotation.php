@@ -129,7 +129,7 @@ class Quotation extends CI_Controller
 
 		$data['Header'] = $this->M_Quotation->Get_quotation_header_by_id($id);
 		$data['Detail'] = $this->M_Quotation->Get_quotation_detail_by_id($id);
-		$data['Termin'] = $this->M_Quotation->Get_quotation_termin_by_id($id);
+		// $data['Termin'] = $this->M_Quotation->Get_quotation_termin_by_id($id);
 
 		$data['act'] = "edit";
 
@@ -170,7 +170,7 @@ class Quotation extends CI_Controller
 
 		$data['Header'] = $this->M_Quotation->Get_quotation_header_by_id($id);
 		$data['Detail'] = $this->M_Quotation->Get_quotation_detail_by_id($id);
-		$data['Termin'] = $this->M_Quotation->Get_quotation_termin_by_id($id);
+		// $data['Termin'] = $this->M_Quotation->Get_quotation_termin_by_id($id);
 		$data['act'] = "detail";
 
 		// Kebutuhan Authority Menu 
@@ -222,7 +222,7 @@ class Quotation extends CI_Controller
 
 		$data['Header'] = $this->M_Quotation->Get_quotation_header_by_id($id);
 		$data['Detail'] = $this->M_Quotation->Get_quotation_detail_by_id($id);
-		$data['Termin'] = $this->M_Quotation->Get_quotation_termin_by_id($id);
+		// $data['Termin'] = $this->M_Quotation->Get_quotation_termin_by_id($id);
 
 		$data['title'] = "Quotation";
 		$file_pdf = $data['title'];
@@ -268,7 +268,7 @@ class Quotation extends CI_Controller
 		$karyawan_id = $this->input->post('karyawan_id');
 
 		$detail = $this->input->post('detail');
-		$detail2 = $this->input->post('detail2');
+		// $detail2 = $this->input->post('detail2');
 
 		$cek_data = $this->M_Quotation->cek_quotation_duplicate($quotation_kode);
 
@@ -293,14 +293,14 @@ class Quotation extends CI_Controller
 			$this->M_Quotation->insert_quotation_detail($quotation_id, $quotation_no_item, $barang_id, $qty, $harga_satuan, $quotation_total, $remarks);
 		}
 
-		foreach ($detail2 as $key => $value) {
-			// $quotation_id = $value['quotation_id'];
-			$quotation_termin_no_item = $key + 1;
-			$keterangan = $value['keterangan'];
-			$termin_pembayaran = $value['termin_pembayaran'];
+		// foreach ($detail2 as $key => $value) {
+		// 	// $quotation_id = $value['quotation_id'];
+		// 	$quotation_termin_no_item = $key + 1;
+		// 	$keterangan = $value['keterangan'];
+		// 	$termin_pembayaran = $value['termin_pembayaran'];
 
-			$this->M_Quotation->insert_quotation_termin($quotation_id, $quotation_termin_no_item, $keterangan, $termin_pembayaran);
-		}
+		// 	$this->M_Quotation->insert_quotation_termin($quotation_id, $quotation_termin_no_item, $keterangan, $termin_pembayaran);
+		// }
 
 
 		if ($this->db->trans_status() === FALSE) {
@@ -330,7 +330,7 @@ class Quotation extends CI_Controller
 		$karyawan_id = $this->input->post('karyawan_id');
 
 		$detail = $this->input->post('detail');
-		$detail2 = $this->input->post('detail2');
+		// $detail2 = $this->input->post('detail2');
 
 		$cek_data = $this->M_Quotation->cek_quotation_duplicate_edit($quotation_id, $quotation_kode);
 
@@ -357,16 +357,16 @@ class Quotation extends CI_Controller
 			$this->M_Quotation->insert_quotation_detail($quotation_id, $quotation_no_item, $barang_id, $qty, $harga_satuan, $quotation_total, $remarks);
 		}
 
-		$this->M_Quotation->delete_quotation_termin($quotation_id);
+		// $this->M_Quotation->delete_quotation_termin($quotation_id);
 
-		foreach ($detail2 as $key => $value) {
-			// $quotation_id = $value['quotation_id'];
-			$quotation_termin_no_item = $key + 1;
-			$keterangan = $value['keterangan'];
-			$termin_pembayaran = $value['termin_pembayaran'];
+		// foreach ($detail2 as $key => $value) {
+		// 	// $quotation_id = $value['quotation_id'];
+		// 	$quotation_termin_no_item = $key + 1;
+		// 	$keterangan = $value['keterangan'];
+		// 	$termin_pembayaran = $value['termin_pembayaran'];
 
-			$this->M_Quotation->insert_quotation_termin($quotation_id, $quotation_termin_no_item, $keterangan, $termin_pembayaran);
-		}
+		// 	$this->M_Quotation->insert_quotation_termin($quotation_id, $quotation_termin_no_item, $keterangan, $termin_pembayaran);
+		// }
 
 
 		if ($this->db->trans_status() === FALSE) {

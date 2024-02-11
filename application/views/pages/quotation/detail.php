@@ -132,29 +132,6 @@
                                 <div class="ln_solid"></div>
                                 <div class="form-group row ">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered jambo_table" id="table-quotation-termin" style="width:50%">
-                                            <thead>
-                                                <tr class=" headings">
-                                                    <th>#</th>
-                                                    <th class="column-title">Keterangan </th>
-                                                    <th class="column-title">Termin Pembayaran (%) </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php foreach ($Termin as $key2 => $value2) : ?>
-                                                    <tr>
-                                                        <td class="text-center"><?= $key2 + 1 ?></td>
-                                                        <td class="text-left"><?= $value2['keterangan'] ?></td>
-                                                        <td class="text-right"><?= $value2['termin_pembayaran'] ?></td>
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="ln_solid"></div>
-                                <div class="form-group row ">
-                                    <div class="table-responsive">
                                         <table class="table table-bordered jambo_table" id="table-quotation-detail" style="width:100%">
                                             <thead>
                                                 <tr class=" headings">

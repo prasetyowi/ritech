@@ -131,24 +131,6 @@
                                 </div> -->
                                 <div class="ln_solid"></div>
                                 <div class="form-group row ">
-                                    <button class="btn btn-primary" id="btn_tambah_termin"><i class="fa fa-plus"></i> Tambah Termin</button>
-                                    <div class="table-responsive">
-                                        <table class="table table-striped jambo_table" id="table-quotation-termin" style="width:70%">
-                                            <thead>
-                                                <tr class=" headings">
-                                                    <th>#</th>
-                                                    <th class="column-title">Keterangan </th>
-                                                    <th class="column-title">Termin Pembayaran (%) </th>
-                                                    <th class="column-title no-link last"><span class="nobr">Action</span></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="ln_solid"></div>
-                                <div class="form-group row ">
                                     <button class="btn btn-primary" id="btn_modal_pilih_barang"><i class="fa fa-search"></i> Pilih Barang</button>
                                     <div class="table-responsive">
                                         <table class="table table-striped jambo_table" id="table-quotation-detail" style="width:100%">
