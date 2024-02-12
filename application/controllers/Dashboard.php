@@ -66,6 +66,63 @@ class Dashboard extends CI_Controller
         $data['Title'] = "Dashboard";
         $data['act'] = "index";
 
+        $pemasukan_bulan_ini = $this->db->query("SELECT
+                                                    SUM(pd.penjualan_total) AS penjualan_total
+                                                FROM penjualan p
+                                                LEFT JOIN penjualan_detail pd
+                                                ON pd.penjualan_id = p.penjualan_id
+                                                WHERE YEAR(p.penjualan_tanggal) = '" . date('Y') . "' AND MONTH(p.penjualan_tanggal) = '" . date('m') . "' AND p.penjualan_status = 'Applied'");
+        if ($pemasukan_bulan_ini->num_rows() == 0) {
+            $pemasukan_bulan_ini = 0;
+        } else {
+            $pemasukan_bulan_ini = $pemasukan_bulan_ini->row(0)->penjualan_total;
+        }
+
+        if (date('m') == "01") {
+            $tahun = date('Y') - 1;
+            $bulan = 12;
+            $pemasukan_bulan_lalu = $this->db->query("SELECT
+                                                    SUM(pd.penjualan_total) AS penjualan_total
+                                                FROM penjualan p
+                                                LEFT JOIN penjualan_detail pd
+                                                ON pd.penjualan_id = p.penjualan_id
+                                                WHERE YEAR(p.penjualan_tanggal) = '" . $tahun . "' AND MONTH(p.penjualan_tanggal) = '" . $bulan . "' AND p.penjualan_status = 'Applied'");
+            if ($pemasukan_bulan_lalu->num_rows() == 0) {
+                $pemasukan_bulan_lalu = 0;
+            } else {
+                $pemasukan_bulan_lalu = $pemasukan_bulan_lalu->row(0)->penjualan_total;
+            }
+        } else {
+            $tahun = date('Y');
+            $bulan = date('m') - 1;
+
+            $pemasukan_bulan_lalu = $this->db->query("SELECT
+                                                    SUM(pd.penjualan_total) AS penjualan_total
+                                                FROM penjualan p
+                                                LEFT JOIN penjualan_detail pd
+                                                ON pd.penjualan_id = p.penjualan_id
+                                                WHERE YEAR(p.penjualan_tanggal) = '" . $tahun . "' AND MONTH(p.penjualan_tanggal) = '" . $bulan . "' AND p.penjualan_status = 'Applied'");
+            if ($pemasukan_bulan_lalu->num_rows() == 0) {
+                $pemasukan_bulan_lalu = 0;
+            } else {
+                $pemasukan_bulan_lalu = $pemasukan_bulan_lalu->row(0)->penjualan_total;
+            }
+        }
+
+        $pengeluaran_bulan_ini = $this->db->query("SELECT
+                                                    SUM(kas_jumlah) AS kas_jumlah
+                                                FROM kas
+                                                WHERE YEAR(kas_tanggal) = '" . date('Y') . "' AND MONTH(kas_tanggal) = '" . date('m') . "' AND kas_status = 'Applied'");
+        if ($pengeluaran_bulan_ini->num_rows() == 0) {
+            $pengeluaran_bulan_ini = 0;
+        } else {
+            $pengeluaran_bulan_ini = $pengeluaran_bulan_ini->row(0)->kas_jumlah;
+        }
+
+        $data['pemasukan_bulan_ini'] = $pemasukan_bulan_ini;
+        $data['pemasukan_bulan_lalu'] = $pemasukan_bulan_lalu;
+        $data['pengeluaran_bulan_ini'] = $pengeluaran_bulan_ini;
+
         // Kebutuhan Authority Menu 
         // $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
 

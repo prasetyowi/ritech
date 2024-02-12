@@ -365,6 +365,108 @@
         });
     });
 
+    $("#btn_update_profil").click(function() {
+
+        if ($("#Pengguna-pengguna_username-edit").val() == "") {
+
+            let alert = "Pengguna Username Tidak Boleh Kosong";
+            message_custom("Error", "error", alert);
+
+            return false;
+        }
+
+        if ($("#Pengguna-pengguna_email-edit").val() == "") {
+
+            let alert = "Email Tidak Boleh Kosong";
+            message_custom("Error", "error", alert);
+
+            return false;
+        }
+
+        if ($("#Pengguna-password-edit").val() == "") {
+
+            let alert = "Password Tidak Boleh Kosong";
+            message_custom("Error", "error", alert);
+
+            return false;
+        }
+
+        Swal.fire({
+            title: "Apakah anda yakin?",
+            text: "Pastikan data yang sudah anda input benar!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya",
+            cancelButtonText: "Tidak"
+        }).then((result) => {
+            if (result.value == true) {
+
+                $.ajax({
+                    async: false,
+                    url: "<?= base_url('Pengguna/update_pengguna'); ?>",
+                    type: "POST",
+                    beforeSend: function() {
+                        Swal.fire({
+                            title: 'Loading ...',
+                            html: '<span><i class="fa fa-spinner fa-spin" style="font-size:60px"></i></span>',
+                            timerProgressBar: false,
+                            showConfirmButton: false
+                        });
+
+                        $("#btn_update_pengguna").prop("disabled", true);
+                    },
+                    data: {
+                        pengguna_id: $("#Pengguna-pengguna_id-edit").val(),
+                        pengguna_username: $("#Pengguna-pengguna_username-edit").val(),
+                        pengguna_password: $("#Pengguna-password-edit").val(),
+                        pengguna_perusahaan: $("#Pengguna-perusahaan_id-edit").val(),
+                        karyawan_id: $("#Pengguna-karyawan_id-edit").val(),
+                        add_by: "",
+                        updwho: "",
+                        updtgl: "",
+                        is_aktif: $('#is_aktif-edit:checked').val(),
+                        pengguna_email: $("#Pengguna-pengguna_email-edit").val(),
+                        is_delete: ""
+                    },
+                    dataType: "JSON",
+                    success: function(response) {
+
+                        if (response.status == 1) {
+                            var alert = "Data Berhasil Disimpan";
+                            message_custom("Success", "success", alert);
+
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 500);
+
+                            ResetForm();
+                        } else if (response.status == 2) {
+                            var alert = response.data;
+                            message_custom("Error", "error", alert);
+                        } else {
+                            var alert = "Data Gagal Disimpan";
+                            message_custom("Error", "error", alert);
+                        }
+
+                        $("#btn_update_pengguna").prop("disabled", false);
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        var alert = "Error 500 Internal Server Connection Failure";
+                        message_custom("Error", "error", alert);
+
+                        $("#btn_update_pengguna").prop("disabled", false);
+                    },
+                    complete: function() {
+                        // Swal.close();
+                        $("#btn_update_pengguna").prop("disabled", false);
+                    }
+                });
+            }
+        });
+    });
+
     function ResetForm() {
 
         $("#Pengguna-pengguna_username").val('');

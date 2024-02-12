@@ -55,15 +55,27 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-md-3 col-sm-3 ">PIC</label>
+                                    <label class="control-label col-md-3 col-sm-3 ">PIC dari Perusahaan</label>
                                     <div class="col-md-9 col-sm-9 ">
                                         <input type="text" class="form-control col-md-12" id="Pembelian-pembelian_pic" name="Pembelian[pembelian_pic]" value="<?= $value['pembelian_pic'] ?>" maxlength="250" required />
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-md-3 col-sm-3 ">Oleh</label>
+                                    <label class="control-label col-md-3 col-sm-3 ">Dikirim Oleh</label>
                                     <div class="col-md-9 col-sm-9 ">
                                         <input type="text" class="form-control col-md-12" id="Pembelian-pembelian_oleh" name="Pembelian[pembelian_oleh]" value="<?= $value['pembelian_oleh'] ?>" maxlength="250" required />
+                                    </div>
+                                </div>
+                                <div class="form-group row ">
+                                    <label class="control-label col-md-3 col-sm-3 ">PPn</label>
+                                    <div class="col-md-1 col-sm-1">
+                                        <input type="checkbox" class="form-control col-md-12" id="Pembelian-is_ppn" value="1" <?= $value['is_ppn'] == '1' ? 'checked' : '' ?>>
+                                    </div>
+                                </div>
+                                <div class="form-group row ">
+                                    <label class="control-label col-md-3 col-sm-3 ">PPh</label>
+                                    <div class="col-md-1 col-sm-1">
+                                        <input type="checkbox" class="form-control col-md-12" id="Pembelian-is_pph" value="1" <?= $value['is_pph'] == '1' ? 'checked' : '' ?>>
                                     </div>
                                 </div>
                                 <!-- <div class="form-group row">

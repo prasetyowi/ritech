@@ -142,8 +142,8 @@ class M_PengeluaranKas extends CI_Model
         $this->db->set('kas_status', $kas_status);
         $this->db->set('customer_id', $customer_id);
         $this->db->set('no_po', $no_po);
-        $this->db->set('updwho', "Administrator");
-        $this->db->set('updtgl', date('Y-m-d'));
+        $this->db->set('updwho', $this->session->userdata('pengguna_username'));
+        $this->db->set('updtgl', date('Y-m-d H:i:s'));
 
         $queryinsert = $this->db->insert("kas");
 
@@ -175,8 +175,8 @@ class M_PengeluaranKas extends CI_Model
         $this->db->set('kas_status', $kas_status);
         $this->db->set('customer_id', $customer_id);
         $this->db->set('no_po', $no_po);
-        $this->db->set('updwho', "Administrator");
-        $this->db->set('updtgl', date('Y-m-d'));
+        $this->db->set('updwho', $this->session->userdata('pengguna_username'));
+        $this->db->set('updtgl', date('Y-m-d H:i:s'));
 
 
         $this->db->where('kas_id', $kas_id);

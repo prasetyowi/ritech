@@ -223,6 +223,8 @@ class Pembelian extends CI_Controller
 		$pembelian_no_po = $this->input->post('pembelian_no_po');
 		$pembelian_pic = $this->input->post('pembelian_pic');
 		$pembelian_oleh = $this->input->post('pembelian_oleh');
+		$is_ppn = $this->input->post('is_ppn');
+		$is_pph = $this->input->post('is_pph');
 
 		$detail = $this->input->post('detail');
 
@@ -235,7 +237,7 @@ class Pembelian extends CI_Controller
 
 		$this->db->trans_begin();
 
-		$this->M_Pembelian->insert_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $supplier_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh);
+		$this->M_Pembelian->insert_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $supplier_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh, $is_ppn, $is_pph);
 
 		foreach ($detail as $key => $value) {
 			// $pembelian_id = $value['pembelian_id'];
@@ -277,13 +279,15 @@ class Pembelian extends CI_Controller
 		$pembelian_no_po = $this->input->post('pembelian_no_po');
 		$pembelian_pic = $this->input->post('pembelian_pic');
 		$pembelian_oleh = $this->input->post('pembelian_oleh');
+		$is_ppn = $this->input->post('is_ppn');
+		$is_pph = $this->input->post('is_pph');
 
 		$detail = $this->input->post('detail');
 		$detail2 = $this->input->post('detail2');
 
 		$this->db->trans_begin();
 
-		$this->M_Pembelian->update_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $supplier_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh);
+		$this->M_Pembelian->update_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $supplier_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh, $is_ppn, $is_pph);
 
 		$this->M_Pembelian->delete_pembelian_detail($pembelian_id);
 
@@ -326,12 +330,14 @@ class Pembelian extends CI_Controller
 		$pembelian_no_po = $this->input->post('pembelian_no_po');
 		$pembelian_pic = $this->input->post('pembelian_pic');
 		$pembelian_oleh = $this->input->post('pembelian_oleh');
+		$is_ppn = $this->input->post('is_ppn');
+		$is_pph = $this->input->post('is_pph');
 
 		$detail = $this->input->post('detail');
 
 		$this->db->trans_begin();
 
-		$this->M_Pembelian->update_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $supplier_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh);
+		$this->M_Pembelian->update_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $supplier_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh, $is_ppn, $is_pph);
 
 		$this->M_Pembelian->delete_pembelian_detail($pembelian_id);
 
@@ -374,12 +380,14 @@ class Pembelian extends CI_Controller
 		$pembelian_no_po = $this->input->post('pembelian_no_po');
 		$pembelian_pic = $this->input->post('pembelian_pic');
 		$pembelian_oleh = $this->input->post('pembelian_oleh');
+		$is_ppn = $this->input->post('is_ppn');
+		$is_pph = $this->input->post('is_pph');
 
 		$detail = $this->input->post('detail');
 
 		$this->db->trans_begin();
 
-		$this->M_Pembelian->update_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $supplier_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh);
+		$this->M_Pembelian->update_pembelian($pembelian_id, $pembelian_kode, $pembelian_tanggal, $supplier_id, $pembelian_keterangan, $pembelian_jumlah, $pembelian_status, $updwho, $updtgl, $pembelian_waktu_pengiriman, $pembelian_waktu_pengerjaan, $periode_penawaran, $garansi, $pembelian_no_po, $pembelian_pic, $pembelian_oleh, $is_ppn, $is_pph);
 
 		if ($this->db->trans_status() === FALSE) {
 			$this->db->trans_rollback();

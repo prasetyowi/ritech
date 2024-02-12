@@ -456,6 +456,8 @@
                                 pembelian_waktu_pengerjaan: "",
                                 periode_penawaran: "",
                                 garansi: "",
+                                is_ppn: $('#Pembelian-is_ppn:checked').val(),
+                                is_pph: $('#Pembelian-is_pph:checked').val(),
                                 detail: arr_list_barang
                             },
                             dataType: "JSON",
@@ -621,6 +623,8 @@
                                 pembelian_waktu_pengerjaan: "",
                                 periode_penawaran: "",
                                 garansi: "",
+                                is_ppn: $('#Pembelian-is_ppn:checked').val(),
+                                is_pph: $('#Pembelian-is_pph:checked').val(),
                                 detail: arr_list_barang
                             },
                             dataType: "JSON",
@@ -792,6 +796,8 @@
                                 pembelian_waktu_pengerjaan: "",
                                 periode_penawaran: "",
                                 garansi: "",
+                                is_ppn: $('#Pembelian-is_ppn:checked').val(),
+                                is_pph: $('#Pembelian-is_pph:checked').val(),
                                 detail: arr_list_barang
                             },
                             dataType: "JSON",
@@ -888,6 +894,8 @@
                         pembelian_waktu_pengerjaan: "",
                         periode_penawaran: "",
                         garansi: "",
+                        is_ppn: $('#Pembelian-is_ppn:checked').val(),
+                        is_pph: $('#Pembelian-is_pph:checked').val(),
                         detail: arr_list_barang
                     },
                     dataType: "JSON",

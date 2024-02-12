@@ -42,7 +42,7 @@
                         <div class="col-md-4 col-sm-4">
                             <div class="form-horizontal form-label-left">
                                 <div class="padding-atas" style="background-color:#A3D2CA;">
-                                    <h1 style="color:white"><b> 25.574.449</b></h1>
+                                    <h1 style="color:white"><b> <?= format_rupiah($pemasukan_bulan_ini) ?></b></h1>
                                     <p style="color:#056676   "><b>Jumlah Pemasukan Bulan Ini</b></p>
                                     </td><br>
                                 </div>
@@ -51,7 +51,7 @@
                         <div class="col-md-4 col-sm-4">
                             <div class="form-horizontal form-label-left">
                                 <div class="padding-atas" style="background-color:#5EAAA8;">
-                                    <h1 style="color:white"><b> 40.568.383</b></h1>
+                                    <h1 style="color:white"><b> <?= format_rupiah($pemasukan_bulan_lalu) ?></b></h1>
                                     <p style="color:#056676   "><b>Jumlah Pemasukan Bulan Lalu</b></p>
                                     </td><br>
                                 </div>
@@ -60,7 +60,7 @@
                         <div class="col-md-4 col-sm-4">
                             <div class="form-horizontal form-label-left">
                                 <div class="padding-atas" style="background-color:#056676;padding-left: 5px;">
-                                    <h1 style="color:white"><b> 50.440.292</b></h1>
+                                    <h1 style="color:white"><b> <?= format_rupiah($pengeluaran_bulan_ini) ?></b></h1>
                                     <p style="color:#A3D2CA   "><b>Jumlah Pengeluaran Bulan Ini</b></p>
                                     </td><br>
                                 </div>

@@ -87,6 +87,53 @@ class pengguna extends CI_Controller
         $this->load->view('pages/pengguna/script', $data);
     }
 
+    public function edit()
+    {
+        $data = array();
+        // $data['Menu_Access'] = $this->M_Menu->Getmenu_access_web($this->session->userdata('pengguna_grup_id'), $this->MenuKode);
+        // if ($data['Menu_Access']['R'] != 1) {
+        // 	redirect(base_url('MainPage'));
+        // 	exit();
+        // }
+
+        if (!$this->session->has_userdata('pengguna_id')) {
+            redirect(base_url('Auth/login'));
+        }
+
+        // if (!$this->session->has_userdata('depo_id')) {
+        // 	redirect(base_url('Main/MainDepo/DepoMenu'));
+        // }
+
+        // $data['Ses_UserName'] = $this->session->userdata('pengguna_username');
+
+        // $query['Title'] = Get_Title_Name();
+        // $query['Copyright'] = Get_Copyright_Name();
+
+        $data['Title'] = "Pelanggan";
+        $data['act'] = "index";
+
+        $id = $this->input->get('id');
+
+        $data['Pengguna'] = $this->M_Pengguna->Get_all_pengguna_by_id($id);
+        $data['Perusahaan'] = $this->M_Perusahaan->Get_all_perusahaan_aktif();
+        $data['Karyawan'] = $this->M_Karyawan->Get_all_karyawan_aktif();
+        $data['Level'] = $this->M_Karyawan->Get_karyawan_level();
+        $data['Divisi'] = $this->M_Karyawan->Get_karyawan_divisi();
+
+        // Kebutuhan Authority Menu 
+        // $this->session->set_userdata('MenuLink', str_replace(base_url(), '', current_url()));
+
+        // $this->load->view('layouts/header', $query);
+        // $this->load->view('pages/Quotation/index', $data);
+        // $this->load->view('layouts/footer', $query);
+        // $this->load->view('pages/Quotation/script', $data);
+
+        $this->load->view('layouts/header', $data);
+        $this->load->view('pages/pengguna/edit', $data);
+        $this->load->view('layouts/footer', $data);
+        $this->load->view('pages/pengguna/script', $data);
+    }
+
     public function Get_all_pengguna()
     {
         $data = $this->M_Pengguna->Get_all_pengguna();
