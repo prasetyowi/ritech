@@ -164,13 +164,16 @@ class Perusahaan extends CI_Controller
         $perusahaan_kode_pos = $this->input->post('perusahaan_kode_pos');
         $perusahaan_email = $this->input->post('perusahaan_email');
         $perusahaan_npwp = $this->input->post('perusahaan_npwp');
+        $no_rekening = $this->input->post('no_rekening');
+        $bank = $this->input->post('bank');
+        $cabang_bank = $this->input->post('cabang_bank');
         $perusahaan_nama_contact_person = $this->input->post('perusahaan_nama_contact_person');
         $perusahaan_telp_contact_person = $this->input->post('perusahaan_telp_contact_person');
         $is_aktif = $this->input->post('is_aktif');
 
         $this->db->trans_begin();
 
-        $this->M_Perusahaan->insert_perusahaan($perusahaan_id, $perusahaan_nama, $perusahaan_alamat, $perusahaan_kelurahan, $perusahaan_kecamatan, $perusahaan_kota, $perusahaan_provinsi, $perusahaan_negara, $perusahaan_telp, $perusahaan_kode_pos, $perusahaan_email, $perusahaan_npwp, $perusahaan_nama_contact_person, $perusahaan_telp_contact_person, $is_aktif);
+        $this->M_Perusahaan->insert_perusahaan($perusahaan_id, $perusahaan_nama, $perusahaan_alamat, $perusahaan_kelurahan, $perusahaan_kecamatan, $perusahaan_kota, $perusahaan_provinsi, $perusahaan_negara, $perusahaan_telp, $perusahaan_kode_pos, $perusahaan_email, $perusahaan_npwp, $perusahaan_nama_contact_person, $perusahaan_telp_contact_person, $is_aktif, $no_rekening, $bank, $cabang_bank);
 
 
         if ($this->db->trans_status() === FALSE) {
@@ -196,13 +199,16 @@ class Perusahaan extends CI_Controller
         $perusahaan_kode_pos = $this->input->post('perusahaan_kode_pos');
         $perusahaan_email = $this->input->post('perusahaan_email');
         $perusahaan_npwp = $this->input->post('perusahaan_npwp');
+        $no_rekening = $this->input->post('no_rekening');
+        $bank = $this->input->post('bank');
+        $cabang_bank = $this->input->post('cabang_bank');
         $perusahaan_nama_contact_person = $this->input->post('perusahaan_nama_contact_person');
         $perusahaan_telp_contact_person = $this->input->post('perusahaan_telp_contact_person');
         $is_aktif = $this->input->post('is_aktif');
 
         $this->db->trans_begin();
 
-        $this->M_Perusahaan->update_perusahaan($perusahaan_id, $perusahaan_nama, $perusahaan_alamat, $perusahaan_kelurahan, $perusahaan_kecamatan, $perusahaan_kota, $perusahaan_provinsi, $perusahaan_negara, $perusahaan_telp, $perusahaan_kode_pos, $perusahaan_email, $perusahaan_npwp, $perusahaan_nama_contact_person, $perusahaan_telp_contact_person, $is_aktif);
+        $this->M_Perusahaan->update_perusahaan($perusahaan_id, $perusahaan_nama, $perusahaan_alamat, $perusahaan_kelurahan, $perusahaan_kecamatan, $perusahaan_kota, $perusahaan_provinsi, $perusahaan_negara, $perusahaan_telp, $perusahaan_kode_pos, $perusahaan_email, $perusahaan_npwp, $perusahaan_nama_contact_person, $perusahaan_telp_contact_person, $is_aktif, $no_rekening, $bank, $cabang_bank);
 
 
         if ($this->db->trans_status() === FALSE) {

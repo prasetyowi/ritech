@@ -53,6 +53,9 @@ class M_Perusahaan extends CI_Model
                                     IFNULL(perusahaan_kode_pos, '') AS perusahaan_kode_pos,
                                     IFNULL(perusahaan_email, '') AS perusahaan_email,
                                     IFNULL(perusahaan_npwp, '') AS perusahaan_npwp,
+                                    IFNULL(no_rekening, '') AS no_rekening,
+                                    IFNULL(bank, '') AS bank,
+                                    IFNULL(cabang_bank, '') AS cabang_bank,
                                     IFNULL(perusahaan_nama_contact_person, '') AS perusahaan_nama_contact_person,
                                     IFNULL(perusahaan_telp_contact_person, '') AS perusahaan_telp_contact_person,
                                     IFNULL(is_aktif, 0) AS is_aktif,
@@ -86,6 +89,9 @@ class M_Perusahaan extends CI_Model
                                     IFNULL(perusahaan_kode_pos,'') AS perusahaan_kode_pos,
                                     IFNULL(perusahaan_email,'') AS perusahaan_email,
                                     IFNULL(perusahaan_npwp,'') AS perusahaan_npwp,
+                                    IFNULL(no_rekening,'') AS no_rekening,
+                                    IFNULL(bank, '') AS bank,
+                                    IFNULL(cabang_bank, '') AS cabang_bank,
                                     IFNULL(is_aktif, 0) AS is_aktif,
                                     IFNULL(is_delete, 0) AS is_delete
                                     FROM perusahaan
@@ -139,7 +145,7 @@ class M_Perusahaan extends CI_Model
         return $query;
     }
 
-    public function insert_perusahaan($perusahaan_id, $perusahaan_nama, $perusahaan_alamat, $perusahaan_kelurahan, $perusahaan_kecamatan, $perusahaan_kota, $perusahaan_provinsi, $perusahaan_negara, $perusahaan_telp, $perusahaan_kode_pos, $perusahaan_email, $perusahaan_npwp, $perusahaan_nama_contact_person, $perusahaan_telp_contact_person, $is_aktif)
+    public function insert_perusahaan($perusahaan_id, $perusahaan_nama, $perusahaan_alamat, $perusahaan_kelurahan, $perusahaan_kecamatan, $perusahaan_kota, $perusahaan_provinsi, $perusahaan_negara, $perusahaan_telp, $perusahaan_kode_pos, $perusahaan_email, $perusahaan_npwp, $perusahaan_nama_contact_person, $perusahaan_telp_contact_person, $is_aktif, $no_rekening, $bank, $cabang_bank)
     {
         $perusahaan_id = $perusahaan_id == '' ? null : $perusahaan_id;
         $perusahaan_nama = $perusahaan_nama == '' ? null : $perusahaan_nama;
@@ -156,6 +162,9 @@ class M_Perusahaan extends CI_Model
         $perusahaan_nama_contact_person = $perusahaan_nama_contact_person == '' ? null : $perusahaan_nama_contact_person;
         $perusahaan_telp_contact_person = $perusahaan_telp_contact_person == '' ? null : $perusahaan_telp_contact_person;
         $is_aktif = $is_aktif == '' ? null : $is_aktif;
+        $no_rekening = $no_rekening == '' ? null : $no_rekening;
+        $bank = $bank == '' ? null : $bank;
+        $cabang_bank = $cabang_bank == '' ? null : $cabang_bank;
 
         $this->db->set('perusahaan_id', $perusahaan_id);
         $this->db->set('perusahaan_nama', $perusahaan_nama);
@@ -169,6 +178,9 @@ class M_Perusahaan extends CI_Model
         $this->db->set('perusahaan_kode_pos', $perusahaan_kode_pos);
         $this->db->set('perusahaan_email', $perusahaan_email);
         $this->db->set('perusahaan_npwp', $perusahaan_npwp);
+        $this->db->set('no_rekening', $no_rekening);
+        $this->db->set('bank', $bank);
+        $this->db->set('cabang_bank', $cabang_bank);
         $this->db->set('perusahaan_nama_contact_person', $perusahaan_nama_contact_person);
         $this->db->set('perusahaan_telp_contact_person', $perusahaan_telp_contact_person);
         $this->db->set('is_aktif', $is_aktif);
@@ -179,7 +191,7 @@ class M_Perusahaan extends CI_Model
         // return $this->db->last_query();
     }
 
-    public function update_perusahaan($perusahaan_id, $perusahaan_nama, $perusahaan_alamat, $perusahaan_kelurahan, $perusahaan_kecamatan, $perusahaan_kota, $perusahaan_provinsi, $perusahaan_negara, $perusahaan_telp, $perusahaan_kode_pos, $perusahaan_email, $perusahaan_npwp, $perusahaan_nama_contact_person, $perusahaan_telp_contact_person, $is_aktif)
+    public function update_perusahaan($perusahaan_id, $perusahaan_nama, $perusahaan_alamat, $perusahaan_kelurahan, $perusahaan_kecamatan, $perusahaan_kota, $perusahaan_provinsi, $perusahaan_negara, $perusahaan_telp, $perusahaan_kode_pos, $perusahaan_email, $perusahaan_npwp, $perusahaan_nama_contact_person, $perusahaan_telp_contact_person, $is_aktif, $no_rekening, $bank, $cabang_bank)
     {
         $perusahaan_id = $perusahaan_id == '' ? null : $perusahaan_id;
         $perusahaan_nama = $perusahaan_nama == '' ? null : $perusahaan_nama;
@@ -196,6 +208,9 @@ class M_Perusahaan extends CI_Model
         $perusahaan_nama_contact_person = $perusahaan_nama_contact_person == '' ? null : $perusahaan_nama_contact_person;
         $perusahaan_telp_contact_person = $perusahaan_telp_contact_person == '' ? null : $perusahaan_telp_contact_person;
         $is_aktif = $is_aktif == '' ? null : $is_aktif;
+        $no_rekening = $no_rekening == '' ? null : $no_rekening;
+        $bank = $bank == '' ? null : $bank;
+        $cabang_bank = $cabang_bank == '' ? null : $cabang_bank;
 
         $this->db->set('perusahaan_nama', $perusahaan_nama);
         $this->db->set('perusahaan_alamat', $perusahaan_alamat);
@@ -208,6 +223,9 @@ class M_Perusahaan extends CI_Model
         $this->db->set('perusahaan_kode_pos', $perusahaan_kode_pos);
         $this->db->set('perusahaan_email', $perusahaan_email);
         $this->db->set('perusahaan_npwp', $perusahaan_npwp);
+        $this->db->set('no_rekening', $no_rekening);
+        $this->db->set('bank', $bank);
+        $this->db->set('cabang_bank', $cabang_bank);
         $this->db->set('perusahaan_nama_contact_person', $perusahaan_nama_contact_person);
         $this->db->set('perusahaan_telp_contact_person', $perusahaan_telp_contact_person);
         $this->db->set('is_aktif', $is_aktif);

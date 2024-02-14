@@ -3,7 +3,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Penjualan</h3>
+                <h3>Invoice</h3>
             </div>
         </div>
 
@@ -17,7 +17,7 @@
                         <h2>Filter Data</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                            <li><a href="<?= base_url() ?>penjualan/create" target="_blank" style="color:gray"><i class="fa fa-plus"></i> Tambah Penjualan</a>
+                            <li><a href="<?= base_url() ?>penjualan/create" target="_blank" style="color:gray"><i class="fa fa-plus"></i> Tambah Invoice</a>
                             </li>
                         </ul>
                         <div class="clearfix"></div>
@@ -42,7 +42,7 @@
                         </div>
 
                         <div class="col-md-6 col-sm-6  form-group has-feedback">
-                            <input type="text" class="form-control" name="filter_no_penjualan" id="filter_no_penjualan" placeholder="No Penjualan">
+                            <input type="text" class="form-control" name="filter_no_penjualan" id="filter_no_penjualan" placeholder="No PO">
                         </div>
 
                         <div class="col-md-6 col-sm-6">
@@ -71,7 +71,7 @@
                                 <thead>
                                     <tr class="headings">
                                         <th>#</th>
-                                        <th class="column-title">No Penjualan </th>
+                                        <th class="column-title">Id Dokumen </th>
                                         <th class="column-title">Tanggal </th>
                                         <th class="column-title">No PO </th>
                                         <th class="column-title">Pelanggan </th>

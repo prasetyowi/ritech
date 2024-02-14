@@ -106,6 +106,16 @@ class M_Penjualan extends CI_Model
 									a.karyawan_id,
 									IFNULL(k.karyawan_nama,'') AS karyawan_nama,
 									IFNULL(k.karyawan_telp,'') AS karyawan_telp,
+									IFNULL(a.perusahaan_id,'') AS perusahaan_id,
+									IFNULL(p.perusahaan_nama,'') AS perusahaan_nama,
+									IFNULL(p.perusahaan_alamat,'') AS perusahaan_alamat,
+									IFNULL(p.perusahaan_kelurahan,'') AS perusahaan_kelurahan,
+									IFNULL(p.perusahaan_kecamatan,'') AS perusahaan_kecamatan,
+									IFNULL(p.perusahaan_kota,'') AS perusahaan_kota,
+									IFNULL(p.perusahaan_provinsi,'') AS perusahaan_provinsi,
+									IFNULL(p.no_rekening,'') AS no_rekening,
+									IFNULL(p.bank,'') AS bank,
+									IFNULL(p.cabang_bank,'') AS cabang_bank,
 									a.customer_id,
 									c.customer_nama,
 									c.customer_alamat,
@@ -139,6 +149,8 @@ class M_Penjualan extends CI_Model
 									ON c.customer_id = a.customer_id
 									LEFT JOIN karyawan k
 									ON k.karyawan_id = a.karyawan_id
+									LEFT JOIN perusahaan p
+									ON p.perusahaan_id = k.perusahaan_id
 									WHERE a.penjualan_id = '$penjualan_id'");
 
 		if ($query->num_rows() == 0) {
@@ -259,7 +271,7 @@ class M_Penjualan extends CI_Model
 	public function Get_penjualan_by_filter($tgl1, $tgl2, $penjualan_id, $customer, $status)
 	{
 		if ($penjualan_id != "") {
-			$penjualan_id = "AND a.penjualan_id LIKE '%$penjualan_id%' ";
+			$penjualan_id = "AND a.penjualan_no_po LIKE '%$penjualan_id%' ";
 		} else {
 			$penjualan_id = "";
 		}

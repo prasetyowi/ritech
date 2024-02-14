@@ -130,6 +130,24 @@
                                         </div>
                                     </div>
                                     <div class="form-group row ">
+                                        <label class="control-label col-md-3 col-sm-3 ">No Rekening</label>
+                                        <div class="col-md-9 col-sm-9 ">
+                                            <input type="text" class="form-control col-md-10" id="no_rekening" placeholder="ex: 031 7410382">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-3 col-sm-3 ">Bank</label>
+                                        <div class="col-md-9 col-sm-9 ">
+                                            <input type="text" class="form-control col-md-10" id="bank" placeholder="Mandiri">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-3 col-sm-3 ">Cabang</label>
+                                        <div class="col-md-9 col-sm-9 ">
+                                            <input type="text" class="form-control col-md-10" id="cabang_bank" placeholder="KCP Pemuda - Jakarta">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Aktif</label>
                                         <div class="col-md-1 col-sm-1">
                                             <input type="checkbox" class="form-control col-md-10" id="is_aktif">
@@ -260,6 +278,24 @@
                                         <label class="control-label col-md-3 col-sm-3 ">NPWP</label>
                                         <div class="col-md-9 col-sm-9 ">
                                             <input type="text" class="form-control col-md-10" id="npwp-edit" placeholder="ex: 031 7410382">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-3 col-sm-3 ">No Rekening</label>
+                                        <div class="col-md-9 col-sm-9 ">
+                                            <input type="text" class="form-control col-md-10" id="no_rekening-edit" placeholder="ex: 031 7410382">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-3 col-sm-3 ">Bank</label>
+                                        <div class="col-md-9 col-sm-9 ">
+                                            <input type="text" class="form-control col-md-10" id="bank-edit" placeholder="Mandiri">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-3 col-sm-3 ">Cabang</label>
+                                        <div class="col-md-9 col-sm-9 ">
+                                            <input type="text" class="form-control col-md-10" id="cabang_bank-edit" placeholder="KCP Pemuda - Jakarta">
                                         </div>
                                     </div>
                                     <div class="form-group row ">

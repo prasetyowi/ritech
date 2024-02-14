@@ -210,12 +210,12 @@
                                 </div>
                                 <div class="ln_solid"></div>
                                 <?php if ($value['penjualan_status'] == "Applied") { ?>
-                                    <a href="<?= base_url() ?>SuratJalan/print/?id=<?= $value['penjualan_id'] ?>" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> Cetak Surat Jalan</a>
+                                    <a href="<?= base_url() ?>SuratJalan/print/?id=<?= $value['penjualan_id'] ?>" class="btn btn-primary btn-sm" target="_blank"><i class="fa fa-print"></i> Cetak Surat Jalan</a>
                                 <?php } ?>
                                 <div class="ln_solid"></div>
                                 <div class="form-group row ">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered jambo_table" id="table-penjualan-termin" style="width:50%">
+                                        <table class="table table-bordered jambo_table" id="table-penjualan-termin" style="width:100%">
                                             <thead>
                                                 <tr class=" headings">
                                                     <th>#</th>
@@ -251,7 +251,7 @@
                                                                 <td class="text-center" style="width:5%;"><?= $key2 + 1 ?></td>
                                                                 <td class="text-left" style="width:20%;"><?= $value2['keterangan'] ?></td>
                                                                 <td class="text-right" style="width:20%;">
-                                                                    <input type="date" class="form-control" id="item-<?= $key2 ?>-penjualan_termin-tanggal_invoice" value="<?= $value2['tanggal_invoice'] ?>" onchange="UpdateTerminPembayaran('<?= $value2['penjualan_termin_no_item'] ?>','<?= $key2 ?>')">
+                                                                    <input type="date" class="form-control" id="item-<?= $key2 ?>-penjualan_termin-tanggal_invoice" value="<?= $value2['tanggal_invoice'] ?>" onchange="UpdateTerminPembayaran('<?= $value2['penjualan_termin_no_item'] ?>','<?= $key2 ?>')" disabled>
                                                                 </td>
                                                                 <td class="text-right" style="width:20%;"><?= $value2['termin_pembayaran'] ?></td>
                                                                 <td class="text-center" style="width:10%;">
@@ -328,6 +328,16 @@
 
 <script>
     function UpdateTerminPembayaran(penjualan_termin_no_item, index) {
+
+        if ($("#item-" + index + "-penjualan_termin-termin_tanggal_bayar").val() == "") {
+            var alert = "Tanggal Pembayaran Tidak Boleh Kosong";
+            message_custom("Error", "error", alert);
+
+            $("#item-" + index + "-penjualan_termin-termin_status").prop("checked", false);
+
+            return false;
+        }
+
         $.ajax({
             type: 'POST',
             url: "<?= base_url('Penjualan/Update_termin_pembayaran') ?>",
@@ -389,7 +399,7 @@
                                     <td class="text-center" style="width:5%;">${i+1}</td>
                                     <td class="text-left" style="width:20%;">${v.keterangan}</td>
                                     <td class="text-left" style="width:20%;">
-                                        <input type="date" class="form-control" id="item-${i}-penjualan_termin-tanggal_invoice" value="${v.tanggal_invoice}" onchange="UpdateTerminPembayaran('${v.penjualan_termin_no_item}','${i}')">
+                                        <input type="date" class="form-control" id="item-${i}-penjualan_termin-tanggal_invoice" value="${v.tanggal_invoice}" onchange="UpdateTerminPembayaran('${v.penjualan_termin_no_item}','${i}')" disabled>
                                     </td>
                                     <td class="text-right" style="width:20%;">${v.termin_pembayaran}</td>
                                     <td class="text-center" style="width:10%;">

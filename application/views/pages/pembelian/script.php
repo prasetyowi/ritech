@@ -473,7 +473,7 @@
                                     ResetForm();
                                 } else if (response.status == "2") {
 
-                                    var msg = "No Pembelian " + $('#Pembelian-pembelian_kode').val() + " Sudah Ada";
+                                    var alert = "No Pembelian " + $('#Pembelian-pembelian_kode').val() + " Sudah Ada";
                                     message_custom("Error", "error", alert);
                                 } else {
                                     var alert = "Data Gagal Disimpan";

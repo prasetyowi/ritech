@@ -3,7 +3,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Penjualan</h3>
+                <h3>Tambah Invoice</h3>
             </div>
         </div>
 
@@ -123,7 +123,7 @@
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">No Faktur PPn</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" class="form-control col-md-12" id="Penjualan-no_faktur" name="Penjualan[no_faktur]" value="" data-inputmask="'mask': '999.999-99.999999999'" required />
+                                    <input type="text" class="form-control col-md-12" id="Penjualan-no_faktur" name="Penjualan[no_faktur]" value="" data-inputmask="'mask': '999.999-99.99999999'" required />
                                 </div>
                             </div>
                             <div class="form-group row">

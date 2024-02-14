@@ -2,6 +2,8 @@
     var arr_list_barang = [];
     var arr_list_termin = [];
     var index_termin = 0;
+    var jml_termin = 0;
+    var max_jml_termin = 100;
 
     <?php if (isset($act)) { ?>
         <?php if ($act == "edit" || $act == "detail") { ?>
@@ -528,6 +530,7 @@
 
     $("#btn_simpan_penjualan").click(function() {
         cek_error = 0;
+        jml_termin = 0;
 
         if (arr_list_barang.length == 0) {
 
@@ -558,6 +561,9 @@
         }
 
         $.each(arr_list_termin, function(i, v) {
+
+            jml_termin += parseInt(v.termin_pembayaran);
+
             if (parseInt(v.keterangan) == 0) {
                 let alert = "Keterangan Termin Tidak Boleh Kosong";
                 message_custom("Error", "error", alert);
@@ -576,7 +582,7 @@
                 return false;
             }
 
-            if (parseInt(v.tanggal_invoice) == 0) {
+            if (v.tanggal_invoice == "") {
                 let alert = "Tanggal Invoice Tidak Boleh Kosong";
                 message_custom("Error", "error", alert);
 
@@ -590,6 +596,23 @@
         setTimeout(() => {
 
             // console.log(arr_list_faktur_klaim);
+
+            if (jml_termin > max_jml_termin) {
+
+                let alert = "Termin Pembayaran Lebih dari 100%";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
+
+            if (jml_termin < max_jml_termin) {
+
+                let alert = "Termin Pembayaran Kurang dari 100%";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
+
 
             if ($("#Penjualan-penjualan_id").val() == "") {
 
@@ -723,7 +746,7 @@
                                     ResetForm();
                                 } else if (response.status == "2") {
 
-                                    var msg = "No Penjualan " + $('#Penjualan-penjualan_no_po').val() + " Sudah Ada";
+                                    var alert = "No Penjualan " + $('#Penjualan-penjualan_no_po').val() + " Sudah Ada";
                                     message_custom("Error", "error", alert);
                                 } else {
                                     var alert = "Data Gagal Disimpan";
@@ -753,6 +776,7 @@
 
     $("#btn_update_penjualan").click(function() {
         cek_error = 0;
+        jml_termin = 0;
 
         if (arr_list_barang.length == 0) {
 
@@ -783,6 +807,9 @@
         }
 
         $.each(arr_list_termin, function(i, v) {
+
+            jml_termin += parseInt(v.termin_pembayaran);
+
             if (parseInt(v.keterangan) == 0) {
                 let alert = "Keterangan Termin Tidak Boleh Kosong";
                 message_custom("Error", "error", alert);
@@ -801,7 +828,7 @@
                 return false;
             }
 
-            if (parseInt(v.tanggal_invoice) == 0) {
+            if (v.tanggal_invoice == "") {
                 let alert = "Tanggal Invoice Tidak Boleh Kosong";
                 message_custom("Error", "error", alert);
 
@@ -815,6 +842,22 @@
         setTimeout(() => {
 
             // console.log(arr_list_faktur_klaim);
+
+            if (jml_termin > max_jml_termin) {
+
+                let alert = "Termin Pembayaran Lebih dari 100%";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
+
+            if (jml_termin < max_jml_termin) {
+
+                let alert = "Termin Pembayaran Kurang dari 100%";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
 
             if ($("#Penjualan-penjualan_id").val() == "") {
 
@@ -986,6 +1029,7 @@
 
     $("#btn_konfirmasi_penjualan").click(function() {
         cek_error = 0;
+        jml_termin = 0;
 
         if (arr_list_barang.length == 0) {
 
@@ -1016,6 +1060,9 @@
         }
 
         $.each(arr_list_termin, function(i, v) {
+
+            jml_termin += parseInt(v.termin_pembayaran);
+
             if (parseInt(v.keterangan) == 0) {
                 let alert = "Keterangan Termin Tidak Boleh Kosong";
                 message_custom("Error", "error", alert);
@@ -1034,7 +1081,7 @@
                 return false;
             }
 
-            if (parseInt(v.tanggal_invoice) == 0) {
+            if (v.tanggal_invoice == "") {
                 let alert = "Tanggal Invoice Tidak Boleh Kosong";
                 message_custom("Error", "error", alert);
 
@@ -1046,6 +1093,22 @@
         });
 
         setTimeout(() => {
+
+            if (jml_termin > max_jml_termin) {
+
+                let alert = "Termin Pembayaran Lebih dari 100%";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
+
+            if (jml_termin < max_jml_termin) {
+
+                let alert = "Termin Pembayaran Kurang dari 100%";
+                message_custom("Error", "error", alert);
+
+                return false;
+            }
 
             // console.log(arr_list_faktur_klaim);
 
@@ -1218,6 +1281,8 @@
     });
 
     $("#btn_cancel_penjualan").click(function() {
+        jml_termin = 0;
+
         Swal.fire({
             title: "Apakah anda yakin?",
             text: "Pastikan data yang sudah anda input benar!",

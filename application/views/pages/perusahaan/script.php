@@ -155,6 +155,9 @@
                         $("#npwp-edit").val(v.perusahaan_npwp);
                         $("#perusahaan_nama_contact_person-edit").val(v.perusahaan_nama_contact_person);
                         $("#perusahaan_telp_contact_person-edit").val(v.perusahaan_telp_contact_person);
+                        $("#no_rekening-edit").val(v.no_rekening);
+                        $("#bank-edit").val(v.bank);
+                        $("#cabang_bank-edit").val(v.cabang_bank);
 
                         if (v.is_aktif == "1") {
                             $("#is_aktif-edit").prop("checked", true);
@@ -180,6 +183,9 @@
                         $("#npwp-edit").val('');
                         $("#perusahaan_nama_contact_person-edit").val('');
                         $("#perusahaan_telp_contact_person-edit").val('');
+                        $("#no_rekening-edit").val('');
+                        $("#bank-edit").val('');
+                        $("#cabang_bank-edit").val('');
                     });
 
                 }
@@ -243,6 +249,9 @@
                                 perusahaan_kode_pos: $("#kode_pos").val(),
                                 perusahaan_email: $("#email").val(),
                                 perusahaan_npwp: $("#npwp").val(),
+                                no_rekening: $("#no_rekening").val(),
+                                bank: $("#bank").val(),
+                                cabang_bank: $("#cabang_bank").val(),
                                 perusahaan_nama_contact_person: $("#perusahaan_nama_contact_person").val(),
                                 perusahaan_telp_contact_person: $("#perusahaan_telp_contact_person").val(),
                                 is_aktif: $('#is_aktif:checked').val()
@@ -338,6 +347,9 @@
                                 perusahaan_kode_pos: $("#kode_pos-edit").val(),
                                 perusahaan_email: $("#email-edit").val(),
                                 perusahaan_npwp: $("#npwp-edit").val(),
+                                no_rekening: $("#no_rekening-edit").val(),
+                                bank: $("#bank-edit").val(),
+                                cabang_bank: $("#cabang_bank-edit").val(),
                                 perusahaan_nama_contact_person: $("#perusahaan_nama_contact_person-edit").val(),
                                 perusahaan_telp_contact_person: $("#perusahaan_telp_contact_person-edit").val(),
                                 is_aktif: $('#is_aktif-edit:checked').val()
@@ -393,10 +405,13 @@
         $("#kode_pos").val('');
         $("#email").val('');
         $("#npwp").val('');
+        $("#no_rekening").val('');
         $("#perusahaan_nama_contact_person").val('');
         $("#perusahaan_telp_contact_person").val('');
         $("#perusahaan_telp_contact_person").val('');
         $("#is_aktif").prop("checked", false);
+        $("#bank").val('');
+        $("#cabang_bank").val('');
 
         $("#id_perusahaan-edit").val('');
         $("#nama_perusahaan-edit").val('');
@@ -410,9 +425,12 @@
         $("#kode_pos-edit").val('');
         $("#email-edit").val('');
         $("#npwp-edit").val('');
+        $("#no_rekening-edit").val('');
         $("#perusahaan_nama_contact_person-edit").val('');
         $("#perusahaan_telp_contact_person-edit").val('');
         $("#is_aktif-edit").prop("checked", false);
+        $("#bank-edit").val('');
+        $("#cabang_bank-edit").val('');
 
     }
 </script>

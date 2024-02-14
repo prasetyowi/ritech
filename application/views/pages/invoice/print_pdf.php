@@ -82,7 +82,7 @@ $pph = 0;
                                 <table width="100%">
                                     <tr>
                                         <td style="text-align: left;width:50%">
-                                            <h5> <?php echo "PT. Kreasi Teknik Unggul"; ?></h5>
+                                            <h5><?= $value['perusahaan_nama'] ?></h5>
                                         </td>
                                         <td></td>
                                         <td></td>
@@ -92,7 +92,7 @@ $pph = 0;
                                     </tr>
                                     <tr>
                                         <td style="text-align: left;width:50%;font-size: 10px;">
-                                            <?php echo "The Mansion Kemayoran Bougenville - Tower Fontana Lt. 21 unit E1"; ?>
+                                            <?= $value['perusahaan_alamat'] ?> - <?= $value['perusahaan_kelurahan'] ?>
                                         </td>
                                         <td></td>
                                         <td></td>
@@ -102,7 +102,7 @@ $pph = 0;
                                     </tr>
                                     <tr>
                                         <td style="text-align: left;width:50%;font-size: 10px;">
-                                            <?php echo "Jl. Trembesi D4, RT 009, RW 011, Jakarta Utara, DKI Jakarta"; ?>
+                                            <?= $value['perusahaan_kecamatan'] ?>, <?= $value['perusahaan_kota'] ?>, <?= $value['perusahaan_provinsi'] ?>
                                         </td>
                                         <td></td>
                                         <td></td>
@@ -246,21 +246,21 @@ $pph = 0;
                                         </tr>
                                         <tr>
                                             <td>
-                                                PT. Kreasi Teknik Unggul
+                                                <?= $value['perusahaan_nama'] ?>
                                             </td>
                                             <td>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                A/C. 006-000-879-8799
+                                                A/C. <?= $value['no_rekening'] ?>
                                             </td>
                                             <td>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                Mandiri KCP Pemuda - Jakarta
+                                                <?= $value['bank'] ?> <?= $value['cabang_bank'] ?>
                                             </td>
                                             <td>
                                             </td>

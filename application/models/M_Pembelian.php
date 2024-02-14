@@ -31,7 +31,7 @@ class M_Pembelian extends CI_Model
 	function Get_last_pembelian()
 	{
 		$query = $this->db->query("SELECT *
-									FROM penjualan
+									FROM pembelian
 									ORDER BY updtgl desc
 									LIMIT 1");
 

@@ -72,6 +72,7 @@
 <script src="<?= base_url() ?>assets/vendors/pdfmake/build/pdfmake.min.js"></script>
 <script src="<?= base_url() ?>assets/vendors/pdfmake/build/vfs_fonts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
 
 <script>
     $('.filter_date_range_picker').daterangepicker({

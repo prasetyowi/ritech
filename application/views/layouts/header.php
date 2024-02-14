@@ -86,7 +86,7 @@
                             <ul class="nav side-menu">
                                 <li><a href="<?= base_url() ?>dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
                                 <li><a href="<?= base_url() ?>quotation"><i class="fa fa-edit"></i> Quotation</a></li>
-                                <li><a href="<?= base_url() ?>penjualan"><i class="fa fa-shopping-cart"></i> Penjualan</a></li>
+                                <li><a href="<?= base_url() ?>penjualan"><i class="fa fa-shopping-cart"></i> Invoice</a></li>
                                 <li><a href="<?= base_url() ?>pembelian"><i class="fa fa-truck"></i> Pembelian</a></li>
                                 <li><a href="<?= base_url() ?>komisi"><i class="fa fa-comments"></i> Komisi</a></li>
                                 <li><a><i class="fa fa-dollar"></i> Kas <span class="fa fa-chevron-down"></span></a>
