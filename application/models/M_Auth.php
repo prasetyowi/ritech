@@ -17,14 +17,12 @@ class M_Auth extends CI_Model
                                         pengguna.pengguna_username,
                                         pengguna.pengguna_email,
                                         pengguna.pengguna_password,
-                                        pengguna.karyawan_id,
-                                        karyawan.karyawan_nama,
-                                        karyawan.perusahaan_id,
-                                        karyawan.karyawan_level,
-                                        karyawan.karyawan_divisi
+                                        pengguna.pengguna_reff_id,
+                                        orang_tua.orang_tua_nama as pengguna_nama,
+                                        pengguna.pengguna_level
                                     from pengguna
-                                    LEFT JOIN karyawan
-                                    on karyawan.karyawan_id = pengguna.karyawan_id
+                                    LEFT JOIN orang_tua
+                                    on orang_tua.orang_tua_id = pengguna.pengguna_reff_id
                                     WHERE pengguna.pengguna_email = '$email' AND pengguna.pengguna_password = '$password'");
 
         if ($query->num_rows() == 0) {
@@ -52,6 +50,20 @@ class M_Auth extends CI_Model
             $query = 0;
         } else {
             $query = $query->result_array();
+        }
+
+        return $query;
+    }
+
+    public function Cek_email_pengguna($email)
+    {
+
+        $query = $this->db->query("SELECT * from pengguna where pengguna_email = '$email'");
+
+        if ($query->num_rows() == 0) {
+            $query = 0;
+        } else {
+            $query = $query->num_rows();
         }
 
         return $query;

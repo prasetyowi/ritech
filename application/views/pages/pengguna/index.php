@@ -97,36 +97,25 @@
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Username</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="text" class="form-control col-md-10" id="Pengguna-pengguna_username">
+                                            <input type="text" class="form-control" id="Pengguna-pengguna_username">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-md-3 col-sm-3 ">Email</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="text" class="form-control col-md-10" id="Pengguna-pengguna_email">
+                                            <input type="text" class="form-control" id="Pengguna-pengguna_email">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-md-3 col-sm-3 ">Password</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="password" name="Pengguna-password" id="Pengguna-password" class="form-control col-md-10" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-md-3 col-sm-3 ">Perusahaan</label>
-                                        <div class="col-md-9 col-sm-9 ">
-                                            <select class="form-control col-md-10 select2" id="Pengguna-perusahaan_id">
-                                                <option value="">** Pilih Perusahaan **</option>
-                                                <?php foreach ($Perusahaan as $value) : ?>
-                                                    <option value="<?= $value['perusahaan_id'] ?>"><?= $value['perusahaan_nama'] ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
+                                            <input type="password" name="Pengguna-password" id="Pengguna-password" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Karyawan</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <select class="form-control col-md-10 select2" id="Pengguna-karyawan_id">
+                                            <select class="form-control select2" id="Pengguna-pengguna_reff_id">
                                                 <option value="">** Pilih Karyawan **</option>
                                                 <?php foreach ($Karyawan as $value) : ?>
                                                     <option value="<?= $value['karyawan_id'] ?>"><?= $value['karyawan_nama'] ?></option>
@@ -135,9 +124,19 @@
                                         </div>
                                     </div>
                                     <div class="form-group row ">
+                                        <label class="control-label col-md-3 col-sm-3 ">Pengguna Level</label>
+                                        <div class="col-md-9 col-sm-9 ">
+                                            <select class="form-control select2" id="Pengguna-pengguna_level">
+                                                <option value="">** Pilih Karyawan **</option>
+                                                <option value="administrator">Administrator</option>
+                                                <option value="orang tua">Orang Tua</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Aktif</label>
                                         <div class="col-md-1 col-sm-1">
-                                            <input type="checkbox" class="form-control col-md-10" id="is_aktif">
+                                            <input type="checkbox" class="form-control" id="is_aktif">
                                         </div>
                                     </div>
                                 </div>
@@ -178,42 +177,31 @@
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Pengguna ID</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="tet" class="form-control col-md-10" id="Pengguna-pengguna_id-edit" disabled>
+                                            <input type="tet" class="form-control" id="Pengguna-pengguna_id-edit" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Username</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="text" class="form-control col-md-10" id="Pengguna-pengguna_username-edit">
+                                            <input type="text" class="form-control" id="Pengguna-pengguna_username-edit" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-md-3 col-sm-3 ">Email</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="text" class="form-control col-md-10" id="Pengguna-pengguna_email-edit">
+                                            <input type="text" class="form-control" id="Pengguna-pengguna_email-edit" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-md-3 col-sm-3 ">Password</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="password" name="Pengguna-password-edit" id="Pengguna-password-edit" class="form-control col-md-10" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-md-3 col-sm-3 ">Perusahaan</label>
-                                        <div class="col-md-9 col-sm-9 ">
-                                            <select class="form-control col-md-10 select2" id="Pengguna-perusahaan_id-edit">
-                                                <option value="">** Pilih Perusahaan **</option>
-                                                <?php foreach ($Perusahaan as $value) : ?>
-                                                    <option value="<?= $value['perusahaan_id'] ?>"><?= $value['perusahaan_nama'] ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
+                                            <input type="password" name="Pengguna-password-edit" id="Pengguna-password-edit" class="form-control" disabled />
                                         </div>
                                     </div>
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Karyawan</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <select class="form-control col-md-10 select2" id="Pengguna-karyawan_id-edit">
+                                            <select class="form-control select2" id="Pengguna-pengguna_reff_id-edit" disabled>
                                                 <option value="">** Pilih Karyawan **</option>
                                                 <?php foreach ($Karyawan as $value) : ?>
                                                     <option value="<?= $value['karyawan_id'] ?>"><?= $value['karyawan_nama'] ?></option>
@@ -222,9 +210,19 @@
                                         </div>
                                     </div>
                                     <div class="form-group row ">
+                                        <label class="control-label col-md-3 col-sm-3 ">Pengguna Level</label>
+                                        <div class="col-md-9 col-sm-9 ">
+                                            <select class="form-control select2" id="Pengguna-pengguna_level-edit" disabled>
+                                                <option value="">** Pilih Karyawan **</option>
+                                                <option value="administrator">Administrator</option>
+                                                <option value="orang tua">Orang Tua</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Aktif</label>
                                         <div class="col-md-1 col-sm-1">
-                                            <input type="checkbox" class="form-control col-md-10" id="is_aktif-edit">
+                                            <input type="checkbox" class="form-control" id="is_aktif-edit" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -235,7 +233,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="btn_update_pengguna"><i class="fa fa-save"></i> Simpan</button>
                 <button type="button" data-dismiss="modal" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
             </div>
 

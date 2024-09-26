@@ -39,8 +39,8 @@ class pengguna extends CI_Controller
         // $this->load->model('M_AutoGen');
         $this->load->model('M_Vrbl');
         $this->load->model('M_Pengguna');
+        $this->load->model('M_Orang_tua');
         $this->load->model('M_Karyawan');
-        $this->load->model('M_Perusahaan');
     }
 
     public function index()
@@ -52,7 +52,7 @@ class pengguna extends CI_Controller
         // 	exit();
         // }
 
-        if (!$this->session->has_userdata('pengguna_id')) {
+        if (!$this->session->has_userdata('pengguna_id') || $this->session->userdata('pengguna_level') != 'administrator') {
             redirect(base_url('Auth/login'));
         }
 
@@ -68,8 +68,7 @@ class pengguna extends CI_Controller
         $data['Title'] = "Pelanggan";
         $data['act'] = "index";
 
-        $data['Perusahaan'] = $this->M_Perusahaan->Get_all_perusahaan_aktif();
-        $data['Karyawan'] = $this->M_Karyawan->Get_all_karyawan_aktif();
+        $data['Karyawan'] = $this->M_Pengguna->Get_all_user_reff_aktif();
         $data['Level'] = $this->M_Karyawan->Get_karyawan_level();
         $data['Divisi'] = $this->M_Karyawan->Get_karyawan_divisi();
 
@@ -82,9 +81,9 @@ class pengguna extends CI_Controller
         // $this->load->view('pages/Quotation/script', $data);
 
         $this->load->view('layouts/header', $data);
-        $this->load->view('pages/pengguna/index', $data);
+        $this->load->view('pages/Pengguna/index', $data);
         $this->load->view('layouts/footer', $data);
-        $this->load->view('pages/pengguna/script', $data);
+        $this->load->view('pages/Pengguna/script', $data);
     }
 
     public function edit()
@@ -96,7 +95,7 @@ class pengguna extends CI_Controller
         // 	exit();
         // }
 
-        if (!$this->session->has_userdata('pengguna_id')) {
+        if (!$this->session->has_userdata('pengguna_id') || $this->session->userdata('pengguna_level') != 'administrator') {
             redirect(base_url('Auth/login'));
         }
 
@@ -115,7 +114,6 @@ class pengguna extends CI_Controller
         $id = $this->input->get('id');
 
         $data['Pengguna'] = $this->M_Pengguna->Get_all_pengguna_by_id($id);
-        $data['Perusahaan'] = $this->M_Perusahaan->Get_all_perusahaan_aktif();
         $data['Karyawan'] = $this->M_Karyawan->Get_all_karyawan_aktif();
         $data['Level'] = $this->M_Karyawan->Get_karyawan_level();
         $data['Divisi'] = $this->M_Karyawan->Get_karyawan_divisi();
@@ -129,9 +127,29 @@ class pengguna extends CI_Controller
         // $this->load->view('pages/Quotation/script', $data);
 
         $this->load->view('layouts/header', $data);
-        $this->load->view('pages/pengguna/edit', $data);
+        $this->load->view('pages/Pengguna/edit', $data);
         $this->load->view('layouts/footer', $data);
-        $this->load->view('pages/pengguna/script', $data);
+        $this->load->view('pages/Pengguna/script', $data);
+    }
+
+    public function PenggunaWeb()
+    {
+        $data = array();
+        if (!$this->session->has_userdata('pengguna_id')) {
+            redirect(base_url('Auth/login'));
+        }
+
+        $data['Title'] = "Pengguna";
+        $data['act'] = "index";
+
+        $id = $this->session->userdata('pengguna_reff_id');
+
+        $data['OrangTua'] = $this->M_Orang_tua->Get_orang_tua_by_id($id);
+
+        $this->load->view('layouts/header_web', $data);
+        $this->load->view('main_app/pengguna/index', $data);
+        $this->load->view('layouts/footer_web', $data);
+        $this->load->view('main_app/pengguna/script', $data);
     }
 
     public function Get_all_pengguna()
@@ -209,13 +227,14 @@ class pengguna extends CI_Controller
         // $pengguna_id = $this->input->post('pengguna_id');
         $pengguna_username = $this->input->post('pengguna_username');
         $pengguna_password = md5($this->input->post('pengguna_password'));
-        $pengguna_perusahaan = $this->input->post('pengguna_perusahaan');
-        $karyawan_id = $this->input->post('karyawan_id');
+        $pengguna_perusahaan = "";
+        $pengguna_reff_id = $this->input->post('pengguna_reff_id');
         $add_by = $this->session->userdata('pengguna_username');
         $updwho = $this->session->userdata('pengguna_username');
         $updtgl = date('Y-m-d');
         $is_aktif = $this->input->post('is_aktif');
         $pengguna_email = $this->input->post('pengguna_email');
+        $pengguna_level = $this->input->post('pengguna_level');
         $is_delete = "";
 
         $cek_email = $this->M_Pengguna->Cek_pengguna_email($pengguna_email);
@@ -233,7 +252,7 @@ class pengguna extends CI_Controller
 
         $this->db->trans_begin();
 
-        $this->M_Pengguna->insert_pengguna($pengguna_id, $pengguna_username, $pengguna_password, $pengguna_perusahaan, $karyawan_id, $add_by, $updwho, $updtgl, $is_aktif, $pengguna_email, $is_delete);
+        $this->M_Pengguna->insert_pengguna($pengguna_id, $pengguna_username, $pengguna_password, $pengguna_perusahaan, $pengguna_reff_id, $add_by, $updwho, $updtgl, $is_aktif, $pengguna_email, $is_delete, $pengguna_level);
 
 
         if ($this->db->trans_status() === FALSE) {
@@ -250,13 +269,14 @@ class pengguna extends CI_Controller
         $pengguna_id = $this->input->post('pengguna_id');
         $pengguna_username = $this->input->post('pengguna_username');
         $pengguna_password = md5($this->input->post('pengguna_password'));
-        $pengguna_perusahaan = $this->input->post('pengguna_perusahaan');
-        $karyawan_id = $this->input->post('karyawan_id');
+        $pengguna_perusahaan = "";
+        $pengguna_reff_id = $this->input->post('pengguna_reff_id');
         $add_by = $this->session->userdata('pengguna_username');
         $updwho = $this->session->userdata('pengguna_username');
         $updtgl = date('Y-m-d');
         $is_aktif = $this->input->post('is_aktif');
         $pengguna_email = $this->input->post('pengguna_email');
+        $pengguna_level = $this->input->post('pengguna_level');
         $is_delete = "";
 
         $cek_email = $this->M_Pengguna->Cek_pengguna_email_not_in_user($pengguna_id, $pengguna_email);
@@ -274,7 +294,29 @@ class pengguna extends CI_Controller
 
         $this->db->trans_begin();
 
-        $this->M_Pengguna->update_pengguna($pengguna_id, $pengguna_username, $pengguna_password, $pengguna_perusahaan, $karyawan_id, $add_by, $updwho, $updtgl, $is_aktif, $pengguna_email, $is_delete);
+        $this->M_Pengguna->update_pengguna($pengguna_id, $pengguna_username, $pengguna_password, $pengguna_perusahaan, $pengguna_reff_id, $add_by, $updwho, $updtgl, $is_aktif, $pengguna_email, $is_delete, $pengguna_level);
+
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            echo json_encode(array("status" => 0, "data" => ""));
+        } else {
+            $this->db->trans_commit();
+            echo json_encode(array("status" => 1, "data" => ""));
+        }
+    }
+
+    public function update_pengguna_profile()
+    {
+        $pengguna_id = $this->session->userdata('pengguna_id');
+        $pengguna_email = $this->input->post('pengguna_email');
+        $pengguna_password = md5($this->input->post('pengguna_password'));
+        $updwho = $this->session->userdata('pengguna_username');
+        $updtgl = date('Y-m-d');
+
+        $this->db->trans_begin();
+
+        $this->M_Pengguna->update_pengguna_profile($pengguna_id, $pengguna_email, $pengguna_password, $updwho, $updtgl);
 
 
         if ($this->db->trans_status() === FALSE) {

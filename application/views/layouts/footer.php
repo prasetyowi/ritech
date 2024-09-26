@@ -115,6 +115,33 @@
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         return angka == undefined ? rupiah : (rupiah ? rupiah : '');
     }
+
+    function sanitizeInput(input) {
+        const dangerousChars = /[<>{}[\]'"\/\\;=%&$|`]/g;
+        return input.replace(dangerousChars, "");
+    }
+
+    function validateInput(input) {
+        const pattern = /^[a-zA-Z0-9\s.,]*$/;
+        return pattern.test(input);
+    }
+
+    function validateOnKeyUp(event, idx) {
+        const inputField = event.target;
+        let sanitizedValue = sanitizeInput(inputField.value);
+        inputField.value = sanitizedValue; // Apply sanitization directly
+
+        const isValid = validateInput(sanitizedValue);
+        const feedback = document.getElementById("feedback-" + idx);
+
+        if (isValid) {
+            feedback.textContent = "";
+            feedback.style.color = "";
+        } else {
+            feedback.textContent = "Input tidak valid! Hanya huruf, angka, dan spasi yang diizinkan.";
+            feedback.style.color = "red";
+        }
+    }
 </script>
 
 </body>

@@ -56,7 +56,6 @@
                                         <th>#</th>
                                         <th class="column-title">Kode Karyawan </th>
                                         <th class="column-title">Nama Karyawan </th>
-                                        <th class="column-title">Perusahaan </th>
                                         <th class="column-title">Divisi </th>
                                         <th class="column-title">Level </th>
                                         <th class="column-title">Status </th>
@@ -99,30 +98,19 @@
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Nama Karyawan</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="text" class="form-control col-md-10" id="nama_karyawan" placeholder="Input Nama Karyawan">
+                                            <input type="text" class="form-control" id="nama_karyawan" placeholder="Input Nama Karyawan">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-md-3 col-sm-3 ">Alamat</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="text" class="form-control col-md-10" id="alamat_karyawan" placeholder=" Alamat karyawan">
+                                            <input type="text" class="form-control" id="alamat_karyawan" placeholder=" Alamat karyawan">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-md-3 col-sm-3 ">No. Telp</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="text" name="telp" id="telp" placeholder="ex: 031 7410382" class="form-control col-md-10" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-md-3 col-sm-3 ">Perusahaan</label>
-                                        <div class="col-md-9 col-sm-9 ">
-                                            <select class="form-control col-md-10 select2" id="perusahaan_id">
-                                                <option value="">** Pilih Perusahaan **</option>
-                                                <?php foreach ($Perusahaan as $value) : ?>
-                                                    <option value="<?= $value['perusahaan_id'] ?>"><?= $value['perusahaan_nama'] ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
+                                            <input type="text" name="telp" id="telp" placeholder="ex: 031 7410382" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="form-group row ">
@@ -150,7 +138,7 @@
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Aktif</label>
                                         <div class="col-md-1 col-sm-1">
-                                            <input type="checkbox" class="form-control col-md-10" id="is_aktif">
+                                            <input type="checkbox" class="form-control" id="is_aktif">
                                         </div>
                                     </div>
                                 </div>
@@ -191,36 +179,25 @@
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Kode Karyawan</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="text" class="form-control col-md-10" id="id_karyawan-edit" value="Input Nama Karyawan" disabled>
+                                            <input type="text" class="form-control" id="id_karyawan-edit" value="Input Nama Karyawan" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Nama Karyawan</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="text" class="form-control col-md-10" id="nama_karyawan-edit" placeholder="Input Nama Karyawan">
+                                            <input type="text" class="form-control" id="nama_karyawan-edit" placeholder="Input Nama Karyawan">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-md-3 col-sm-3 ">Alamat</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="text" class="form-control col-md-10" id="alamat_karyawan-edit" placeholder=" Alamat karyawan">
+                                            <input type="text" class="form-control" id="alamat_karyawan-edit" placeholder=" Alamat karyawan">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-md-3 col-sm-3 ">No. Telp</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="text" name="telp-edit" id="telp-edit" placeholder="ex: 031 7410382" class="form-control col-md-10" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-md-3 col-sm-3 ">Perusahaan</label>
-                                        <div class="col-md-9 col-sm-9 ">
-                                            <select class="form-control col-md-10 select2" id="perusahaan_id-edit">
-                                                <option value="">** Pilih Perusahaan **</option>
-                                                <?php foreach ($Perusahaan as $value) : ?>
-                                                    <option value="<?= $value['perusahaan_id'] ?>"><?= $value['perusahaan_nama'] ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
+                                            <input type="text" name="telp-edit" id="telp-edit" placeholder="ex: 031 7410382" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="form-group row ">
@@ -248,7 +225,7 @@
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Aktif</label>
                                         <div class="col-md-1 col-sm-1">
-                                            <input type="checkbox" class="form-control col-md-10" id="is_aktif-edit">
+                                            <input type="checkbox" class="form-control" id="is_aktif-edit">
                                         </div>
                                     </div>
                                 </div>

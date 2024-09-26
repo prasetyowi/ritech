@@ -25,45 +25,44 @@
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Pengguna ID</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="tet" class="form-control col-md-10" id="Pengguna-pengguna_id-edit" value="<?= $header['pengguna_id'] ?>">
+                                            <input type="tet" class="form-control" id="Pengguna-pengguna_id-edit" value="<?= $header['pengguna_id'] ?>" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Username</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="text" class="form-control col-md-10" id="Pengguna-pengguna_username-edit" value="<?= $header['pengguna_username'] ?>">
+                                            <input type="text" class="form-control" id="Pengguna-pengguna_username-edit" value="<?= $header['pengguna_username'] ?>" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-md-3 col-sm-3 ">Email</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="text" class="form-control col-md-10" id="Pengguna-pengguna_email-edit" value="<?= $header['pengguna_email'] ?>">
+                                            <input type="text" class="form-control" id="Pengguna-pengguna_email-edit" value="<?= $header['pengguna_email'] ?>">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-md-3 col-sm-3 ">Password</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <input type="password" name="Pengguna-password-edit" id="Pengguna-password-edit" class="form-control col-md-10" value="<?= $header['pengguna_password'] ?>" />
+                                            <input type="password" name="Pengguna-password-edit" id="Pengguna-password-edit" class="form-control" value="" />
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-md-3 col-sm-3 ">Perusahaan</label>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-3 col-sm-3 ">Pengguna Level</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <select class="form-control col-md-10 select2" id="Pengguna-perusahaan_id-edit">
-                                                <option value="">** Pilih Perusahaan **</option>
-                                                <?php foreach ($Perusahaan as $value) : ?>
-                                                    <option value="<?= $value['perusahaan_id'] ?>" <?= $value['perusahaan_id'] == $header['pengguna_perusahaan'] ? 'selected' : '' ?>><?= $value['perusahaan_nama'] ?></option>
-                                                <?php endforeach; ?>
+                                            <select class="form-control select2" id="Pengguna-pengguna_level-edit" disabled>
+                                                <option value="">** Pilih Pengguna Level **</option>
+                                                <option value="administrator" <?= $header['pengguna_level'] == "administrator" ? 'selected' : '' ?>>Administrator</option>
+                                                <option value="orang tua" <?= $header['pengguna_level'] == "orang tua" ? 'selected' : '' ?>>Orang Tua</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Karyawan</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <select class="form-control col-md-10 select2" id="Pengguna-karyawan_id-edit">
+                                            <select class="form-control col-md-10 select2" id="Pengguna-pengguna_reff_id-edit" disabled>
                                                 <option value="">** Pilih Karyawan **</option>
                                                 <?php foreach ($Karyawan as $value) : ?>
-                                                    <option value="<?= $value['karyawan_id'] ?>" <?= $value['karyawan_id'] == $header['karyawan_id'] ? 'selected' : '' ?>><?= $value['karyawan_nama'] ?></option>
+                                                    <option value="<?= $value['karyawan_id'] ?>" <?= $value['karyawan_id'] == $header['pengguna_reff_id'] ? 'selected' : '' ?>><?= $value['karyawan_nama'] ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -71,7 +70,7 @@
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Aktif</label>
                                         <div class="col-md-1 col-sm-1">
-                                            <input type="checkbox" class="form-control col-md-10" id="is_aktif-edit" <?= $header['is_aktif'] == '1' ? 'checked' : '' ?> disabled>
+                                            <input type="checkbox" class="form-control" id="is_aktif-edit" <?= $header['is_aktif'] == '1' ? 'checked' : '' ?> disabled>
                                         </div>
                                     </div>
                                 </div>

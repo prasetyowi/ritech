@@ -9,79 +9,35 @@
         text-align: center;
     }
 </style>
+<!-- page content -->
 <div class="right_col" role="main">
-    <div class="">
-        <div class="page-title">
-            <div class="title_left">
-                <!-- <h3>Dashboard Ritech</h3> -->
-            </div>
-        </div>
-
-        <div class="clearfix"></div>
-
-
-        <div class="row" style="display: block;">
-
-            <div class="col-md-12 col-sm-12">
-                <div class="x_panel" style="background-color:#FEF5AC;"><br>
-
-                    <h1 style="text-align: right;padding-Right: 20px;"><b>Hi! <?= $this->session->userdata('karyawan_nama') ?></b></h1>
-                    <h5 style="text-align: right;padding-Right: 20px;">Ready To Start Your Day?</h5>
-                    <br>
+    <!-- top tiles -->
+    <div class="row col-lg-12 col-md-12 col-sm-12" style="display: inline-block;">
+        <?php foreach ($Data as $data) : ?>
+            <div class="tile_count">
+                <div class="col-md-3 col-sm-12 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-user"></i> Total Pengukuran</span>
+                    <div class="count"><?= $data['total_pengukuran'] ?></div>
+                    <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>4% </i> Dari Bulan Lalu</span> -->
+                </div>
+                <div class="col-md-3 col-sm-12 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-user"></i> Total Tidak Stunting</span>
+                    <div class="count green"><?= $data['tidak_stunting_bulan_ini'] ?></div>
+                    <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> Dari Bulan Lalu</span> -->
+                </div>
+                <div class="col-md-3 col-sm-12 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-user"></i> Total Hampir Stunting</span>
+                    <div class="count red"><?= $data['hampir_stunting_bulan_ini'] ?></div>
+                    <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-desc"></i>12% </i> Dari Bulan Lalu</span> -->
+                </div>
+                <div class="col-md-3 col-sm-12 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-user"></i> Total Stunting</span>
+                    <div class="count red"><?= $data['stunting_bulan_ini'] ?></div>
+                    <!-- <span class="count_bottom"><i class="red"><i class="fa fa-sort-asc"></i>34% </i> Dari Bulan Lalu</span> -->
                 </div>
             </div>
-
-            <div class="clearfix"></div>
-
-            <div class="col-md-12 col-sm-12">
-                <div class="x_panel"><br>
-                    <h2 style="color:#99A799">Overview</h2>
-                    <div class="clearfix"></div>
-                    <div class="x_content">
-
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-horizontal form-label-left">
-                                <div class="padding-atas" style="background-color:#A3D2CA;">
-                                    <h1 style="color:white"><b> <?= format_rupiah($pemasukan_bulan_ini) ?></b></h1>
-                                    <p style="color:#056676   "><b>Jumlah Pemasukan Bulan Ini</b></p>
-                                    </td><br>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-horizontal form-label-left">
-                                <div class="padding-atas" style="background-color:#5EAAA8;">
-                                    <h1 style="color:white"><b> <?= format_rupiah($pemasukan_bulan_lalu) ?></b></h1>
-                                    <p style="color:#056676   "><b>Jumlah Pemasukan Bulan Lalu</b></p>
-                                    </td><br>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-horizontal form-label-left">
-                                <div class="padding-atas" style="background-color:#056676;padding-left: 5px;">
-                                    <h1 style="color:white"><b> <?= format_rupiah($pengeluaran_bulan_ini) ?></b></h1>
-                                    <p style="color:#A3D2CA   "><b>Jumlah Pengeluaran Bulan Ini</b></p>
-                                    </td><br>
-                                </div>
-                            </div>
-                        </div><br>
-
-                        <!--  <table width="100%">
-                                    <tr class="">
-                                        <td style="background-color:#A3D2CA;padding-left: 20px;" width="30%" ><h1 style="color:white"><b> 300</b></h1><p style="color:#056676   "><b>Jumlah Pemasukan Bulan Ini</b></p></td><br>
-
-                                        <td ></td>
-                                        <td style="background-color:#5EAAA8;padding-left: 20px;" width="30%" ><h1 style="color:white"><b> 100</b></h1><p style="color:#056676   "><b>Jumlah Pemasukan Bulan Lalu</b></p></td><br>
-                                        <td ></td>
-                                        <td style="background-color:#056676;padding-left: 20px;" width="30%" ><h1 style="color:white"><b> 250</b></h1><p style="color:#E8DED2   "><b>Jumlah Pengeluaran Bulan Ini</b></p></td><br>
-                                    </tr>
-                            </table> -->
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php endforeach; ?>
     </div>
-</div>
+    <!-- /top tiles -->
 </div>
 <!-- /page content -->

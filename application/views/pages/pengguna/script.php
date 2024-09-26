@@ -135,9 +135,9 @@
                         $("#Pengguna-pengguna_id-edit").val(v.pengguna_id);
                         $("#Pengguna-pengguna_username-edit").val(v.pengguna_username);
                         $("#Pengguna-pengguna_email-edit").val(v.pengguna_email);
-                        $("#Pengguna-password-edit").val(v.pengguna_password);
-                        $("#Pengguna-perusahaan_id-edit").val(v.pengguna_perusahaan).trigger('change');
-                        $("#Pengguna-karyawan_id-edit").val(v.karyawan_id).trigger('change');
+                        $("#Pengguna-password-edit").val('');
+                        $("#Pengguna-pengguna_reff_id-edit").val(v.pengguna_reff_id).trigger('change');
+                        $("#Pengguna-pengguna_level-edit").val(v.pengguna_level).trigger('change');
 
                         if (v.is_aktif == "1") {
                             $("#is_aktif-edit").prop("checked", true);
@@ -153,8 +153,8 @@
                         $("#Pengguna-pengguna_username-edit").val('');
                         $("#Pengguna-pengguna_email-edit").val('');
                         $("#Pengguna-password-edit").val('');
-                        $("#Pengguna-perusahaan_id-edit").val('').trigger('change');
-                        $("#Pengguna-karyawan_id-edit").val('').trigger('change');
+                        $("#Pengguna-pengguna_reff_id-edit").val('').trigger('change');
+                        $("#Pengguna-pengguna_level-edit").val('').trigger('change');
                         $("#is_aktif-edit").prop("checked", false);
                     });
 
@@ -220,8 +220,8 @@
                         pengguna_id: "",
                         pengguna_username: $("#Pengguna-pengguna_username").val(),
                         pengguna_password: $("#Pengguna-password").val(),
-                        pengguna_perusahaan: $("#Pengguna-perusahaan_id").val(),
-                        karyawan_id: $("#Pengguna-karyawan_id").val(),
+                        pengguna_reff_id: $("#Pengguna-pengguna_reff_id").val(),
+                        pengguna_level: $("#Pengguna-pengguna_level").val(),
                         add_by: "",
                         updwho: "",
                         updtgl: "",
@@ -320,8 +320,8 @@
                         pengguna_id: $("#Pengguna-pengguna_id-edit").val(),
                         pengguna_username: $("#Pengguna-pengguna_username-edit").val(),
                         pengguna_password: $("#Pengguna-password-edit").val(),
-                        pengguna_perusahaan: $("#Pengguna-perusahaan_id-edit").val(),
-                        karyawan_id: $("#Pengguna-karyawan_id-edit").val(),
+                        pengguna_reff_id: $("#Pengguna-pengguna_reff_id-edit").val(),
+                        pengguna_level: $("#Pengguna-pengguna_level-edit").val(),
                         add_by: "",
                         updwho: "",
                         updtgl: "",
@@ -405,7 +405,7 @@
 
                 $.ajax({
                     async: false,
-                    url: "<?= base_url('Pengguna/update_pengguna'); ?>",
+                    url: "<?= base_url('Pengguna/update_pengguna_profile'); ?>",
                     type: "POST",
                     beforeSend: function() {
                         Swal.fire({
@@ -418,17 +418,8 @@
                         $("#btn_update_pengguna").prop("disabled", true);
                     },
                     data: {
-                        pengguna_id: $("#Pengguna-pengguna_id-edit").val(),
-                        pengguna_username: $("#Pengguna-pengguna_username-edit").val(),
-                        pengguna_password: $("#Pengguna-password-edit").val(),
-                        pengguna_perusahaan: $("#Pengguna-perusahaan_id-edit").val(),
-                        karyawan_id: $("#Pengguna-karyawan_id-edit").val(),
-                        add_by: "",
-                        updwho: "",
-                        updtgl: "",
-                        is_aktif: $('#is_aktif-edit:checked').val(),
                         pengguna_email: $("#Pengguna-pengguna_email-edit").val(),
-                        is_delete: ""
+                        pengguna_password: $("#Pengguna-password-edit").val()
                     },
                     dataType: "JSON",
                     success: function(response) {
@@ -472,16 +463,16 @@
         $("#Pengguna-pengguna_username").val('');
         $("#Pengguna-pengguna_email").val('');
         $("#Pengguna-password").val('');
-        $("#Pengguna-perusahaan_id").val('').trigger('change');
-        $("#Pengguna-karyawan_id").val('').trigger('change');
+        $("#Pengguna-pengguna_reff_id").val('').trigger('change');
+        $("#Pengguna-pengguna_level").val('').trigger('change');
         $("#is_aktif").prop("checked", false);
 
         $("#Pengguna-pengguna_id-edit").val('');
         $("#Pengguna-pengguna_username-edit").val('');
         $("#Pengguna-pengguna_email-edit").val('');
         $("#Pengguna-password-edit").val('');
-        $("#Pengguna-perusahaan_id-edit").val('').trigger('change');
-        $("#Pengguna-karyawan_id-edit").val('').trigger('change');
+        $("#Pengguna-pengguna_reff_id-edit").val('').trigger('change');
+        $("#Pengguna-pengguna_level-edit").val('').trigger('change');
         $("#is_aktif-edit").prop("checked", false);
 
     }

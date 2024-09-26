@@ -39,7 +39,6 @@ class Karyawan extends CI_Controller
         // $this->load->model('M_AutoGen');
         $this->load->model('M_Vrbl');
         $this->load->model('M_Karyawan');
-        $this->load->model('M_Perusahaan');
     }
 
     public function index()
@@ -51,7 +50,7 @@ class Karyawan extends CI_Controller
         // 	exit();
         // }
 
-        if (!$this->session->has_userdata('pengguna_id')) {
+        if (!$this->session->has_userdata('pengguna_id') || $this->session->userdata('pengguna_level') != 'administrator') {
             redirect(base_url('Auth/login'));
         }
 
@@ -64,10 +63,9 @@ class Karyawan extends CI_Controller
         // $query['Title'] = Get_Title_Name();
         // $query['Copyright'] = Get_Copyright_Name();
 
-        $data['Title'] = "Pelanggan";
+        $data['Title'] = "Karyawan";
         $data['act'] = "index";
 
-        $data['Perusahaan'] = $this->M_Perusahaan->Get_all_perusahaan_aktif();
         $data['Level'] = $this->M_Karyawan->Get_karyawan_level();
         $data['Divisi'] = $this->M_Karyawan->Get_karyawan_divisi();
 
@@ -80,9 +78,9 @@ class Karyawan extends CI_Controller
         // $this->load->view('pages/Quotation/script', $data);
 
         $this->load->view('layouts/header', $data);
-        $this->load->view('pages/karyawan/index', $data);
+        $this->load->view('pages/Karyawan/index', $data);
         $this->load->view('layouts/footer', $data);
-        $this->load->view('pages/karyawan/script', $data);
+        $this->load->view('pages/Karyawan/script', $data);
     }
 
     public function Get_all_karyawan()
@@ -163,7 +161,7 @@ class Karyawan extends CI_Controller
         $karyawan_telp = $this->input->post('karyawan_telp');
         $karyawan_divisi = $this->input->post('karyawan_divisi');
         $karyawan_level = $this->input->post('karyawan_level');
-        $perusahaan_id = $this->input->post('perusahaan_id');
+        $perusahaan_id = "";
         $is_aktif = $this->input->post('is_aktif');
 
         $this->db->trans_begin();
@@ -188,7 +186,7 @@ class Karyawan extends CI_Controller
         $karyawan_telp = $this->input->post('karyawan_telp');
         $karyawan_divisi = $this->input->post('karyawan_divisi');
         $karyawan_level = $this->input->post('karyawan_level');
-        $perusahaan_id = $this->input->post('perusahaan_id');
+        $perusahaan_id = "";
         $is_aktif = $this->input->post('is_aktif');
 
         $this->db->trans_begin();

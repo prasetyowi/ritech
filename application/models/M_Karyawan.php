@@ -75,6 +75,7 @@ class M_Karyawan extends CI_Model
                                     IFNULL(karyawan_divisi, '') AS karyawan_divisi,
                                     IFNULL(karyawan_level, '') AS karyawan_level,
                                     IFNULL(perusahaan_id, '') AS perusahaan_id,
+                                    IFNULL(karyawan_telp, '') AS karyawan_telp,
                                     IFNULL(is_aktif, 0) AS is_aktif,
                                     IFNULL(is_delete, 0) AS is_delete
                                     FROM karyawan
@@ -99,12 +100,9 @@ class M_Karyawan extends CI_Model
                                     IFNULL(karyawan_alamat, '') AS karyawan_alamat,
                                     IFNULL(karyawan_divisi, '') AS karyawan_divisi,
                                     IFNULL(karyawan_level, '') AS karyawan_level,
-                                    IFNULL(a.perusahaan_id, '') AS perusahaan_id,
-                                    IFNULL(b.perusahaan_nama, '') AS perusahaan_nama,
                                     IFNULL(a.is_aktif, 0) AS is_aktif,
                                     IFNULL(a.is_delete, 0) AS is_delete
                                     FROM karyawan a
-                                    left join perusahaan b on b.perusahaan_id=a.perusahaan_id
                                     WHERE karyawan_nama LIKE '%" . $karyawan . "%'
                                     ORDER BY karyawan_nama ASC");
 

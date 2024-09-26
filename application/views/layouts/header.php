@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>RITECH | <?= $Title; ?></title>
+    <title>RSUD Dungus | <?= $Title; ?></title>
 
     <!-- Bootstrap -->
     <link href="<?= base_url() ?>assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -64,7 +64,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="<?= base_url() ?>dashboard" class="site_title"><span>RITECH</span></a>
+                        <a href="<?= base_url() ?>dashboard" class="site_title"><span>RS Dungus</span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -73,7 +73,7 @@
                     <div class="profile clearfix">
                         <div class="profile_info">
                             <span>Welcome,</span>
-                            <h2><?= $this->session->userdata('karyawan_nama') ?></h2>
+                            <h2><?= $this->session->userdata('pengguna_nama') ?></h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -85,29 +85,13 @@
                         <div class="menu_section">
                             <ul class="nav side-menu">
                                 <li><a href="<?= base_url() ?>dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
-                                <li><a href="<?= base_url() ?>quotation"><i class="fa fa-edit"></i> Quotation</a></li>
-                                <li><a href="<?= base_url() ?>penjualan"><i class="fa fa-shopping-cart"></i> Invoice</a></li>
-                                <li><a href="<?= base_url() ?>pembelian"><i class="fa fa-truck"></i> Pembelian</a></li>
-                                <li><a href="<?= base_url() ?>komisi"><i class="fa fa-comments"></i> Komisi</a></li>
-                                <li><a><i class="fa fa-dollar"></i> Kas <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="<?= base_url() ?>PengeluaranKas">Pengeluaran Kas</a></li>
-                                    </ul>
-                                </li>
-                                <li><a><i class="fa fa-file"></i> Laporan <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="<?= base_url() ?>Laporan/LaporanKeuangan">Laporan Keuangan</a></li>
-                                    </ul>
-                                </li>
+                                <li><a href="<?= base_url() ?>PengukuranStuntingAdmin"><i class="fa fa-edit"></i> Pengukuran Stunting</a></li>
+                                <li><a href="<?= base_url() ?>Article"><i class="fa fa-book"></i> Artikel</a></li>
                                 <li><a><i class="fa fa-cogs"></i> Setup Master <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="<?= base_url() ?>barang">Barang</a></li>
-                                        <li><a href="<?= base_url() ?>customer">Pelanggan</a></li>
-                                        <li><a href="<?= base_url() ?>supplier">Supplier</a></li>
                                         <li><a href="<?= base_url() ?>karyawan">Karyawan</a></li>
+                                        <li><a href="<?= base_url() ?>orangtua">Orang Tua</a></li>
                                         <li><a href="<?= base_url() ?>pengguna">Pengguna</a></li>
-                                        <li><a href="<?= base_url() ?>perusahaan">Perusahaan</a></li>
-                                        <li><a href="<?= base_url() ?>vrbl">Vrbl</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -144,7 +128,7 @@
                         <ul class=" navbar-right">
                             <li class="nav-item dropdown open" style="padding-left: 15px;">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                    <?= $this->session->userdata('karyawan_nama') ?>
+                                    <?= $this->session->userdata('pengguna_nama') ?>
                                 </a>
                                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="<?= base_url() ?>Pengguna/edit/?id=<?= $this->session->userdata('pengguna_id') ?>"><i class="fa fa-user pull-right"></i> Profile</a>

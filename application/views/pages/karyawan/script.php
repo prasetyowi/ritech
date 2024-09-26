@@ -70,7 +70,6 @@
                                         <td class="a-center ">${i+1}</td>
                                         <td class=" ">${v.karyawan_id}</td>
                                         <td class=" ">${v.karyawan_nama}</td>
-                                        <td class=" ">${v.perusahaan_nama}</td>
                                         <td class=" ">${v.karyawan_divisi}</td>
                                         <td class=" ">${v.karyawan_level}</td>
                                         <td class=" ">
@@ -89,7 +88,6 @@
                                         <td class="a-center ">${i+1}</td>
                                         <td class=" ">${v.karyawan_id}</td>
                                         <td class=" ">${v.karyawan_nama}</td>
-                                        <td class=" ">${v.perusahaan_nama}</td>
                                         <td class=" ">${v.karyawan_divisi}</td>
                                         <td class=" ">${v.karyawan_level}</td>
                                         <td class=" ">
@@ -139,9 +137,9 @@
                         $("#id_karyawan-edit").val(v.karyawan_id);
                         $("#nama_karyawan-edit").val(v.karyawan_nama);
                         $("#alamat_karyawan-edit").val(v.karyawan_alamat);
+                        $("#telp-edit").val(v.karyawan_telp);
                         $("#karyawan_level-edit").val(v.karyawan_level).trigger('change');
                         $("#karyawan_divisi-edit").val(v.karyawan_divisi).trigger('change');
-                        $("#perusahaan_id-edit").val(perusahaan_id).trigger('change');
 
                         if (v.is_aktif == "1") {
                             $("#is_aktif-edit").prop("checked", true);
@@ -158,7 +156,6 @@
                         $("#alamat_karyawan-edit").val('');
                         $("#karyawan_level-edit").val("").trigger('change');
                         $("#karyawan_divisi-edit").val("").trigger('change');
-                        $("#perusahaan_id-edit").val("").trigger('change');
                         $("#is_aktif-edit").prop("checked", false);
                     });
 
@@ -211,7 +208,6 @@
                         karyawan_telp: $("#telp").val(),
                         karyawan_divisi: $("#karyawan_divisi").val(),
                         karyawan_level: $("#karyawan_level").val(),
-                        perusahaan_id: $("#perusahaan_id").val(),
                         is_aktif: $('#is_aktif:checked').val()
                     },
                     dataType: "JSON",
@@ -289,7 +285,6 @@
                         karyawan_telp: $("#telp-edit").val(),
                         karyawan_divisi: $("#karyawan_divisi-edit").val(),
                         karyawan_level: $("#karyawan_level-edit").val(),
-                        perusahaan_id: $("#perusahaan_id-edit").val(),
                         is_aktif: $('#is_aktif-edit:checked').val()
                     },
                     dataType: "JSON",
@@ -331,7 +326,6 @@
         $("#alamat_karyawan").val('');
         $("#karyawan_level").val("").trigger('change');
         $("#karyawan_divisi").val("").trigger('change');
-        $("#perusahaan_id").val("").trigger('change');
         $("#is_aktif").prop("checked", false);
 
         $("#id_karyawan-edit").val('');
@@ -339,7 +333,6 @@
         $("#alamat_karyawan-edit").val('');
         $("#karyawan_level-edit").val("").trigger('change');
         $("#karyawan_divisi-edit").val("").trigger('change');
-        $("#perusahaan_id-edit").val("").trigger('change');
         $("#is_aktif-edit").prop("checked", false);
 
 
